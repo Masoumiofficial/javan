@@ -1,0 +1,31 @@
+[12-Oct-2026 18:43:07 UTC] PHP Notice:  Only variables should be passed by reference in /home/etehadya/domains/ahangban.ir/public_html/wp-content/themes/taranehyar/inc/option-tree/ot-loader.php on line 329
+[12-Oct-2026 18:43:07 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function create_function() in /home/etehadya/domains/ahangban.ir/public_html/wp-content/themes/taranehyar/inc/option-tree/includes/ot-functions-admin.php:69
+Stack trace:
+#0 /home/etehadya/domains/ahangban.ir/public_html/wp-includes/class-wp-hook.php(353): ot_register_theme_options_page('')
+#1 /home/etehadya/domains/ahangban.ir/public_html/wp-includes/class-wp-hook.php(377): WP_Hook->apply_filters(NULL, Array)
+#2 /home/etehadya/domains/ahangban.ir/public_html/wp-includes/plugin.php(523): WP_Hook->do_action(Array)
+#3 /home/etehadya/domains/ahangban.ir/public_html/wp-settings.php(779): do_action('init')
+#4 /home/etehadya/domains/ahangban.ir/public_html/wp-config.php(107): require_once('/home/etehadya/...')
+#5 /home/etehadya/domains/ahangban.ir/public_html/wp-load.php(50): require_once('/home/etehadya/...')
+#6 /home/etehadya/domains/ahangban.ir/public_html/wp-admin/admin.php(35): require_once('/home/etehadya/...')
+#7 /home/etehadya/domains/ahangban.ir/public_html/wp-admin/index.php(10): require_once('/home/etehadya/...')
+#8 {main}
+  thrown in /home/etehadya/domains/ahangban.ir/public_html/wp-content/themes/taranehyar/inc/option-tree/includes/ot-functions-admin.php on line 69
+[12-Oct-2026 18:43:10 UTC] PHP Notice:  Only variables should be passed by reference in /home/etehadya/domains/ahangban.ir/public_html/wp-content/themes/taranehyar/inc/option-tree/ot-loader.php on line 329
+[12-Oct-2026 18:43:10 UTC] PHP Deprecated:  تابع WP_Dependencies-&gt;add_data() از نگارش 6.9.0 <strong>از رده خارج شده</strong>! دیدگاه‌های شرطی IE توسط همه مرورگرهای پشتیبانی شده نادیده گرفته می‌شوند. in /home/etehadya/domains/ahangban.ir/public_html/wp-includes/functions.php on line 6260
+[12-Oct-2026 18:43:10 UTC] PHP Deprecated:  تابع WP_Dependencies-&gt;add_data() از نگارش 6.9.0 <strong>از رده خارج شده</strong>! دیدگاه‌های شرطی IE توسط همه مرورگرهای پشتیبانی شده نادیده گرفته می‌شوند. in /home/etehadya/domains/ahangban.ir/public_html/wp-includes/functions.php on line 6260
+[12-Oct-2026 18:43:10 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_field_object() in /home/etehadya/domains/ahangban.ir/public_html/wp-content/themes/taranehyar/inc/songs_post.php:10
+Stack trace:
+#0 /home/etehadya/domains/ahangban.ir/public_html/wp-includes/template.php(882): require()
+#1 /home/etehadya/domains/ahangban.ir/public_html/wp-includes/template.php(815): load_template('/home/etehadya/...', false, Array)
+#2 /home/etehadya/domains/ahangban.ir/public_html/wp-includes/general-template.php(206): locate_template(Array, true, false, Array)
+#3 /home/etehadya/domains/ahangban.ir/public_html/wp-content/themes/taranehyar/inc/new_posts.php(13): get_template_part('inc/songs_post')
+#4 /home/etehadya/domains/ahangban.ir/public_html/wp-includes/template.php(882): require('/home/etehadya/...')
+#5 /home/etehadya/domains/ahangban.ir/public_html/wp-includes/template.php(815): load_template('/home/etehadya/...', false, Array)
+#6 /home/etehadya/domains/ahangban.ir/public_html/wp-includes/general-template.php(206): locate_template(Array, true, false, Array)
+#7 /home/etehadya/domains/ahangban.ir/public_html/wp-content/themes/taranehyar/home.php(7): get_template_part('inc/new_posts')
+#8 /home/etehadya/domains/ahangban.ir/public_html/wp-includes/template-loader.php(132): include('/home/etehadya/...')
+#9 /home/etehadya/domains/ahangban.ir/public_html/wp-blog-header.php(19): require_once('/home/etehadya/...')
+#10 /home/etehadya/domains/ahangban.ir/public_html/index.php(17): require('/home/etehadya/...')
+#11 {main}
+  thrown in /home/etehadya/domains/ahangban.ir/public_html/wp-content/themes/taranehyar/inc/songs_post.php on line 10
