@@ -4,7 +4,7 @@
 
 No WordPress or PHP support range is asserted yet. The checkout has no runtime requirements metadata, no PHP binary, no WordPress installation and no tested version matrix. The old bundled OptionTree readme says its own package requires WordPress 3.8 and was tested through 4.4; that is stale third-party metadata and **not** a support statement for TaranehYar.
 
-The protected theme core contains a visible ionCube Loader fallback and exits with status 199 if that extension is absent. The required ionCube Loader version, PHP version range and actual activation path cannot be recovered from the protected payload. Do not promise that an arbitrary current PHP host can run this theme.
+The protected theme core in `functions.php` is ionCube-encoded. Its visible fallback exits with status 199 if the Loader is absent, so ionCube is a dependency of this theme's protected code—not a general requirement of PHP 8.1. The supplied `debug.log` shows WordPress reaching the OptionTree `init` hook and the TaranehYar home template; because WordPress includes the active theme's `functions.php` before those paths, this is strong evidence that ionCube Loader is active for the site's web PHP SAPI. The log does not directly record `phpinfo()` or `extension_loaded()` output, so treat this as an execution-based inference. The exact Loader build/version compatibility and supported PHP range cannot be determined from the protected payload.
 
 ## Dependencies visible in templates
 

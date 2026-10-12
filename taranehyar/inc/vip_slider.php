@@ -18,9 +18,13 @@ the_post_thumbnail('thumb1',array('alt'=>''.get_the_title(),'title'=>''.get_the_
 <h2><a href="<?php echo esc_url( get_permalink() ); ?>"><?php $artist = function_exists( 'get_field' ) ? get_field( 'artist' ) : ''; $song = function_exists( 'get_field' ) ? get_field( 'song' ) : ''; if ( $artist || $song ) { ?> <?php echo esc_html( $artist ); ?> - <span><?php echo esc_html( $song ); ?></span><?php } else { echo esc_html( get_the_title() ); } ?></a></h2>
 </header>	
 <footer>
-<?php $field=get_field_object('musics_type'); if($field){
-$value = isset( $field['value'] ) ? $field['value'] : ''; ?>
-<span class="ft_box_format"><?php echo esc_html( $value ); ?></span><?php } ?>
+<?php
+$field = function_exists( 'get_field_object' ) ? get_field_object( 'musics_type' ) : false;
+if ( $field ) {
+  $value = isset( $field['value'] ) ? $field['value'] : '';
+?>
+<span class="ft_box_format"><?php echo esc_html( $value ); ?></span>
+<?php } ?>
 </footer>
 <div class="clear"></div>
 </article>
