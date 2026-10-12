@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80" role="img" aria-labelledby="title">
+  <title id="title">ترانه‌یار — TaranehYar</title>
+  <rect width="300" height="80" rx="14" fill="#aa2712"/>
+  <g fill="#fff">
+    <path d="M55 19v31.4a11 11 0 1 1-7-10.3V27l25-5v22.4a11 11 0 1 1-7-10.3V16z"/>
+    <circle cx="38" cy="62" r="3"/>
+  </g>
+  <text x="270" y="51" text-anchor="end" direction="rtl" unicode-bidi="plaintext"
+        font-family="Vazir, Tahoma, Arial, sans-serif" font-size="35" font-weight="700" fill="#fff">ترانه‌یار</text>
+</svg>
