@@ -5,7 +5,7 @@
 این مخزن بازسازی از صفر نیست. درخت `taranehyar/` از آرشیو واقعی قالب استخراج و به‌صورت تدریجی اصلاح شده است. آرشیو ورودی `javanseda.zip` بدون تغییر نگه داشته شده است. شاخهٔ عمومی برای دریافت و آزمون فنی به درخواست مالک مخزن است؛ این دسترسی عمومی، مدرک مجوز یا مالکیت کد و دارایی‌ها محسوب نمی‌شود.
 
 - شاخهٔ آزمون: [arena/877ae4b2-javan](https://github.com/Masoumiofficial/javan/tree/arena/877ae4b2-javan)
-- دانلود مستقیم ZIP آزمون: [taranehyar-3.0.1-test-build.zip](https://github.com/Masoumiofficial/javan/raw/refs/heads/arena/877ae4b2-javan/artifacts/taranehyar-3.0.1-test-build.zip)
+- دانلود مستقیم ZIP آزمون: [taranehyar-1.0.0-test-build.zip](https://github.com/Masoumiofficial/javan/raw/refs/heads/arena/877ae4b2-javan/artifacts/taranehyar-1.0.0-test-build.zip)
 
 ## ساختار
 
@@ -16,8 +16,8 @@
 - `docs/LICENSING-AND-ATTRIBUTION.md` — شواهد مجوز، انتساب و موانع حقوقی.
 - `docs/COMPATIBILITY.md` — وابستگی‌ها و وضعیت سازگاری.
 - `docs/TEST-REPORT.md` — نتایج تست واقعی و موارد مسدود.
-- `CHANGELOG.md` — تغییرات نسخهٔ 3.0.1 آزمون فنی.
-- `artifacts/taranehyar-3.0.1-test-build.zip` — بستهٔ دریافت و آزمون؛ نصب/فعال‌سازی یا مجوز بازتوزیع آن تأیید نشده است.
+- `CHANGELOG.md` — تغییرات نسخهٔ 1.0.0 آزمون فنی.
+- `artifacts/taranehyar-1.0.0-test-build.zip` — بستهٔ دریافت و آزمون؛ نصب/فعال‌سازی یا مجوز بازتوزیع آن تأیید نشده است.
 
 ## محدودیت‌های مهم
 

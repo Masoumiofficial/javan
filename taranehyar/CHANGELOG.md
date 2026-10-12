@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.0.1 — 2026-10-12 — Public technical-test build; not a formal release
+## 1.0.0 — 2026-10-12 — First TaranehYar version; public technical-test build, not a formal release
 
 - Extracted the supplied theme archive into the `taranehyar` install folder; original `javanseda.zip` remains unchanged in the repository.
 - Updated visible theme metadata and default branding to TaranehYar / ترانه‌یار, اتحاد وردپرس / EtehadWP, and the `taranehyar` text domain.

@@ -1,6 +1,6 @@
 # TaranehYar — ترانه‌یار
 
-**Build: 3.0.1 (public technical-test build; not a formal release). Installation and activation are unverified; commercial redistribution rights remain unresolved.**
+**Build: 1.0.0 (public technical-test build; not a formal release). Installation and activation are unverified; commercial redistribution rights remain unresolved.**
 
 This theme is a conservative modernization of the existing `javanseda` archive, not a rewrite. Its home, music single, artist archive, widgets, menus, comments and OptionTree settings are retained where visible in the source. The repository owner requested that this test branch be public; that request does not establish ownership or grant redistribution rights. See `ATTRIBUTION.md` and `LICENSES.md` before using this directory outside an authorized test.
 
