@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased ５ — 2026-10-15 — Corporate palette redesign (flat, no gradients)
+
+- Added a colour token system at the top of `style.css`: `:root` and `.night` define `--ab-blue #185ADB` (Ahangban blue), `--ab-blue-dark #1246AD`, `--ab-blue-soft #EAF1FE` (light blue), `--ab-ink #111111`, `--ab-charcoal #222222`, `--ab-surface/--ab-white #FFFFFF`, plus `--ab-page`, `--ab-text`, `--ab-line` and `--ab-shadow`.
+- All 49 legacy accent declarations (orange `#ff8c00`, red `#aa2712`, `#ffa800`) were mapped to the single brand blue; social-icon hover colours were unified to the same blue. No orange/red/green accents remain.
+- Every gradient was removed in favour of flat colour (lyrics-box header, Instagram hovers, `.instagrms_ch`), and the cover shine bar is now a flat `rgba(255,255,255,.24)` bar with `filter: blur(10px)`. Gradients left in the stylesheet: zero.
+- `body` background moved from grey `#f1f1f1` to the light brand blue `--ab-page` (#EAF1FE); cards stay white with `--ab-line` borders and `--ab-shadow`.
+- Download buttons gained hierarchy in one colour: primary (128/320) solid blue with white text, secondary (music video) light blue with blue text; hover uses `--ab-blue-dark`.
+- Night mode is now token-driven only (`--ab-page #111111`, `--ab-surface #222222`, text accents lightened to `#4C8BFF`) and the duplicated `.night` colour rules for the lyrics box, cover and download heading were deleted; night cards moved from `#111` to charcoal `#222` so they separate from the page. The "کپی شد" state inverts in night mode.
+- `header.php`: `<meta name="theme-color">` changed from `#000000` to `#185ADB`.
+- Contrast note: white on `#185ADB` is ≈5.4:1 versus ≈2.3:1 for white on the old orange. Not visually verified in a browser.
+- `cover-post/preview/index.html` was rebuilt with the palette (plus a swatch table); zero gradients remain in it.
+
 ## Unreleased ۴ — 2026-10-15 — Download heading, guaranteed `singer` link, centred layout
 
 - `single.php`: a shared block now resolves song / artist / artist URL once per view (the duplicated variables inside the lyrics block were removed), so the lyrics box and the new download heading read from the same source.

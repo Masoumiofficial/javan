@@ -35,7 +35,7 @@ if ( has_post_thumbnail() ) {
 .single_featured_cover{margin: 0 0 22px 0;text-align: center;}
 .single_featured_image{display: inline-block;position: relative;max-width: 880px;line-height: 0;
 overflow: hidden;border-radius: 16px;vertical-align: top;
-box-shadow: 0 8px 22px rgba(28,76,156,0.14),0 2px 6px rgba(28,76,156,0.08);
+box-shadow: var(--ab-shadow);
 animation: taranehyar_cover_in 0.55s ease-out both;}
 .single_featured_image img{display: block;width: auto;height: auto;max-width: 100%;
 border-radius: inherit;backface-visibility: hidden;
@@ -44,7 +44,7 @@ transition: transform 0.5s cubic-bezier(0.2,0.7,0.3,1),filter 0.5s ease;}
 .single_featured_image:hover img{transform: scale(1.045);filter: saturate(1.05) brightness(1.02);}
 .single_featured_image::after{content: "";position: absolute;top: -60%;left: -60%;width: 45%;height: 220%;
 pointer-events: none;transform: rotate(20deg) translateX(-260%);
-background: linear-gradient(100deg,rgba(255,255,255,0) 0%,rgba(255,255,255,0.30) 50%,rgba(255,255,255,0) 100%);}
+background: rgba(255,255,255,0.24);filter: blur(10px);}
 .single_featured_image:hover::after{animation: taranehyar_cover_shine 0.85s cubic-bezier(0.2,0.7,0.3,1);}
 @keyframes taranehyar_cover_shine{from{transform: rotate(20deg) translateX(-260%);}to{transform: rotate(20deg) translateX(560%);}}
 .night .single_featured_image{box-shadow: 0 8px 22px rgba(0,0,0,0.5);}
@@ -96,6 +96,7 @@ add_filter( 'the_content', 'taranehyar_auto_featured_image_in_content', 20 );
 | کاور کوچک‌تر و وسط‌تر | در `.single_featured_image` مقدار `max-width: 880px` را کم کن (مثلاً `700px`) |
 | گردی گوشه بیشتر | `border-radius: 16px` را به `20px` تغییر بده |
 | کاور یکنواخت ۱۶:۹ | در `.single_featured_image img` این دو خط را اضافه کن: `aspect-ratio: 16 / 9;object-fit: cover;width: 100%;` |
+| تغییر رنگ سایت | فقط متغیر `--ab-blue` را در `:root` بالای `style.css` عوض کن (پالت سازمانی، بخش ۲ سند `cover-post/README.md`) |
 | تصویر داخل بلوک «متن آهنگ» (`music_text`) بیاید | بلوک را قبل از `<div class="music_textss">` بگذار |
 | در برگه‌ها (`page.php`) هم بیاید | همان بلوک را قبل از `the_content('')` در `page.php` قرار بده |
 | نمایش تصویر جای‌گزین `nomusics.jpg` وقتی تصویر شاخص ندارد | `$image` را در نبود تصویر با `<img src="'.esc_url( get_template_directory_uri() . '/images/nomusics.jpg' ).'">` بساز |

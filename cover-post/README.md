@@ -44,7 +44,7 @@ if ( has_post_thumbnail() ) {
 .single_featured_cover{margin: 0 0 22px 0;text-align: center;}
 .single_featured_image{display: inline-block;position: relative;max-width: 880px;line-height: 0;
 overflow: hidden;border-radius: 16px;vertical-align: top;
-box-shadow: 0 8px 22px rgba(28,76,156,0.14),0 2px 6px rgba(28,76,156,0.08);
+box-shadow: var(--ab-shadow); /* 0 10px 26px rgba(17,17,17,.10),0 2px 8px rgba(17,17,17,.06) */
 animation: taranehyar_cover_in 0.55s ease-out both;}
 .single_featured_image img{display: block;width: auto;height: auto;max-width: 100%;
 border-radius: inherit;backface-visibility: hidden;
@@ -54,7 +54,7 @@ transition: transform 0.5s cubic-bezier(0.2,0.7,0.3,1),filter 0.5s ease;}
 .single_featured_image:hover img{transform: scale(1.045);filter: saturate(1.05) brightness(1.02);}
 .single_featured_image::after{content: "";position: absolute;top: -60%;left: -60%;width: 45%;height: 220%;
 pointer-events: none;transform: rotate(20deg) translateX(-260%);
-background: linear-gradient(100deg,rgba(255,255,255,0) 0%,rgba(255,255,255,0.30) 50%,rgba(255,255,255,0) 100%);}
+background: rgba(255,255,255,0.24);filter: blur(10px);} /* نوار درخشش تخت، بدون گرادینت */
 .single_featured_image:hover::after{animation: taranehyar_cover_shine 0.85s cubic-bezier(0.2,0.7,0.3,1);}
 @keyframes taranehyar_cover_shine{from{transform: rotate(20deg) translateX(-260%);}to{transform: rotate(20deg) translateX(560%);}}
 /* ----- پایان AFEKTS ----- */
@@ -89,6 +89,29 @@ define( 'JAVANSEDA_COVER_IN_CONTENT', false ); // برای حالت سراسری
 > `add_theme_support( 'post-thumbnails' )` و اندازه‌های `thumb1..thumb4` از قبل در همین فایل بودند؛ دست نخورده‌اند.
 
 ---
+
+## سیستم رنگ سازمانی (طراحی تخت، بدون گرادینت)
+
+همهٔ رنگ‌های تأکیدی قالب (نارنجی `#ff8c00` و قرمز `#aa2712` نسخهٔ اصلی) به یک رنگ برند نگاشت شده‌اند و به‌صورت متغیر CSS در بالای `style.css` تعریف شده‌اند:
+
+| نقش | کد | متغیر | کجا استفاده می‌شود |
+|---|---|---|---|
+| آبی آهنگ‌بان | `#185ADB` | `--ab-blue` | دکمه‌ها، لینک‌ها، ایکون‌ها، حاشیه‌های تأکیدی |
+| آبی تیره (هاور) | `#1246AD` | `--ab-blue-dark` | حالت هاور دکمه‌های اصلی |
+| آبی کم‌رنگ | `#EAF1FE` | `--ab-blue-soft` | پس‌زمینهٔ صفحه، هدر باکس ترانه، چیپ‌ها، دکمهٔ ثانویه |
+| مشکی | `#111111` | `--ab-ink` | پس‌زمینهٔ حالت شب، وضعیت «کپی شد» |
+| زغالی | `#222222` | `--ab-charcoal` | کارت‌ها و هدر در حالت شب |
+| سفید | `#FFFFFF` | `--ab-surface` / `--ab-white` | کارت‌ها و متن روی رنگ برند |
+
+> «آبی کم‌رنگ» در پیام شما کد رنگ نداشت؛ من `#EAF1FE` را انتخاب کردم (نسخهٔ بسیار روشن همان `#185ADB`). اگر تُن دیگری می‌خواهید فقط همین یک متغیر `--ab-blue-soft` را در `:root` عوض کنید — کل سایت با آن هماهنگ می‌شود.
+
+نکته‌ها:
+
+- **بدون گرادینت:** همهٔ گرادینت‌ها با رنگ تخت جایگزین شدند (هدر باکس ترانه، آیکون‌های اینستاگرام، نوار درخشش کاور که حالا یک نوار تخت محو است).
+- **یک رنگ برای همه‌چیز:** رنگ‌های برند شبکه‌های اجتماعی (فیس‌بوک/توییتر/واتس‌اپ/اینستاگرام) هم به آبی برند یکسان شدند. اگر ترجیح می‌دهید رنگ برند شبکه‌ها برگردد، فقط همان چند قاعدهٔ `:hover` را برگردانید.
+- **حالت شب:** با بازنویسی همان متغیرها در `.night` انجام می‌شود (پس‌زمینه `#111111`، کارت `#222222`، و آبی متن‌ها به `#4C8BFF` روشن می‌شود تا روی زمینهٔ تیره خوانا بماند). به همین دلیل قواعد تکراری `.night .music_lyrics_*` حذف شدند و CSS سبک‌تر شد.
+- **دسترس‌پذیری:** متن سفید روی `#185ADB` نسبت کنتراست ≈ ۵.۴:۱ دارد (در نسخهٔ قبلی، سفید روی نارنجی `#ff8c00` فقط ≈ ۲.۳:۱ بود) — یعنی این پالت هم خوانا‌تر است.
+- **تغییر سراسری رنگ در آینده:** فقط `--ab-blue` را عوض کنید؛ نیازی به جست‌وجوی دستی ۴۹ مقدار رنگ در فایل نیست.
 
 ## این مرحله: باکس «متن ترانه» (متن آهنگ)
 
@@ -175,6 +198,7 @@ https://ahangban.ir/singer/mohsen-yaganeh
 | زوم بیشتر | `scale(1.045)` را مثلاً `scale(1.08)` کن. |
 | بدون افکت ورود | `animation: taranehyar_cover_in ...` را از `.single_featured_image` بردار. |
 | کاور هم‌اندازه و یکنواخت (۱۶:۹) | در `.single_featured_image img` این دو خط را اضافه کن: `aspect-ratio: 16 / 9;object-fit: cover;width: 100%;` — توجه: تصویرهای مربع بریده می‌شوند. |
+| تغییر رنگ کل سایت | فقط `--ab-blue` را در `:root` بالای `style.css` عوض کن |
 | سایه سبک‌تر/بدون سایه | `box-shadow` را در `.single_featured_image` کم‌رنگ‌تر یا حذف کن. |
 | کاور بعد از متن توضیحات | بلوک `has_post_thumbnail()` را در `single.php` به **بعد** از `the_content('')` منتقل کن. |
 | در برگه‌ها (`page.php`) هم باشد | همان بلوک را در `page.php` قبل از `the_content('')` بگذار. |

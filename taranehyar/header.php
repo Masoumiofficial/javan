@@ -4,8 +4,8 @@
 	<title><?php echo esc_html( ( is_front_page() || is_home() ) ? get_bloginfo( 'name' ) : wp_title( '', false ) ); ?></title>
 	<meta charset="<?php echo esc_attr( get_bloginfo( 'charset' ) ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="theme-color" content="#000000">
-	<meta name="apple-mobile-web-app-status-bar-style" content="#000000">
+	<meta name="theme-color" content="#185ADB">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#185ADB">
 	<link rel="pingback" href="<?php echo esc_url( get_bloginfo( 'pingback_url' ) ); ?>">
 	<link rel="alternate" href="<?php echo esc_url( get_feed_link( 'rss2' ) ); ?>" type="application/rss+xml" title="RSS 2.0">
 	<link rel="icon" href="<?php echo esc_url( ot_get_option( 'favicon' ) ); ?>">
