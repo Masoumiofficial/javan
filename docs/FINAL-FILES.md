@@ -18,7 +18,7 @@
 
 | بسته | حجم | SHA-256 |
 |---|---|---|
-| `artifacts/javan-final-files.zip` | ۱۴۰٬۳۵۸ بایت | `da0d55ad365f00c0d46281ace7643ee90e805981d91cf881923c105f1022597d` |
+| `artifacts/javan-final-files.zip` | ۱۴۰٬۸۳۲ بایت | `0ac7fbd0ae9a1ad9a3e153d44c124f93a0a489f6b234d872adbf548c6a7246e5` |
 
 ساختار: `00-START-HERE.txt` + `01-upload-to-theme/` (۵ فایل) + `02-restore-if-needed/` (نسخهٔ اصلی سه فایل مهم + راهنما) + `03-docs/` (مستندهای فارسی) + `04-preview/` (سه پیش‌نمایش HTML: کاور، فهرست هنرمندان، صفحهٔ خواننده).
 
