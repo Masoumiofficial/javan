@@ -25,7 +25,6 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
 .preview-bar span{font-size:12px;opacity:.9}
 .preview-bar button{background:#fff;color:var(--ab-blue);border:0;border-radius:8px;padding:6px 12px;font-family:inherit;font-size:12px;cursor:pointer;font-weight:700}
 .tarlanweb_center{max-width:1180px;margin:0 auto;padding:16px}
-#centers_box{background:transparent}
 .song_boxs{background:var(--ab-surface);border-radius:16px;padding:16px;box-shadow:var(--ab-shadow);margin-bottom:16px}
 .songs_title_box{width:100%;clear:both;overflow:hidden;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--ab-line)}
 .songs_title_box h1{font-size:18px;float:right;margin:0;color:var(--ab-text)}
@@ -33,7 +32,7 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
 .songs_title_box a:hover{background:var(--ab-blue);border-color:var(--ab-blue);color:#fff}
 .clear{clear:both}
 .song_boxs_posts{width:100%;clear:both}
-.song_boxs_posts ul{list-style:none;margin:0 -8px;padding:0;display:block;overflow:hidden}
+.song_boxs_posts ul{list-style:none;margin:0 -8px;padding:0;overflow:hidden}
 .song_boxs_posts ul li{width:16.66%;padding:8px;float:right}
 .preview-foot{max-width:1180px;margin:0 auto;padding:0 16px 30px;color:var(--ab-muted);font-size:12px}
 @media(max-width:900px){.song_boxs_posts ul li{width:25%}}
@@ -114,11 +113,45 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
 	.singers_box_tarlanweb li a .ab-artist__name{font-size:12px;}
 }
 
+/* ---- ادامهٔ بخش ۱۵: ردیف پرکارترین‌ها، نام لاتین، «مشاهده بیشتر» ---- */
+.ab-artists__search{position:relative;display:flex;align-items:center;gap:8px;flex:1 1 320px;min-width:240px;}
+.ab-artists__search-btn{flex:0 0 auto;height:44px;padding:0 16px;border:1px solid var(--ab-blue);border-radius:12px;
+	background:var(--ab-blue);color:#fff;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:background .2s;}
+.ab-artists__search-btn:hover{background:var(--ab-blue-dark);border-color:var(--ab-blue-dark);}
+
+.ab-artists__toplist{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 14px;}
+.ab-artists__toplist-title{font-size:12.5px;color:var(--ab-muted);margin-left:4px;}
+.ab-artists__pill{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border:1px solid var(--ab-line);border-radius:999px;
+	background:var(--ab-surface);color:var(--ab-text);font-size:13px;text-decoration:none;transition:background .2s,color .2s,border-color .2s;}
+.ab-artists__pill:hover{background:var(--ab-blue);border-color:var(--ab-blue);color:#fff;}
+.ab-artists__pill-count{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:20px;padding:0 5px;
+	border-radius:999px;background:var(--ab-blue-soft);color:var(--ab-blue);font-size:11px;line-height:1;}
+.ab-artists__pill:hover .ab-artists__pill-count{background:rgba(255,255,255,.22);color:#fff;}
+.ab-artists__pill--more{border-style:dashed;color:var(--ab-blue);}
+
+.singers_box_tarlanweb li a .ab-artist__latin{display:block;width:100%;height:auto;padding:0;font-size:11px;line-height:1.6;
+	color:var(--ab-muted);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.2px;}
+.ab-artist__link:hover .ab-artist__latin{color:var(--ab-blue);}
+.night .singers_box_tarlanweb li a .ab-artist__latin{color:var(--ab-muted);}
+
+.ab-artists__loadmore{margin:14px 0 4px;text-align:center;}
+.ab-artists__loadmore-btn{display:inline-block;padding:12px 26px;border:1px solid var(--ab-blue);border-radius:12px;
+	background:var(--ab-surface);color:var(--ab-blue);font-size:14px;font-weight:700;text-decoration:none;transition:background .2s,color .2s;}
+.ab-artists__loadmore-btn:hover{background:var(--ab-blue);color:#fff;}
+.ab-artists__loadmore-hint{font-size:11.5px;font-weight:400;color:var(--ab-muted);margin-right:6px;}
+.ab-artists__loadmore-btn:hover .ab-artists__loadmore-hint{color:rgba(255,255,255,.85);}
+
+@media (max-width: 767px){
+	.ab-artists__search{flex:1 1 100%;min-width:0;}
+	.ab-artists__search-btn{height:44px;padding:0 12px;}
+	.ab-artists__pill{font-size:12px;padding:4px 9px;}
+}
+
 </style>
 </head>
 <body>
 <div class="preview-bar">
-  <div><b>پیش‌نمایش صفحهٔ «همهٔ هنرمندان»</b> — <span>داده‌های نمونه؛ همین ساختار در فایل قالب اجرا می‌شود</span></div>
+  <div><b>پیش‌نمایش صفحهٔ «همهٔ هنرمندان»</b> — <span>داده‌های نمونه؛ همان ساختار و همان CSS قالب</span></div>
   <button type="button" onclick="document.documentElement.classList.toggle('night')">روشن/خاموش: حالت شب</button>
 </div>
 <div class="tarlanweb_center">
@@ -132,15 +165,32 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
       <div id="ab-artists" class="ab-artists" data-ab-artists>
         <p class="ab-artists__intro">
           فهرست کامل خواننده‌ها و هنرمندان به ترتیب حروف الفبای فارسی؛ برای دیدن آهنگ‌های هر خواننده روی نام او بزنید.
-          در حال حاضر <strong>60</strong> خواننده در این فهرست هستند.
+          در حال حاضر <strong>58</strong> خواننده در این فهرست هستند.
         </p>
         <div class="ab-artists__toolbar">
-          <label class="ab-artists__search">
+          <form class="ab-artists__search" method="get" action="#" role="search" onsubmit="return false;">
             <span class="ab-artists__search-icon" aria-hidden="true">⌕</span>
-            <input type="search" data-ab-search autocomplete="off" placeholder="جست‌وجوی نام خواننده…" aria-label="جست‌وجوی نام خواننده">
-          </label>
-          <p class="ab-artists__stats" data-ab-stats aria-live="polite">60 خواننده · 2545 آهنگ</p>
+            <input type="search" name="q" data-ab-search autocomplete="off" placeholder="جست‌وجوی نام خواننده…" aria-label="جست‌وجوی نام خواننده">
+            <button type="submit" class="ab-artists__search-btn">جست‌وجو</button>
+          </form>
+          <p class="ab-artists__stats" data-ab-stats aria-live="polite">58 خواننده · 2523 آهنگ</p>
         </div>
+        <nav class="ab-artists__toplist" aria-label="پرکارترین خواننده‌ها">
+          <span class="ab-artists__toplist-title">پرکارترین خواننده‌ها:</span>
+          <a class="ab-artists__pill" href="#">محمدرضا شجریان<span class="ab-artists__pill-count">143</span></a>
+          <a class="ab-artists__pill" href="#">محسن یگانه<span class="ab-artists__pill-count">134</span></a>
+          <a class="ab-artists__pill" href="#">ابی<span class="ab-artists__pill-count">121</span></a>
+          <a class="ab-artists__pill" href="#">محسن چاوشی<span class="ab-artists__pill-count">118</span></a>
+          <a class="ab-artists__pill" href="#">رضا صادقی<span class="ab-artists__pill-count">112</span></a>
+          <a class="ab-artists__pill" href="#">شادمهر عقیلی<span class="ab-artists__pill-count">105</span></a>
+          <a class="ab-artists__pill" href="#">همایون شجریان<span class="ab-artists__pill-count">102</span></a>
+          <a class="ab-artists__pill" href="#">احسان خواجه‌امیری<span class="ab-artists__pill-count">96</span></a>
+          <a class="ab-artists__pill" href="#">سیروان خسروی<span class="ab-artists__pill-count">91</span></a>
+          <a class="ab-artists__pill" href="#">بنیامین بهادری<span class="ab-artists__pill-count">88</span></a>
+          <a class="ab-artists__pill" href="#">مرتضی پاشایی<span class="ab-artists__pill-count">87</span></a>
+          <a class="ab-artists__pill" href="#">فرزاد فرزین<span class="ab-artists__pill-count">84</span></a>
+          <a class="ab-artists__pill ab-artists__pill--more" href="#">همهٔ پرتعدادها</a>
+        </nav>
         <nav class="ab-artists__az" data-ab-az aria-label="حروف الفبای فارسی">
           <a class="ab-artists__chip is-active" href="#ab-artists">همه</a>
           <a class="ab-artists__chip" data-ab-chip="ا" href="#letter-ا" title="4 خواننده">ا</a>
@@ -159,7 +209,6 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           <a class="ab-artists__chip" data-ab-chip="ژ" href="#letter-ژ" title="1 خواننده">ژ</a>
           <a class="ab-artists__chip" data-ab-chip="س" href="#letter-س" title="1 خواننده">س</a>
           <a class="ab-artists__chip" data-ab-chip="ش" href="#letter-ش" title="2 خواننده">ش</a>
-          <a class="ab-artists__chip" data-ab-chip="ص" href="#letter-ص" title="1 خواننده">ص</a>
           <a class="ab-artists__chip" data-ab-chip="ض" href="#letter-ض" title="1 خواننده">ض</a>
           <a class="ab-artists__chip" data-ab-chip="ط" href="#letter-ط" title="1 خواننده">ط</a>
           <a class="ab-artists__chip" data-ab-chip="ظ" href="#letter-ظ" title="1 خواننده">ظ</a>
@@ -175,7 +224,7 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           <a class="ab-artists__chip" data-ab-chip="و" href="#letter-و" title="1 خواننده">و</a>
           <a class="ab-artists__chip" data-ab-chip="ه" href="#letter-ه" title="3 خواننده">ه</a>
           <a class="ab-artists__chip" data-ab-chip="ی" href="#letter-ی" title="2 خواننده">ی</a>
-          <a class="ab-artists__chip" data-ab-chip="#" href="#letter-other" title="2 خواننده">#</a>
+          <a class="ab-artists__chip" data-ab-chip="#" href="#letter-other" title="1 خواننده">#</a>
         </nav>
         <p class="ab-artists__empty" data-ab-empty hidden>خواننده‌ای با این نام پیدا نشد.</p>
 
@@ -186,40 +235,44 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="ابی">
+              <li class="ab-artist" data-ab-name="ابی" data-ab-latin="Ebi">
                 <a class="ab-artist__link" href="#" title="ابی">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ا</text></svg>" alt="ابی" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">121 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">ابی</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Ebi</span>
                 </a>
               </li>
-              <li class="ab-artist" data-ab-name="احسان خواجه امیری">
+              <li class="ab-artist" data-ab-name="احسان خواجه امیری" data-ab-latin="Ehsan Khaje Amiri">
                 <a class="ab-artist__link" href="#" title="احسان خواجه‌امیری">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23DCE8FF'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ا</text></svg>" alt="احسان خواجه‌امیری" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">96 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">احسان خواجه‌امیری</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Ehsan Khaje Amiri</span>
                 </a>
               </li>
-              <li class="ab-artist" data-ab-name="الهام">
+              <li class="ab-artist" data-ab-name="الهام" data-ab-latin="Elham">
                 <a class="ab-artist__link" href="#" title="الهام">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23E8F0FF'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ا</text></svg>" alt="الهام" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">12 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">الهام</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Elham</span>
                 </a>
               </li>
-              <li class="ab-artist" data-ab-name="امیرعباس گلاب">
+              <li class="ab-artist" data-ab-name="امیرعباس گلاب" data-ab-latin="Amir Abbas Golab">
                 <a class="ab-artist__link" href="#" title="امیرعباس گلاب">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23DDE9FC'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ا</text></svg>" alt="امیرعباس گلاب" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">74 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">امیرعباس گلاب</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Amir Abbas Golab</span>
                 </a>
               </li>
             </ul>
@@ -233,22 +286,24 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="بابک جهانبخش">
+              <li class="ab-artist" data-ab-name="بابک جهانبخش" data-ab-latin="Babak Jahanbakhsh">
                 <a class="ab-artist__link" href="#" title="بابک جهانبخش">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ب</text></svg>" alt="بابک جهانبخش" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">63 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">بابک جهانبخش</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Babak Jahanbakhsh</span>
                 </a>
               </li>
-              <li class="ab-artist" data-ab-name="بنیامین بهادری">
+              <li class="ab-artist" data-ab-name="بنیامین بهادری" data-ab-latin="Benyamin Bahadori">
                 <a class="ab-artist__link" href="#" title="بنیامین بهادری">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23DCE8FF'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ب</text></svg>" alt="بنیامین بهادری" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">88 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">بنیامین بهادری</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Benyamin Bahadori</span>
                 </a>
               </li>
             </ul>
@@ -262,22 +317,24 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="پریناز">
+              <li class="ab-artist" data-ab-name="پریناز" data-ab-latin="Parinaz">
                 <a class="ab-artist__link" href="#" title="پریناز">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>پ</text></svg>" alt="پریناز" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">9 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">پریناز</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Parinaz</span>
                 </a>
               </li>
-              <li class="ab-artist" data-ab-name="پویا بیاتی">
+              <li class="ab-artist" data-ab-name="پویا بیاتی" data-ab-latin="Pouya Bayati">
                 <a class="ab-artist__link" href="#" title="پویا بیاتی">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23DCE8FF'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>پ</text></svg>" alt="پویا بیاتی" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">41 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">پویا بیاتی</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Pouya Bayati</span>
                 </a>
               </li>
             </ul>
@@ -291,22 +348,24 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="تتلو">
+              <li class="ab-artist" data-ab-name="تتلو" data-ab-latin="Tataloo">
                 <a class="ab-artist__link" href="#" title="تتلو">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ت</text></svg>" alt="تتلو" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">5 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">تتلو</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Tataloo</span>
                 </a>
               </li>
-              <li class="ab-artist" data-ab-name="ترانه">
+              <li class="ab-artist" data-ab-name="ترانه" data-ab-latin="Taraneh">
                 <a class="ab-artist__link" href="#" title="ترانه">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23DCE8FF'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ت</text></svg>" alt="ترانه" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">7 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">ترانه</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Taraneh</span>
                 </a>
               </li>
             </ul>
@@ -320,13 +379,14 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="ثنا">
+              <li class="ab-artist" data-ab-name="ثنا" data-ab-latin="Sana">
                 <a class="ab-artist__link" href="#" title="ثنا">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ث</text></svg>" alt="ثنا" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">3 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">ثنا</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Sana</span>
                 </a>
               </li>
             </ul>
@@ -340,13 +400,14 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="جاوید">
+              <li class="ab-artist" data-ab-name="جاوید" data-ab-latin="Javid">
                 <a class="ab-artist__link" href="#" title="جاوید">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ج</text></svg>" alt="جاوید" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">6 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">جاوید</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Javid</span>
                 </a>
               </li>
             </ul>
@@ -360,13 +421,14 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="چاوشی">
+              <li class="ab-artist" data-ab-name="چاوشی" data-ab-latin="Chavoshi">
                 <a class="ab-artist__link" href="#" title="چاوشی">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>چ</text></svg>" alt="چاوشی" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">4 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">چاوشی</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Chavoshi</span>
                 </a>
               </li>
             </ul>
@@ -380,31 +442,34 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="حامد همایون">
+              <li class="ab-artist" data-ab-name="حامد همایون" data-ab-latin="Hamed Homayoun">
                 <a class="ab-artist__link" href="#" title="حامد همایون">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ح</text></svg>" alt="حامد همایون" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">58 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">حامد همایون</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Hamed Homayoun</span>
                 </a>
               </li>
-              <li class="ab-artist" data-ab-name="حسین توکلی">
+              <li class="ab-artist" data-ab-name="حسین توکلی" data-ab-latin="Hossein Tavakoli">
                 <a class="ab-artist__link" href="#" title="حسین توکلی">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23DCE8FF'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ح</text></svg>" alt="حسین توکلی" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">21 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">حسین توکلی</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Hossein Tavakoli</span>
                 </a>
               </li>
-              <li class="ab-artist" data-ab-name="حمید هیراد">
+              <li class="ab-artist" data-ab-name="حمید هیراد" data-ab-latin="Hamid Hiraad">
                 <a class="ab-artist__link" href="#" title="حمید هیراد">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23E8F0FF'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ح</text></svg>" alt="حمید هیراد" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">66 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">حمید هیراد</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Hamid Hiraad</span>
                 </a>
               </li>
             </ul>
@@ -418,13 +483,14 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="خشایار اعتمادی">
+              <li class="ab-artist" data-ab-name="خشایار اعتمادی" data-ab-latin="Khashayar Etemadi">
                 <a class="ab-artist__link" href="#" title="خشایار اعتمادی">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>خ</text></svg>" alt="خشایار اعتمادی" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">33 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">خشایار اعتمادی</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Khashayar Etemadi</span>
                 </a>
               </li>
             </ul>
@@ -438,22 +504,24 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="داریوش اقبالی">
+              <li class="ab-artist" data-ab-name="داریوش اقبالی" data-ab-latin="Dariush">
                 <a class="ab-artist__link" href="#" title="داریوش اقبالی">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>د</text></svg>" alt="داریوش اقبالی" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">79 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">داریوش اقبالی</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Dariush</span>
                 </a>
               </li>
-              <li class="ab-artist" data-ab-name="دیبا">
+              <li class="ab-artist" data-ab-name="دیبا" data-ab-latin="Diba">
                 <a class="ab-artist__link" href="#" title="دیبا">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23DCE8FF'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>د</text></svg>" alt="دیبا" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">4 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">دیبا</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Diba</span>
                 </a>
               </li>
             </ul>
@@ -467,13 +535,14 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="ذرافشان">
+              <li class="ab-artist" data-ab-name="ذرافشان" data-ab-latin="Zarafshan">
                 <a class="ab-artist__link" href="#" title="ذرافشان">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ذ</text></svg>" alt="ذرافشان" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">6 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">ذرافشان</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Zarafshan</span>
                 </a>
               </li>
             </ul>
@@ -487,31 +556,34 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="رستاک حلاج">
+              <li class="ab-artist" data-ab-name="رستاک حلاج" data-ab-latin="Rastak Hallaj">
                 <a class="ab-artist__link" href="#" title="رستاک حلاج">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ر</text></svg>" alt="رستاک حلاج" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">27 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">رستاک حلاج</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Rastak Hallaj</span>
                 </a>
               </li>
-              <li class="ab-artist" data-ab-name="رضا بهرام">
+              <li class="ab-artist" data-ab-name="رضا بهرام" data-ab-latin="Reza Bahram">
                 <a class="ab-artist__link" href="#" title="رضا بهرام">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23DCE8FF'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ر</text></svg>" alt="رضا بهرام" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">44 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">رضا بهرام</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Reza Bahram</span>
                 </a>
               </li>
-              <li class="ab-artist" data-ab-name="رضا صادقی">
+              <li class="ab-artist" data-ab-name="رضا صادقی" data-ab-latin="Reza Sadeghi">
                 <a class="ab-artist__link" href="#" title="رضا صادقی">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23E8F0FF'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ر</text></svg>" alt="رضا صادقی" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">112 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">رضا صادقی</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Reza Sadeghi</span>
                 </a>
               </li>
             </ul>
@@ -525,13 +597,14 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="زانیار خسروی">
+              <li class="ab-artist" data-ab-name="زانیار خسروی" data-ab-latin="Zanyar Khosravi">
                 <a class="ab-artist__link" href="#" title="زانیار خسروی">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ز</text></svg>" alt="زانیار خسروی" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">39 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">زانیار خسروی</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Zanyar Khosravi</span>
                 </a>
               </li>
             </ul>
@@ -545,13 +618,14 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="ژاله">
+              <li class="ab-artist" data-ab-name="ژاله" data-ab-latin="Jaleh">
                 <a class="ab-artist__link" href="#" title="ژاله">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ژ</text></svg>" alt="ژاله" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">2 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">ژاله</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Jaleh</span>
                 </a>
               </li>
             </ul>
@@ -565,13 +639,14 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="سیروان خسروی">
+              <li class="ab-artist" data-ab-name="سیروان خسروی" data-ab-latin="Sirvan Khosravi">
                 <a class="ab-artist__link" href="#" title="سیروان خسروی">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>س</text></svg>" alt="سیروان خسروی" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">91 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">سیروان خسروی</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Sirvan Khosravi</span>
                 </a>
               </li>
             </ul>
@@ -585,42 +660,24 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="شادمهر عقیلی">
+              <li class="ab-artist" data-ab-name="شادمهر عقیلی" data-ab-latin="Shadmehr Aghili">
                 <a class="ab-artist__link" href="#" title="شادمهر عقیلی">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ش</text></svg>" alt="شادمهر عقیلی" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">105 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">شادمهر عقیلی</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Shadmehr Aghili</span>
                 </a>
               </li>
-              <li class="ab-artist" data-ab-name="شهرام شب پره">
+              <li class="ab-artist" data-ab-name="شهرام شب پره" data-ab-latin="Shahram Shabpareh">
                 <a class="ab-artist__link" href="#" title="شهرام شب‌پره">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23DCE8FF'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ش</text></svg>" alt="شهرام شب‌پره" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">14 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">شهرام شب‌پره</span>
-                </a>
-              </li>
-            </ul>
-            <div class="clear"></div>
-          </div>
-        </section>
-        <section class="ab-artists__group" id="letter-ص" data-ab-group data-ab-letter="ص">
-          <h2 class="ab-artists__letter">
-            <span class="ab-artists__letter-char">ص</span>
-            <span class="ab-artists__letter-count">1 خواننده</span>
-          </h2>
-          <div class="song_boxs_posts">
-            <ul>
-              <li class="ab-artist" data-ab-name="صادق">
-                <a class="ab-artist__link" href="#" title="صادق">
-                  <span class="ab-artist__thumb">
-                    <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ص</text></svg>" alt="صادق" loading="lazy" width="200" height="200">
-                    <span class="ab-artist__badge">3 آهنگ</span>
-                  </span>
-                  <span class="ab-artist__name">صادق</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Shahram Shabpareh</span>
                 </a>
               </li>
             </ul>
@@ -634,13 +691,14 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="ضیا">
+              <li class="ab-artist" data-ab-name="ضیا" data-ab-latin="Zia">
                 <a class="ab-artist__link" href="#" title="ضیا">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ض</text></svg>" alt="ضیا" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">2 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">ضیا</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Zia</span>
                 </a>
               </li>
             </ul>
@@ -654,13 +712,14 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="طاهره">
+              <li class="ab-artist" data-ab-name="طاهره" data-ab-latin="Tahereh">
                 <a class="ab-artist__link" href="#" title="طاهره">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ط</text></svg>" alt="طاهره" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">1 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">طاهره</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Tahereh</span>
                 </a>
               </li>
             </ul>
@@ -674,13 +733,14 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="ظفر">
+              <li class="ab-artist" data-ab-name="ظفر" data-ab-latin="Zafar">
                 <a class="ab-artist__link" href="#" title="ظفر">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ظ</text></svg>" alt="ظفر" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">2 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">ظفر</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Zafar</span>
                 </a>
               </li>
             </ul>
@@ -694,31 +754,34 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="علیرضا قربانی">
+              <li class="ab-artist" data-ab-name="علیرضا قربانی" data-ab-latin="Alireza Ghorbani">
                 <a class="ab-artist__link" href="#" title="علیرضا قربانی">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ع</text></svg>" alt="علیرضا قربانی" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">61 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">علیرضا قربانی</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Alireza Ghorbani</span>
                 </a>
               </li>
-              <li class="ab-artist" data-ab-name="علی زندوکیلی">
+              <li class="ab-artist" data-ab-name="علی زندوکیلی" data-ab-latin="Ali Zand Vakili">
                 <a class="ab-artist__link" href="#" title="علی زندوکیلی">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23DCE8FF'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ع</text></svg>" alt="علی زندوکیلی" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">48 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">علی زندوکیلی</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Ali Zand Vakili</span>
                 </a>
               </li>
-              <li class="ab-artist" data-ab-name="علی یاسینی">
+              <li class="ab-artist" data-ab-name="علی یاسینی" data-ab-latin="Ali Yasini">
                 <a class="ab-artist__link" href="#" title="علی یاسینی">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23E8F0FF'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ع</text></svg>" alt="علی یاسینی" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">55 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">علی یاسینی</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Ali Yasini</span>
                 </a>
               </li>
             </ul>
@@ -732,13 +795,14 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="غلام">
+              <li class="ab-artist" data-ab-name="غلام" data-ab-latin="Gholam">
                 <a class="ab-artist__link" href="#" title="غلام">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>غ</text></svg>" alt="غلام" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">2 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">غلام</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Gholam</span>
                 </a>
               </li>
             </ul>
@@ -752,22 +816,24 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="فرزاد فرزین">
+              <li class="ab-artist" data-ab-name="فرزاد فرزین" data-ab-latin="Farzad Farzin">
                 <a class="ab-artist__link" href="#" title="فرزاد فرزین">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ف</text></svg>" alt="فرزاد فرزین" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">84 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">فرزاد فرزین</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Farzad Farzin</span>
                 </a>
               </li>
-              <li class="ab-artist" data-ab-name="فریدون فروغی">
+              <li class="ab-artist" data-ab-name="فریدون فروغی" data-ab-latin="Fereydoun Foroughi">
                 <a class="ab-artist__link" href="#" title="فریدون فروغی">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23DCE8FF'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ف</text></svg>" alt="فریدون فروغی" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">26 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">فریدون فروغی</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Fereydoun Foroughi</span>
                 </a>
               </li>
             </ul>
@@ -781,13 +847,14 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="قاسم">
+              <li class="ab-artist" data-ab-name="قاسم" data-ab-latin="Ghasem">
                 <a class="ab-artist__link" href="#" title="قاسم">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ق</text></svg>" alt="قاسم" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">3 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">قاسم</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Ghasem</span>
                 </a>
               </li>
             </ul>
@@ -801,13 +868,14 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="کامران">
+              <li class="ab-artist" data-ab-name="کامران" data-ab-latin="Kamran">
                 <a class="ab-artist__link" href="#" title="کامران">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ک</text></svg>" alt="کامران" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">5 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">کامران</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Kamran</span>
                 </a>
               </li>
             </ul>
@@ -821,22 +889,24 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="گروه ماکان">
+              <li class="ab-artist" data-ab-name="گروه ماکان" data-ab-latin="Macan Band">
                 <a class="ab-artist__link" href="#" title="گروه ماکان">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>گ</text></svg>" alt="گروه ماکان" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">45 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">گروه ماکان</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Macan Band</span>
                 </a>
               </li>
-              <li class="ab-artist" data-ab-name="گوگوش">
+              <li class="ab-artist" data-ab-name="گوگوش" data-ab-latin="Googoosh">
                 <a class="ab-artist__link" href="#" title="گوگوش">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23DCE8FF'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>گ</text></svg>" alt="گوگوش" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">72 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">گوگوش</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Googoosh</span>
                 </a>
               </li>
             </ul>
@@ -850,13 +920,14 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="لیلا فروهر">
+              <li class="ab-artist" data-ab-name="لیلا فروهر" data-ab-latin="Leila Forouhar">
                 <a class="ab-artist__link" href="#" title="لیلا فروهر">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ل</text></svg>" alt="لیلا فروهر" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">31 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">لیلا فروهر</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Leila Forouhar</span>
                 </a>
               </li>
             </ul>
@@ -870,67 +941,74 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="محسن چاوشی">
+              <li class="ab-artist" data-ab-name="محسن چاوشی" data-ab-latin="Mohsen Chavoshi">
                 <a class="ab-artist__link" href="#" title="محسن چاوشی">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>م</text></svg>" alt="محسن چاوشی" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">118 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">محسن چاوشی</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Mohsen Chavoshi</span>
                 </a>
               </li>
-              <li class="ab-artist" data-ab-name="محسن یگانه">
+              <li class="ab-artist" data-ab-name="محسن یگانه" data-ab-latin="Mohsen Yeganeh">
                 <a class="ab-artist__link" href="#" title="محسن یگانه">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23DCE8FF'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>م</text></svg>" alt="محسن یگانه" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">134 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">محسن یگانه</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Mohsen Yeganeh</span>
                 </a>
               </li>
-              <li class="ab-artist" data-ab-name="محمدرضا شجریان">
+              <li class="ab-artist" data-ab-name="محمدرضا شجریان" data-ab-latin="Mohammadreza Shajarian">
                 <a class="ab-artist__link" href="#" title="محمدرضا شجریان">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23E8F0FF'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>م</text></svg>" alt="محمدرضا شجریان" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">143 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">محمدرضا شجریان</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Mohammadreza Shajarian</span>
                 </a>
               </li>
-              <li class="ab-artist" data-ab-name="مرتضی پاشایی">
+              <li class="ab-artist" data-ab-name="مرتضی پاشایی" data-ab-latin="Morteza Pashaei">
                 <a class="ab-artist__link" href="#" title="مرتضی پاشایی">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23DDE9FC'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>م</text></svg>" alt="مرتضی پاشایی" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">87 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">مرتضی پاشایی</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Morteza Pashaei</span>
                 </a>
               </li>
-              <li class="ab-artist" data-ab-name="معین">
+              <li class="ab-artist" data-ab-name="معین" data-ab-latin="Moein">
                 <a class="ab-artist__link" href="#" title="معین">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>م</text></svg>" alt="معین" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">68 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">معین</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Moein</span>
                 </a>
               </li>
-              <li class="ab-artist" data-ab-name="مهدی یراحی">
+              <li class="ab-artist" data-ab-name="مهدی یراحی" data-ab-latin="Mehdi Yarrahi">
                 <a class="ab-artist__link" href="#" title="مهدی یراحی">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23DCE8FF'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>م</text></svg>" alt="مهدی یراحی" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">59 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">مهدی یراحی</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Mehdi Yarrahi</span>
                 </a>
               </li>
-              <li class="ab-artist" data-ab-name="مهستی">
+              <li class="ab-artist" data-ab-name="مهستی" data-ab-latin="Mahasti">
                 <a class="ab-artist__link" href="#" title="مهستی">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23E8F0FF'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>م</text></svg>" alt="مهستی" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">24 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">مهستی</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Mahasti</span>
                 </a>
               </li>
             </ul>
@@ -944,22 +1022,24 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="ناصر عبداللهی">
+              <li class="ab-artist" data-ab-name="ناصر عبداللهی" data-ab-latin="Nasser Abdollahi">
                 <a class="ab-artist__link" href="#" title="ناصر عبداللهی">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ن</text></svg>" alt="ناصر عبداللهی" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">37 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">ناصر عبداللهی</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Nasser Abdollahi</span>
                 </a>
               </li>
-              <li class="ab-artist" data-ab-name="نوید">
+              <li class="ab-artist" data-ab-name="نوید" data-ab-latin="Navid">
                 <a class="ab-artist__link" href="#" title="نوید">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23DCE8FF'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ن</text></svg>" alt="نوید" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">6 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">نوید</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Navid</span>
                 </a>
               </li>
             </ul>
@@ -973,13 +1053,14 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="وحید">
+              <li class="ab-artist" data-ab-name="وحید" data-ab-latin="Vahid">
                 <a class="ab-artist__link" href="#" title="وحید">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>و</text></svg>" alt="وحید" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">3 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">وحید</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Vahid</span>
                 </a>
               </li>
             </ul>
@@ -993,31 +1074,34 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="هما">
+              <li class="ab-artist" data-ab-name="هما" data-ab-latin="Homa">
                 <a class="ab-artist__link" href="#" title="هما">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ه</text></svg>" alt="هما" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">4 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">هما</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Homa</span>
                 </a>
               </li>
-              <li class="ab-artist" data-ab-name="همایون شجریان">
+              <li class="ab-artist" data-ab-name="همایون شجریان" data-ab-latin="Homayoun Shajarian">
                 <a class="ab-artist__link" href="#" title="همایون شجریان">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23DCE8FF'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ه</text></svg>" alt="همایون شجریان" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">102 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">همایون شجریان</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Homayoun Shajarian</span>
                 </a>
               </li>
-              <li class="ab-artist" data-ab-name="هیچکس">
+              <li class="ab-artist" data-ab-name="هیچکس" data-ab-latin="Hichkas">
                 <a class="ab-artist__link" href="#" title="هیچکس">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23E8F0FF'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ه</text></svg>" alt="هیچکس" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">29 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">هیچکس</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Hichkas</span>
                 </a>
               </li>
             </ul>
@@ -1031,22 +1115,24 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="یاس">
+              <li class="ab-artist" data-ab-name="یاس" data-ab-latin="Yas">
                 <a class="ab-artist__link" href="#" title="یاس">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ی</text></svg>" alt="یاس" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">34 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">یاس</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Yas</span>
                 </a>
               </li>
-              <li class="ab-artist" data-ab-name="یاسر">
+              <li class="ab-artist" data-ab-name="یاسر" data-ab-latin="Yaser">
                 <a class="ab-artist__link" href="#" title="یاسر">
                   <span class="ab-artist__thumb">
                     <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23DCE8FF'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>ی</text></svg>" alt="یاسر" loading="lazy" width="200" height="200">
                     <span class="ab-artist__badge">5 آهنگ</span>
                   </span>
                   <span class="ab-artist__name">یاسر</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Yaser</span>
                 </a>
               </li>
             </ul>
@@ -1056,26 +1142,18 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
         <section class="ab-artists__group" id="letter-other" data-ab-group data-ab-letter="#">
           <h2 class="ab-artists__letter">
             <span class="ab-artists__letter-char">سایر</span>
-            <span class="ab-artists__letter-count">2 خواننده</span>
+            <span class="ab-artists__letter-count">1 خواننده</span>
           </h2>
           <div class="song_boxs_posts">
             <ul>
-              <li class="ab-artist" data-ab-name="Ali Rezaee">
-                <a class="ab-artist__link" href="#" title="Ali Rezaee">
+              <li class="ab-artist" data-ab-name="صادق" data-ab-latin="Sadegh">
+                <a class="ab-artist__link" href="#" title="صادق">
                   <span class="ab-artist__thumb">
-                    <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>A</text></svg>" alt="Ali Rezaee" loading="lazy" width="200" height="200">
-                    <span class="ab-artist__badge">4 آهنگ</span>
+                    <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23EAF1FE'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>A</text></svg>" alt="صادق" loading="lazy" width="200" height="200">
+                    <span class="ab-artist__badge">3 آهنگ</span>
                   </span>
-                  <span class="ab-artist__name">Ali Rezaee</span>
-                </a>
-              </li>
-              <li class="ab-artist" data-ab-name="Arman Garshasbi">
-                <a class="ab-artist__link" href="#" title="Arman Garshasbi">
-                  <span class="ab-artist__thumb">
-                    <img class="ab-artist__img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23DCE8FF'/><text x='100' y='118' font-size='96' fill='%23185ADB' text-anchor='middle' font-family='sans-serif'>A</text></svg>" alt="Arman Garshasbi" loading="lazy" width="200" height="200">
-                    <span class="ab-artist__badge">18 آهنگ</span>
-                  </span>
-                  <span class="ab-artist__name">Arman Garshasbi</span>
+                  <span class="ab-artist__name">صادق</span>
+                  <span class="ab-artist__latin" dir="ltr" lang="en">Sadegh</span>
                 </a>
               </li>
             </ul>
@@ -1088,7 +1166,7 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
     </div>
   </div>
 </div>
-<p class="preview-foot">این فایل فقط پیش‌نمایش است (داده‌ها نمونه‌اند) و داخل قالب آپلود نمی‌شود.</p>
+<p class="preview-foot">این فایل فقط پیش‌نمایش است (داده‌ها نمونه‌اند) و داخل قالب آپلود نمی‌شود. جست‌وجو و نوار حروف واقعاً کار می‌کنند؛ «مشاهده بیشتر» فقط وقتی ظاهر می‌شود که تعداد از سقف بگذرد.</p>
 <script>
 (function () {
 	var root = document.querySelector('[data-ab-artists]');
@@ -1106,10 +1184,14 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
 	}
 
 	function applyFilter() {
-		var query = normalize(input ? input.value : '');
+		var raw   = (input ? input.value : '').trim();
+		var query = normalize(raw);
+		var latin = raw.toLowerCase();
 		var shown = 0;
 		items.forEach(function (item) {
-			var match = !query || normalize(item.getAttribute('data-ab-name')).indexOf(query) !== -1;
+			var match = !raw
+				|| normalize(item.getAttribute('data-ab-name')).indexOf(query) !== -1
+				|| (item.getAttribute('data-ab-latin') || '').toLowerCase().indexOf(latin) !== -1;
 			item.classList.toggle('is-hidden', !match);
 			if (match) { shown++; }
 		});
@@ -1121,7 +1203,7 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
 		});
 		if (empty) { empty.hidden = (shown !== 0); }
 		if (stats) {
-			stats.textContent = query ? shown + ' نتیجه برای «' + input.value.trim() + '»'
+			stats.textContent = raw ? shown + ' نتیجه برای «' + raw + '»'
 				: stats.getAttribute('data-ab-default') || stats.textContent;
 		}
 	}
@@ -1130,6 +1212,8 @@ font-family:Tahoma,"Iranian Sans","Segoe UI",sans-serif;font-size:14px;line-heig
 	if (input) {
 		input.addEventListener('input', applyFilter);
 		input.addEventListener('search', applyFilter);
+		var form = input.closest('form');
+		if (form) { form.addEventListener('submit', function (e) { e.preventDefault(); applyFilter(); }); }
 	}
 
 	var chips = Array.prototype.slice.call(root.querySelectorAll('[data-ab-chip]'));

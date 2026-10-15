@@ -38,6 +38,9 @@ $ab_cfg = array(
 	'show_az'     => true,     // نوار حروف الفبا
 	'show_search' => true,     // جعبهٔ جست‌وجوی زنده
 	'show_sort'   => true,     // لینک‌های ترتیب (الفبا / بیشترین آهنگ)
+	'show_latin'  => true,     // نام لاتین/انگلیسی خواننده زیر نام فارسی
+	'show_top'    => true,     // ردیف «پرکارترین خواننده‌ها»
+	'top_limit'   => 12,       // چند خواننده در آن ردیف
 	'json_ld_max' => 200,      // حداکثر تعداد آیتم در داده‌ساختاریافته
 );
 $ab_cfg = apply_filters( 'javanseda_artists_config', $ab_cfg );
@@ -141,8 +144,38 @@ if ( ! function_exists( 'javanseda_artists_image' ) ) {
 	}
 }
 
+if ( ! function_exists( 'javanseda_artists_latin_name' ) ) {
+	/** نام لاتین خواننده: اول فیلتر، بعد چند فیلد رایج ترم، در پایان از اسلاگ انگلیسی */
+	function javanseda_artists_latin_name( $term ) {
+		if ( ! $term instanceof WP_Term ) {
+			return '';
+		}
+
+		$custom = apply_filters( 'javanseda_artists_latin_name', '', $term );
+		if ( is_string( $custom ) && '' !== trim( $custom ) ) {
+			return trim( wp_strip_all_tags( $custom ) );
+		}
+
+		$keys = array( 'artist_en', 'en_name', 'english_name', 'singer_en', 'latin_name', 'name_en', 'en_title', 'artist_latin' );
+		foreach ( $keys as $key ) {
+			$value = get_term_meta( $term->term_id, $key, true );
+			if ( is_string( $value ) && '' !== trim( $value ) ) {
+				return trim( wp_strip_all_tags( $value ) );
+			}
+		}
+
+		/* اسلاگ انگلیسی مثل mohsen-yeganeh → Mohsen Yeganeh */
+		$slug = (string) $term->slug;
+		if ( '' !== $slug && preg_match( '/^[a-z0-9\-]+$/', $slug ) && preg_match( '/[a-z]/', $slug ) ) {
+			return ucwords( trim( str_replace( array( '-', '_' ), ' ', $slug ) ) );
+		}
+
+		return '';
+	}
+}
+
 /* ==================================================================================
-   ۲) الفبای فارسی و ورودی‌های آدرس (?letter= و ?sort=)
+   ۲) الفبای فارسی و ورودی‌های آدرس (?letter= و ?sort= و ?q=)
    ================================================================================== */
 $ab_alphabet = 'ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی';
 $ab_index    = array();
@@ -163,8 +196,11 @@ if ( ! in_array( $ab_sort, array( 'name', 'songs' ), true ) ) {
 	$ab_sort = 'name';
 }
 
-/* صفحه‌های ?sort= ارزش ایندکس‌شدن ندارند (محتوای تکراری) */
-if ( '' !== $ab_sort && 'name' !== $ab_sort ) {
+$ab_search      = isset( $_GET['q'] ) ? trim( sanitize_text_field( wp_unslash( $_GET['q'] ) ) ) : '';
+$ab_search_norm = javanseda_artists_normalize( $ab_search );
+
+/* صفحه‌های ?sort= و ?q= ارزش ایندکس‌شدن ندارند (محتوای تکراری/نتیجهٔ جست‌وجو) */
+if ( ( '' !== $ab_sort && 'name' !== $ab_sort ) || '' !== $ab_search ) {
 	add_filter(
 		'wp_robots',
 		function ( $robots ) {
@@ -286,6 +322,7 @@ if ( ! $ab_error && $ab_terms ) {
 		$ab_items[] = array(
 			'term'   => $ab_term,
 			'name'   => $ab_term->name,
+			'latin'  => javanseda_artists_latin_name( $ab_term ),
 			'norm'   => $ab_norm,
 			'link'   => $ab_link,
 			'count'  => (int) $ab_term->count,
@@ -317,6 +354,22 @@ foreach ( $ab_items as $ab_item ) {
 		: 1;
 }
 
+/* پرکارترین خواننده‌ها — ردیف لینک‌های سریع (قبل از اعمال فیلترها) */
+$ab_top = array();
+if ( ! empty( $ab_cfg['show_top'] ) ) {
+	$ab_by_count = $ab_items;
+	usort(
+		$ab_by_count,
+		function ( $a, $b ) {
+			if ( $a['count'] === $b['count'] ) {
+				return strcmp( $a['key'], $b['key'] );
+			}
+			return ( $b['count'] - $a['count'] );
+		}
+	);
+	$ab_top = array_slice( $ab_by_count, 0, max( 1, (int) $ab_cfg['top_limit'] ) );
+}
+
 /* فیلتر حرف (?letter=) */
 if ( '' !== $ab_letter ) {
 	$ab_items = array_values(
@@ -328,6 +381,27 @@ if ( '' !== $ab_letter ) {
 		)
 	);
 }
+
+/* جست‌وجوی سروری (?q=) — برای لینک‌های اشتراکی و کارکرد بدون جاوااسکریپت */
+if ( '' !== $ab_search_norm ) {
+	$ab_items = array_values(
+		array_filter(
+			$ab_items,
+			function ( $item ) use ( $ab_search_norm, $ab_search ) {
+				if ( '' !== $item['norm'] && false !== strpos( $item['norm'], $ab_search_norm ) ) {
+					return true;
+				}
+				if ( '' !== $item['latin'] && '' !== $ab_search && false !== stripos( $item['latin'], $ab_search ) ) {
+					return true;
+				}
+				return false;
+			}
+		)
+	);
+}
+
+/* تعداد نمای فعلی (بعد از فیلترها) */
+$ab_view_total = count( $ab_items );
 
 /* گروه‌بندی بر اساس حرف (فقط در نمای کامل) */
 $ab_groups = array();
@@ -347,7 +421,7 @@ uksort(
 );
 
 /* حالت صفحه‌بندی — فقط اگر تعداد از سقف تنظیم‌شده بیشتر باشد */
-$ab_use_pagination = ( '' === $ab_letter && $ab_total > (int) $ab_cfg['max_terms'] );
+$ab_use_pagination = ( '' === $ab_letter && '' === $ab_search_norm && $ab_total > (int) $ab_cfg['max_terms'] );
 $ab_per_page       = max( 1, (int) $ab_cfg['per_page'] );
 $ab_paged          = (int) get_query_var( 'paged' );
 if ( $ab_paged < 1 ) {
@@ -383,7 +457,9 @@ if ( '' === $ab_page_title ) {
 	$ab_page_title = 'لیست هنرمندان';
 }
 
-if ( '' !== $ab_letter ) {
+if ( '' !== $ab_search ) {
+	$ab_h1 = $ab_page_title . ' — جست‌وجو برای «' . $ab_search . '»';
+} elseif ( '' !== $ab_letter ) {
 	$ab_h1 = $ab_page_title . ' — حرف «' . $ab_letter . '»';
 } elseif ( 'songs' === $ab_sort ) {
 	$ab_h1 = $ab_page_title . ' — پرکارترین خواننده‌ها';
@@ -430,7 +506,7 @@ get_template_part( 'inc/breadcrumbs' );
 
 			<div id="ab-artists" class="ab-artists" data-ab-artists>
 
-				<?php if ( $ab_error || ! $ab_total ) : ?>
+				<?php if ( $ab_error || ! $ab_view_total ) : ?>
 
 					<div class="ab-artists__notice">
 						<?php if ( $ab_error ) : ?>
@@ -439,6 +515,9 @@ get_template_part( 'inc/breadcrumbs' );
 								<p class="ab-artists__admin">(فقط مدیر می‌بیند) دلیل: <?php echo esc_html( $ab_error->get_error_message() ); ?><br>
 								برای بررسی کامل، همین آدرس را با <code>?ab_artists_diag=1</code> باز کنید.</p>
 							<?php endif; ?>
+						<?php elseif ( '' !== $ab_search ) : ?>
+							<p>نتیجه‌ای برای «<?php echo esc_html( $ab_search ); ?>» پیدا نشد.</p>
+							<p><a href="<?php echo esc_url( $ab_url_all ); ?>">نمایش همهٔ خواننده‌ها</a></p>
 						<?php elseif ( '' !== $ab_letter ) : ?>
 							<p>برای حرف «<?php echo esc_html( $ab_letter ); ?>» خواننده‌ای ثبت نشده است.</p>
 							<p><a href="<?php echo esc_url( $ab_url_all ); ?>">نمایش همهٔ خواننده‌ها</a></p>
@@ -449,7 +528,12 @@ get_template_part( 'inc/breadcrumbs' );
 
 				<?php else : ?>
 
-					<?php if ( '' !== $ab_letter ) : ?>
+					<?php if ( '' !== $ab_search ) : ?>
+						<p class="ab-artists__intro">
+							<?php echo esc_html( number_format_i18n( $ab_view_total ) ); ?> خواننده برای «<?php echo esc_html( $ab_search ); ?>» پیدا شد.
+							<a href="<?php echo esc_url( $ab_url_all ); ?>">پاک‌کردن جست‌وجو</a>
+						</p>
+					<?php elseif ( '' !== $ab_letter ) : ?>
 						<p class="ab-artists__intro">
 							خواننده‌ها و هنرمندانی که نامشان با حرف «<?php echo esc_html( $ab_letter ); ?>» شروع می‌شود
 							(<?php echo esc_html( number_format_i18n( $ab_stat_artists ) ); ?> خواننده).
@@ -464,11 +548,18 @@ get_template_part( 'inc/breadcrumbs' );
 
 					<div class="ab-artists__toolbar">
 						<?php if ( ! empty( $ab_cfg['show_search'] ) ) : ?>
-							<label class="ab-artists__search">
+							<form class="ab-artists__search" method="get" action="<?php echo esc_url( $ab_base_url ); ?>" role="search" data-ab-searchbox>
 								<span class="ab-artists__search-icon" aria-hidden="true">⌕</span>
-								<input type="search" data-ab-search autocomplete="off" enterkeyhint="search"
+								<input type="search" name="q" value="<?php echo esc_attr( $ab_search ); ?>" data-ab-search autocomplete="off" enterkeyhint="search"
 									placeholder="جست‌وجوی نام خواننده…" aria-label="جست‌وجوی نام خواننده">
-							</label>
+								<?php if ( '' !== $ab_letter ) : ?>
+									<input type="hidden" name="letter" value="<?php echo esc_attr( $ab_letter ); ?>">
+								<?php endif; ?>
+								<?php if ( 'name' !== $ab_sort ) : ?>
+									<input type="hidden" name="sort" value="<?php echo esc_attr( $ab_sort ); ?>">
+								<?php endif; ?>
+								<button type="submit" class="ab-artists__search-btn">جست‌وجو</button>
+							</form>
 						<?php endif; ?>
 						<p class="ab-artists__stats" data-ab-stats aria-live="polite">
 							<?php
@@ -482,6 +573,18 @@ get_template_part( 'inc/breadcrumbs' );
 							?>
 						</p>
 					</div>
+
+					<?php if ( ! empty( $ab_cfg['show_top'] ) && $ab_top && '' === $ab_search && '' === $ab_letter && 'songs' !== $ab_sort ) : ?>
+						<nav class="ab-artists__toplist" aria-label="پرکارترین خواننده‌ها">
+							<span class="ab-artists__toplist-title">پرکارترین خواننده‌ها:</span>
+							<?php foreach ( $ab_top as $ab_top_item ) : ?>
+								<a class="ab-artists__pill" href="<?php echo esc_url( $ab_top_item['link'] ); ?>" title="<?php echo esc_attr( $ab_top_item['name'] ); ?>">
+									<?php echo esc_html( $ab_top_item['name'] ); ?><span class="ab-artists__pill-count"><?php echo esc_html( number_format_i18n( $ab_top_item['count'] ) ); ?></span>
+								</a>
+							<?php endforeach; ?>
+							<a class="ab-artists__pill ab-artists__pill--more" href="<?php echo esc_url( $ab_url_songs ); ?>">همهٔ پرتعدادها</a>
+						</nav>
+					<?php endif; ?>
 
 					<?php if ( ! empty( $ab_cfg['show_az'] ) && ! $ab_use_pagination ) : ?>
 						<nav class="ab-artists__az" data-ab-az aria-label="حروف الفبای فارسی">
@@ -532,7 +635,10 @@ get_template_part( 'inc/breadcrumbs' );
 									foreach ( $ab_group_items as $ab_item ) :
 										$ab_term = $ab_item['term'];
 										?>
-										<li class="ab-artist" data-ab-name="<?php echo esc_attr( $ab_item['norm'] ); ?>">
+										<?php
+										$ab_latin_attr = ( ! empty( $ab_cfg['show_latin'] ) && '' !== $ab_item['latin'] ) ? $ab_item['latin'] : '';
+										?>
+										<li class="ab-artist" data-ab-name="<?php echo esc_attr( $ab_item['norm'] ); ?>"<?php echo ( '' !== $ab_latin_attr ) ? ' data-ab-latin="' . esc_attr( $ab_latin_attr ) . '"' : ''; ?>>
 											<a class="ab-artist__link" href="<?php echo esc_url( $ab_item['link'] ); ?>" title="<?php echo esc_attr( $ab_item['name'] ); ?>">
 												<span class="ab-artist__thumb">
 													<?php
@@ -544,6 +650,9 @@ get_template_part( 'inc/breadcrumbs' );
 													<?php endif; ?>
 												</span>
 												<span class="ab-artist__name"><?php echo esc_html( $ab_item['name'] ); ?></span>
+												<?php if ( '' !== $ab_latin_attr ) : ?>
+													<span class="ab-artist__latin" dir="ltr" lang="en"><?php echo esc_html( $ab_latin_attr ); ?></span>
+												<?php endif; ?>
 											</a>
 										</li>
 									<?php endforeach; ?>
@@ -552,6 +661,15 @@ get_template_part( 'inc/breadcrumbs' );
 							</div>
 						</section>
 					<?php endforeach; ?>
+
+					<?php if ( $ab_use_pagination && $ab_paged < $ab_total_pages ) : ?>
+						<p class="ab-artists__loadmore">
+							<a class="ab-artists__loadmore-btn" href="<?php echo esc_url( add_query_arg( 'paged', $ab_paged + 1, $ab_base_url ) ); ?>">
+								مشاهده بیشتر …
+								<span class="ab-artists__loadmore-hint">(صفحهٔ <?php echo esc_html( number_format_i18n( $ab_paged + 1 ) ); ?> از <?php echo esc_html( number_format_i18n( $ab_total_pages ) ); ?>)</span>
+							</a>
+						</p>
+					<?php endif; ?>
 
 					<?php if ( $ab_use_pagination && $ab_total_pages > 1 ) : ?>
 						<div class="pagination_box_artist">
@@ -593,12 +711,16 @@ if ( ! $ab_error && $ab_items ) {
 	$ab_position     = ( $ab_use_pagination ? ( $ab_paged - 1 ) * $ab_per_page : 0 );
 	foreach ( array_slice( $ab_items, 0, max( 1, (int) $ab_cfg['json_ld_max'] ) ) as $ab_item ) {
 		$ab_position++;
-		$ab_schema_items[] = array(
+		$ab_schema_item = array(
 			'@type'    => 'ListItem',
 			'position' => $ab_position,
 			'name'     => $ab_item['name'],
 			'url'      => $ab_item['link'],
 		);
+		if ( '' !== $ab_item['latin'] ) {
+			$ab_schema_item['alternateName'] = $ab_item['latin'];
+		}
+		$ab_schema_items[] = $ab_schema_item;
 	}
 
 	$ab_schema = array(
@@ -642,11 +764,15 @@ if ( ! $ab_error && $ab_items ) {
 	}
 
 	function applyFilter() {
-		var query = normalize(input ? input.value : '');
+		var raw   = (input ? input.value : '').trim();
+		var query = normalize(raw);
+		var latin = raw.toLowerCase();
 		var shown = 0;
 
 		items.forEach(function (item) {
-			var match = !query || normalize(item.getAttribute('data-ab-name')).indexOf(query) !== -1;
+			var match = !raw
+				|| normalize(item.getAttribute('data-ab-name')).indexOf(query) !== -1
+				|| (item.getAttribute('data-ab-latin') || '').toLowerCase().indexOf(latin) !== -1;
 			item.classList.toggle('is-hidden', !match);
 			if (match) { shown++; }
 		});
@@ -660,8 +786,8 @@ if ( ! $ab_error && $ab_items ) {
 
 		if (empty) { empty.hidden = (shown !== 0); }
 		if (stats) {
-			stats.textContent = query
-				? shown + ' نتیجه برای «' + input.value.trim() + '»'
+			stats.textContent = raw
+				? shown + ' نتیجه برای «' + raw + '»'
 				: stats.getAttribute('data-ab-default') || stats.textContent;
 		}
 	}

@@ -17,9 +17,9 @@
 
 | بسته | حجم | SHA-256 |
 |---|---|---|
-| `artifacts/javan-final-files.zip` | ۱۰۰٬۱۲۰ بایت | `a2eb8fb0685f9e8d93b0e71d3921ada6ecd655ab9da22042df48e5d525d0e153` |
+| `artifacts/javan-final-files.zip` | ۱۱۵٬۷۲۸ بایت | `a7191504c220f7e9f22e1adb39c7dd94aa6998d4318d2f761485c4a64c26f79f` |
 
-ساختار: `00-START-HERE.txt` + `01-upload-to-theme/` (۵ فایل) + `02-restore-if-needed/` (نسخهٔ قبلی دو فایل مهم) + `03-docs/` (مستندهای فارسی) + `04-preview/` (دو پیش‌نمایش HTML).
+ساختار: `00-START-HERE.txt` + `01-upload-to-theme/` (۵ فایل) + `02-restore-if-needed/` (نسخهٔ قبلی دو فایل مهم) + `03-docs/` (مستندهای فارسی) + `04-preview/` (دو پیش‌نمایش HTML با جست‌وجوی زنده و حالت شب).
 
 ## ۲) پنج فایلی که روی قالب گذاشته می‌شوند
 
@@ -36,13 +36,13 @@ wp-content/themes/<پوشهٔ قالب فعال>/
 
 | فایل | مسیر در مخزن | حجم | SHA-256 |
 |---|---|---|---|
-| `artist-template.php` | `cover-post/artist-template.php` | ۲۹٬۸۵۵ | `5fe48ab0a64f95eb2ee97669e369eaac90b149294477f247210806bb406227a7` |
+| `artist-template.php` | `cover-post/artist-template.php` | ۳۶٬۱۰۸ | `75af3626de039f9df1ff23534897159e624cd811bfd0ba55ad43b8f73814a9dc` |
 | `taxonomy-singer.php` | `cover-post/taxonomy-singer.php` | ۱۰٬۹۲۰ | `9702a9f884884a41fa75ea13ec5045198d2734b49ef3b2e836ff818486c0a035` |
 | `single.php` | `cover-post/single.php` | ۳۲٬۵۶۱ | `19a7d90d25ecd2a26cc84c6badd2bb674dd30dd1d09737b44cd6135a2e3080f8` |
 | `myfunctions.php` | `cover-post/myfunctions.php` | ۲۲٬۶۸۱ | `f75591d36ea716494cfcee608ff528617fcc8969747e86e3cb22b3642ae8f6a9` |
-| `style.css` | `cover-post/style.css` | ۷۵٬۲۳۱ | `287dcdbff4d47a066e399282b05272b54b3e49a1673fcce2b4c20d1f9977aa39` |
+| `style.css` | `cover-post/style.css` | ۷۷٬۹۰۸ | `32f0bd0df454a0019988b9f54f882d73170b7444ec9c2832eb592c5c269e30a7` |
 
-نسخهٔ آمادهٔ آپلود همین پنج فایل، بدون پوشهٔ اضافه: `artifacts/cover-post-replacements.zip` (۴۲٬۳۰۸ بایت، `f2ede787e2e8d59600d2ac920f81713a6670c6b6bc2ea84f44f547759b1b1d4e`) — محتوای این بسته **بی‌پوشه** است تا مستقیم داخل پوشهٔ قالب باز شود.
+نسخهٔ آمادهٔ آپلود همین پنج فایل، بدون پوشهٔ اضافه: `artifacts/cover-post-replacements.zip` (۴۴٬۰۴۲ بایت، `1535435945afafc491cb737fc60ad2afbfcb99263acbecbd62594806a5fff051`) — محتوای این بسته **بی‌پوشه** است تا مستقیم داخل پوشهٔ قالب باز شود.
 
 ## ۳) بستهٔ بازگشت (اگر چیزی خراب شد)
 
@@ -58,7 +58,7 @@ wp-content/themes/<پوشهٔ قالب فعال>/
 
 | بسته | حجم | SHA-256 | محتوا |
 |---|---|---|---|
-| `artifacts/taranehyar-1.0.0-test-build.zip` | ۱٬۶۰۶٬۹۹۲ بایت | `5c2a16022d7e60138fdfad99516a1e01abaf33812eb0681a357fcfa57403244f` | ۱۰۴ فایل زیر یک ریشهٔ `taranehyar/` |
+| `artifacts/taranehyar-1.0.0-test-build.zip` | ۱٬۶۰۹٬۱۲۴ بایت | `0067a1fdd950babc20a7ed8b4dd50c94d437530af30eb0e0cc150b6fccd63d45` | ۱۰۴ فایل زیر یک ریشهٔ `taranehyar/` |
 
 هشدار: این بسته کل قالب را جای‌گزین می‌کند؛ اگر روی قالب فعال خودتان تغییر شخصی داده‌اید، فقط پنج فایل بخش ۲ را بگذارید.
 

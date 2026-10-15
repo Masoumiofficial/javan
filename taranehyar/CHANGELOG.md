@@ -9,6 +9,12 @@
 - **Admin diagnostic**: `/singers/?ab_artists_diag=1` prints the template file in use, the page's registered template, taxonomy/post-type existence, term counts, per-letter counts and sample `term_link`s.
 - Filter `javanseda_artists_config` exposes every setting (taxonomy, `hide_empty`, caps, search, alphabet bar, schema size).
 - New CSS block 15 at the end of `style.css` (cards, alphabet bar, night mode through the `--ab-*` variables, mobile) plus a static preview at `cover-post/preview/artists.html` with sample data.
+- **Latin/English artist name** (idea taken from the reference site): rendered under the Persian name, resolved from the `javanseda_artists_latin_name` filter, then a list of common term meta keys (`artist_en`, `en_name`, `english_name`, `singer_en`, `latin_name`, `name_en`, `en_title`, `artist_latin`) and finally derived from an ASCII slug (`mohsen-yeganeh` → "Mohsen Yeganeh"); the same value feeds the live search and schema `alternateName`.
+- **Server-side `?q=` search** through a real `GET` form (works without JavaScript, `noindex`), while the instant browser search now matches Persian **and** Latin text.
+- **"پرتعدادترین خواننده‌ها" quick row**: twelve links with song counts (the reference site's "most searched" pattern) plus an "all most-frequent" link.
+- **"مشاهده بیشتر …" button** with the page counter in paginated mode, and a proper no-results state with a clear-search link.
+
+### Changed
 - **Performance**: the directory template now runs one `get_terms` call with `update_termmeta_cache` instead of two queries plus per-term meta lookups; pagination (60 per page) only kicks in above the 1200-term cap, otherwise every artist renders in one alphabetically grouped page.
 - This file registers no taxonomy, does not touch rewrites and adds no global hook: it only affects the page whose template is set to "خواننده ها". Rollback = restore the previous file.
 
