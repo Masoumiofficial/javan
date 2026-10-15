@@ -10,6 +10,7 @@
 |---|---|
 | `cover-post/preview/artists.html` | صفحهٔ «همهٔ هنرمندان» با دادهٔ نمونه — نوار حروف، جست‌وجوی زنده، نشان تعداد آهنگ، حالت شب |
 | `cover-post/preview/index.html` | کاور پست، باکس «متن ترانه» و بخش دانلود |
+| `cover-post/preview/artist.html` | صفحهٔ اختصاصی خواننده (نسخهٔ ۲) — سرتیتر پروفایل، نوار ترتیب، خواننده‌های مشابه، بخش‌های آهنگ/ویدیو/آلبوم |
 
 هر دو تک‌فایل و آفلاین‌اند: دانلودشان کنید و با مرورگر باز کنید (یا از پیش‌نمایش زندهٔ همین محیط استفاده کنید).
 
@@ -17,9 +18,9 @@
 
 | بسته | حجم | SHA-256 |
 |---|---|---|
-| `artifacts/javan-final-files.zip` | ۱۱۵٬۷۲۸ بایت | `a7191504c220f7e9f22e1adb39c7dd94aa6998d4318d2f761485c4a64c26f79f` |
+| `artifacts/javan-final-files.zip` | ۱۴۰٬۳۵۸ بایت | `da0d55ad365f00c0d46281ace7643ee90e805981d91cf881923c105f1022597d` |
 
-ساختار: `00-START-HERE.txt` + `01-upload-to-theme/` (۵ فایل) + `02-restore-if-needed/` (نسخهٔ قبلی دو فایل مهم) + `03-docs/` (مستندهای فارسی) + `04-preview/` (دو پیش‌نمایش HTML با جست‌وجوی زنده و حالت شب).
+ساختار: `00-START-HERE.txt` + `01-upload-to-theme/` (۵ فایل) + `02-restore-if-needed/` (نسخهٔ اصلی سه فایل مهم + راهنما) + `03-docs/` (مستندهای فارسی) + `04-preview/` (سه پیش‌نمایش HTML: کاور، فهرست هنرمندان، صفحهٔ خواننده).
 
 ## ۲) پنج فایلی که روی قالب گذاشته می‌شوند
 
@@ -28,7 +29,7 @@
 ```
 wp-content/themes/<پوشهٔ قالب فعال>/
 ├── artist-template.php   ← صفحهٔ «همهٔ هنرمندان» (/singers/)   [جدید]
-├── taxonomy-singer.php   ← صفحهٔ اختصاصی هر خواننده
+├── taxonomy-singer.php   ← صفحهٔ اختصاصی هر خواننده (نسخهٔ ۲)
 ├── single.php            ← نوشتهٔ آهنگ (کاور، متن ترانه، دانلود)
 ├── myfunctions.php       ← شبکهٔ ایمنی singer (پیش‌فرض خاموش)
 └── style.css             ← استایل‌ها (بلوک ۱۵ = فهرست هنرمندان)
@@ -37,28 +38,29 @@ wp-content/themes/<پوشهٔ قالب فعال>/
 | فایل | مسیر در مخزن | حجم | SHA-256 |
 |---|---|---|---|
 | `artist-template.php` | `cover-post/artist-template.php` | ۳۶٬۱۰۸ | `75af3626de039f9df1ff23534897159e624cd811bfd0ba55ad43b8f73814a9dc` |
-| `taxonomy-singer.php` | `cover-post/taxonomy-singer.php` | ۱۰٬۹۲۰ | `9702a9f884884a41fa75ea13ec5045198d2734b49ef3b2e836ff818486c0a035` |
+| `taxonomy-singer.php` | `cover-post/taxonomy-singer.php` | ۲۹٬۴۴۶ | `938896a9417948c4633746207132a9fe8ef91d12647f121f6ddb14648ba8dea3` |
 | `single.php` | `cover-post/single.php` | ۳۲٬۵۶۱ | `19a7d90d25ecd2a26cc84c6badd2bb674dd30dd1d09737b44cd6135a2e3080f8` |
 | `myfunctions.php` | `cover-post/myfunctions.php` | ۲۲٬۶۸۱ | `f75591d36ea716494cfcee608ff528617fcc8969747e86e3cb22b3642ae8f6a9` |
-| `style.css` | `cover-post/style.css` | ۷۷٬۹۰۸ | `32f0bd0df454a0019988b9f54f882d73170b7444ec9c2832eb592c5c269e30a7` |
+| `style.css` | `cover-post/style.css` | ۸۰٬۷۱۰ | `413aa5d8d6c37e6cfc88f48781e20e498a3fd7cea96abcfaecdc395b74da5808` |
 
-نسخهٔ آمادهٔ آپلود همین پنج فایل، بدون پوشهٔ اضافه: `artifacts/cover-post-replacements.zip` (۴۴٬۰۴۲ بایت، `1535435945afafc491cb737fc60ad2afbfcb99263acbecbd62594806a5fff051`) — محتوای این بسته **بی‌پوشه** است تا مستقیم داخل پوشهٔ قالب باز شود.
+نسخهٔ آمادهٔ آپلود همین پنج فایل، بدون پوشهٔ اضافه: `artifacts/cover-post-replacements.zip` (۴۸٬۷۹۰ بایت، `560e616d73e680d53122af3c0b0eb6602d6763edd1d3a734dd9b66b6ce3405fd`) — محتوای این بسته **بی‌پوشه** است تا مستقیم داخل پوشهٔ قالب باز شود.
 
 ## ۳) بستهٔ بازگشت (اگر چیزی خراب شد)
 
 | بسته | حجم | SHA-256 | محتوا |
 |---|---|---|---|
-| `artifacts/restore-original-files.zip` | ۵٬۲۲۶ بایت | `63e05485902bbbafd6cccd40798316041a5e4fb6c7eae94c965d92be10ea5606` | `myfunctions.php` و `artist-template.php` **قبل از تغییرات ما** + راهنما |
+| `artifacts/restore-original-files.zip` | ۶٬۸۰۸ بایت | `9870a950c04cb9ee975a1090ed7e49deb27065a00cb00b845fe50ac0c678dd29` | `myfunctions.php` (۹٬۶۳۰) و `artist-template.php` (۲٬۸۴۴) و `taxonomy-singer.php` (۶٬۳۷۷) **قبل از تغییرات ما** + راهنما |
 
 - اگر بخشی از سایت یا مسیریابی به‌هم ریخت → فقط `myfunctions.php` قبلی را برگردانید.
 - اگر ظاهر/رفتار صفحهٔ `/singers/` مطابق میل نبود → فقط `artist-template.php` قبلی را برگردانید (بلوک CSS انتهای `style.css` بی‌اثر می‌ماند؛ می‌توانید پاکش کنید).
-- `single.php`، `style.css` و `taxonomy-singer.php` مسیریابی را تغییر نمی‌دهند.
+- اگر صفحهٔ `/singer/<اسلاگ>/` مطابق میل نبود → `taxonomy-singer.php` اصلی را برگردانید (یا فایل را حذف کنید).
+- `single.php` و `style.css` مسیریابی را تغییر نمی‌دهند.
 
 ## ۴) بستهٔ کامل قالب (فقط برای نصب از صفر یا تست)
 
 | بسته | حجم | SHA-256 | محتوا |
 |---|---|---|---|
-| `artifacts/taranehyar-1.0.0-test-build.zip` | ۱٬۶۰۹٬۱۲۴ بایت | `0067a1fdd950babc20a7ed8b4dd50c94d437530af30eb0e0cc150b6fccd63d45` | ۱۰۴ فایل زیر یک ریشهٔ `taranehyar/` |
+| `artifacts/taranehyar-1.0.0-test-build.zip` | ۱٬۶۱۴٬۴۲۱ بایت | `024ab6f8cb2984dd145be0d878985eb499fee3b65cd74782473770db7bc1bc82` | ۱۰۴ فایل زیر یک ریشهٔ `taranehyar/` |
 
 هشدار: این بسته کل قالب را جای‌گزین می‌کند؛ اگر روی قالب فعال خودتان تغییر شخصی داده‌اید، فقط پنج فایل بخش ۲ را بگذارید.
 
@@ -68,7 +70,7 @@ wp-content/themes/<پوشهٔ قالب فعال>/
 2. پنج فایل بخش ۲ را جای‌گزین کنید (دسترسی `644`).
 3. کش پلاگین کش/CDN را پاک کنید.
 4. یک بار پیشخوان را باز کنید.
-5. تست کنید: `/singers/` (فهرست الفبا، جست‌وجو، `?letter=ب`)، یک صفحهٔ `/singer/<اسلاگ>/`، و یک نوشتهٔ آهنگ.
+5. تست کنید: `/singers/` (فهرست الفبا، جست‌وجو، `?letter=ب`)، یک صفحهٔ `/singer/<اسلاگ>/` (نوار ترتیب و `?sort=title`)، و یک نوشتهٔ آهنگ.
 
 ## ۶) گزارش‌های تشخیصی (فقط با حساب مدیر)
 
@@ -76,3 +78,4 @@ wp-content/themes/<پوشهٔ قالب فعال>/
 |---|---|
 | `/singers/?ab_artists_diag=1` | فایل قالب در حال اجرا، قالب ثبت‌شدهٔ برگه، وجود تاکسونومی، تعداد ترم‌ها، تعداد در هر حرف، نمونهٔ لینک‌ها |
 | `/singer/<اسلاگ>/?ab_singer_diag=1` | ۴۰۴ بودن، قانون rewrite مطابق‌شده، نوع آبجکت درخواست، وضعیت تاکسونومی |
+| `/singer/<اسلاگ>/?ab_artist_diag=1` | قالب اجراشده، ترم، تصویر `aimg2`، پر/خالی بودن توضیحات، تعداد نوشته‌ها، مقدار `musics_type` و `song` ۲۵ نوشتهٔ اول |

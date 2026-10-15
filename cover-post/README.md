@@ -220,6 +220,8 @@ https://ahangban.ir/singer/mohsen-yaganeh
 
 **۴) بازگشت به عقب (اگر لازم شد):** فایل قبلی `myfunctions.php` را برگردانید (یا فقط بلوک انتهای فایل را پاک کنید) و اگر نسخهٔ قبلی `taxonomy-singer.php` را داشتید همان را بگذارید. برای راحتی، `artifacts/restore-original-files.zip` نسخهٔ قبلی `myfunctions.php` و `artist-template.php` را با راهنمای نصب در خود دارد. `style.css` و `single.php` هیچ ربطی به مسیریابی `singer` ندارند.
 
+**۵) نسخهٔ ۲ صفحهٔ خواننده:** `taxonomy-singer.php` حالا سرتیتر پروفایل کامل‌تر (شمارش دسته‌ها + «آخرین به‌روزرسانی» + متن معرفی از توضیحات ترم)، **نوار ترتیب آثار** (`?sort=new|old|title`)، **«خواننده‌های مشابه»**، نشان تعداد هر بخش، لینک بازگشت به فهرست الفبایی و داده‌ساختاریافتهٔ `MusicGroup` + `ItemList` دارد. راهنمای خط‌به‌خط: `docs/ARTIST-PAGE.md` · پیش‌نمایش: `preview/artist.html` · گزارش: `?ab_artist_diag=1`.
+
 راه‌حل دستی مکمل: پیشخوان ← تنظیمات ← پیوندهای یکتا ← ذخیرهٔ تغییرات (یک‌بار).
 
 جزئیات کامل در `docs/SINGER-ARCHIVE-DIAGNOSIS.md`.

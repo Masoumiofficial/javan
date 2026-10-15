@@ -1,5 +1,19 @@
 # Changelog
 
+## Unreleased ８ — 2026-10-15 — Artist page, version 2 (`taxonomy-singer.php`)
+
+- **Sort bar with real URLs**: `?sort=new` (default) / `?sort=old` / `?sort=title` (Persian-aware alphabetical ordering by the `song` field, falling back to the post title); sort variants are `noindex`.
+- **Richer profile header**: "n items on this page" plus "last updated: …" (`get_the_date`) alongside the existing image, social links and per-bucket counts.
+- **Directory links** under the profile: "all artists (A–Z directory)" and "artists starting with «X»" (deep link to that letter inside `/singers/`; the directory URL is discovered from the `artist-template.php` page template).
+- **"Similar artists"** block based on shared posts, up to 8 (configurable), rendered as linked chips with item counts.
+- **Per-bucket count badge** next to each section heading.
+- **Structured data**: `MusicGroup` (name, image, description from the term description) plus an `ItemList` of items (up to 100) encoded with `JSON_UNESCAPED_UNICODE`.
+- **Admin diagnostic** `?ab_artist_diag=1` prints the template file in use, the term and its link, whether `aimg2` exists, whether the term description is filled, and the `musics_type` / `song` values of the first 25 posts.
+- Filter `javanseda_artist_page_config` controls sorting / similar artists / meta / directory links / schema size.
+- Static preview at `cover-post/preview/artist.html` using the real theme stylesheet.
+- **Performance**: one `update_postmeta_cache` primes all post meta before bucketing and sorting (previously per post).
+- All legacy CSS classes, the three-way bucketing and the previous filters are untouched; no taxonomy registration, rewrite change or global hook was added.
+
 ## Unreleased ７ — 2026-10-15 — Alphabetical artist directory (`/singers/`)
 
 - **`artist-template.php` rewritten** (the same "خواننده ها" page template that renders `/singers/`): true Persian alphabetical ordering (ی/ي, ک/ك, آ/أ/إ/ا, ة/ۀ/ه, diacritics, tatweel and ZWNJ normalised before sorting), per-letter grouping, an alphabet bar with per-letter counts and `#letter-…` anchors.
