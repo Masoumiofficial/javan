@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased ６ — 2026-10-15 — White page background + singer archive fix
+
+- **Page background reverted to plain white** (`--ab-page: #FFFFFF`); the light blue (`--ab-blue-soft`) now only paints accents (lyrics-box header, chips, secondary buttons). Seven legacy blue-tinted shadows `rgba(28,76,156,.1)` were swapped for a neutral `rgba(17,17,17,.08)` so white cards read cleanly on the white canvas.
+- **Fixed why the singer archive stopped rendering.** Two proven causes in readable code:
+  1. `taxonomy-singer.php` ran six queries with exact `meta_query` matches on `musics_type = mp3|mp4|album`; when stored values differed (labels, uppercase, `آهنگ`, another key), every section rendered empty and the page showed only the artist header. The template now runs a single query, normalises the value, understands synonyms and shows unknown values under «سایر موارد» — nothing is silently hidden — plus a real empty state and a guard for an invalid term.
+  2. The `singer` taxonomy is registered nowhere in readable code (it lives in the ionCube-protected `functions.php`). `myfunctions.php` now ships a safety net: fallback registration when missing, forcing `public`/`publicly_queryable` when hidden, and a one-time versioned rewrite flush (soft, no `.htaccess` write).
+- Added an admin-only diagnostic: `?ab_singer_diag=1` and `?ab_singer_diag=1&ab_singer_term=<slug|name>`, printing taxonomy existence/args, term count, `term_link` health, per-artist post counts and the `musics_type` histogram.
+- Added filters `javanseda_artist_type_map`, `javanseda_artist_type_labels`, `javanseda_artist_posts_limit`.
+- `docs/SINGER-ARCHIVE-DIAGNOSIS.md` documents causes, evidence, the diagnostic procedure and residual limitations. Not verified on a live WordPress.
+
 ## Unreleased ５ — 2026-10-15 — Corporate palette redesign (flat, no gradients)
 
 - Added a colour token system at the top of `style.css`: `:root` and `.night` define `--ab-blue #185ADB` (Ahangban blue), `--ab-blue-dark #1246AD`, `--ab-blue-soft #EAF1FE` (light blue), `--ab-ink #111111`, `--ab-charcoal #222222`, `--ab-surface/--ab-white #FFFFFF`, plus `--ab-page`, `--ab-text`, `--ab-line` and `--ab-shadow`.

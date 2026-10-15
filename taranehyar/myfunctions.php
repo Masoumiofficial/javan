@@ -200,3 +200,205 @@ do_action( 'comment_form_after_fields' ); ?>
 <?php
 }
 ?>
+
+<?php
+/* ==================================================================================
+   شبکهٔ ایمنی «صفحهٔ خواننده» (تاکسونومی singer)
+   ----------------------------------------------------------------------------------
+   مشکل گزارش‌شده: صفحهٔ /singer/... دیگر نمایش داده نمی‌شود.
+   این تاکسونومی در فایل رمزگذاری‌شدهٔ functions.php ثبت می‌شود، پس اگر آن ثبت انجام
+   نشود (یا با تنظیمات غیرعمومی ثبت شده باشد) آدرس‌های /singer/... خطای ۴۰۴ می‌دهند.
+   این بلوک بدون دست‌زدن به رفتار قالب، سه چیز را تضمین می‌کند:
+
+     ۱) اگر تاکسونومی singer ثبت نشده باشد، همان را با تنظیمات درست ثبت می‌کند.
+     ۲) اگر ثبت شده ولی عمومی/قابل‌کوئری نباشد، همان دو ویژگی را روشن می‌کند.
+     ۳) یک‌بار قوانین پیوند یکتا (rewrite) را بازسازی می‌کند تا آدرس‌های قدیمی ۴۰۴ نشوند.
+
+   خاموش کردن: ثابت زیر را true کنید.
+   تشخیص: با حساب مدیر وارد شوید و آدرس زیر را باز کنید:
+          ?ab_singer_diag=1                 گزارش کلی
+          ?ab_singer_diag=1&ab_singer_term=mohsen-yeganeh   گزارش یک خواننده
+   ================================================================================== */
+
+if ( ! defined( 'JAVANSEDA_SINGER_FIX_OFF' ) ) {
+	define( 'JAVANSEDA_SINGER_FIX_OFF', false );
+}
+
+if ( ! JAVANSEDA_SINGER_FIX_OFF ) {
+
+	/* ۱) ثبت جایگزین تاکسونومی — فقط اگر واقعاً ثبت نشده باشد */
+	add_action(
+		'init',
+		function () {
+			if ( taxonomy_exists( 'singer' ) ) {
+				return;
+			}
+			register_taxonomy(
+				'singer',
+				array( 'post' ),
+				array(
+					'labels'             => array(
+						'name'          => 'خواننده‌ها',
+						'singular_name' => 'خواننده',
+						'menu_name'     => 'خواننده‌ها',
+					),
+					'public'             => true,
+					'publicly_queryable' => true,
+					'hierarchical'       => false,
+					'show_ui'            => true,
+					'show_admin_column'  => true,
+					'show_in_rest'       => true,
+					'rewrite'            => array(
+						'slug'       => 'singer',
+						'with_front' => false,
+					),
+				)
+			);
+		},
+		5
+	);
+
+	/* ۲) اگر تاکسونومی هست ولی پنهان/غیرقابل‌کوئری است، درستش کن (بدون تغییر اسلاگ دلخواه) */
+	add_filter(
+		'register_taxonomy_args',
+		function ( $args, $taxonomy ) {
+			if ( 'singer' !== $taxonomy ) {
+				return $args;
+			}
+			if ( empty( $args['public'] ) ) {
+				$args['public'] = true;
+			}
+			if ( empty( $args['publicly_queryable'] ) ) {
+				$args['publicly_queryable'] = true;
+			}
+			if ( empty( $args['rewrite'] ) ) {
+				$args['rewrite'] = array(
+					'slug'       => 'singer',
+					'with_front' => false,
+				);
+			}
+			return $args;
+		},
+		10,
+		2
+	);
+
+	/* ۳) بازسازی یک‌بارهٔ قوانین پیوند یکتا (فقط وقتی خودِ تاکسونومی موجود است) */
+	add_action(
+		'admin_init',
+		function () {
+			if ( ! taxonomy_exists( 'singer' ) ) {
+				return;
+			}
+			$version = '1.0.0';
+			if ( get_option( 'javanseda_singer_rewrite_version' ) === $version ) {
+				return;
+			}
+			flush_rewrite_rules( false ); // بازسازی نرم؛ فایل .htaccess دست‌کاری نمی‌شود
+			update_option( 'javanseda_singer_rewrite_version', $version );
+		}
+	);
+
+	/* ۴) گزارش تشخیصی مخصوص مدیر */
+	add_action(
+		'template_redirect',
+		function () {
+			if ( empty( $_GET['ab_singer_diag'] ) || ! current_user_can( 'manage_options' ) ) {
+				return;
+			}
+
+			nocache_headers();
+			header( 'Content-Type: text/plain; charset=utf-8' );
+
+			$lines   = array();
+			$lines[] = '=== Javanseda / TaranehYar — گزارش تشخیص صفحهٔ خواننده ===';
+			$lines[] = 'WordPress: ' . get_bloginfo( 'version' ) . ' | PHP: ' . PHP_VERSION;
+			$lines[] = 'Theme: ' . wp_get_theme()->get( 'Name' ) . ' ' . wp_get_theme()->get( 'Version' );
+			$lines[] = 'home_url: ' . home_url( '/' ) . ' | permalink: ' . (string) get_option( 'permalink_structure' );
+			$lines[] = '';
+
+			$exists  = taxonomy_exists( 'singer' );
+			$lines[] = 'taxonomy_exists(singer): ' . ( $exists ? 'YES' : 'NO  <-- علت ۴۰۴ شدن آدرس‌ها' );
+
+			if ( $exists ) {
+				$object = get_taxonomy( 'singer' );
+				$lines[] = 'public: ' . ( $object->public ? 'yes' : 'NO' ) . ' | publicly_queryable: ' . ( $object->publicly_queryable ? 'yes' : 'NO' );
+				$lines[] = 'hierarchical: ' . ( $object->hierarchical ? 'yes' : 'no' ) . ' | show_in_rest: ' . ( $object->show_in_rest ? 'yes' : 'no' );
+				$lines[] = 'rewrite: ' . wp_json_encode( $object->rewrite, JSON_UNESCAPED_UNICODE );
+				$lines[] = 'object_type: ' . wp_json_encode( $object->object_type );
+				$lines[] = 'rewrite slug موجود در قوانین: ' . ( get_option( 'permalink_structure' ) ? 'بله' : 'ساختار ساده' );
+			}
+
+			$lines[]  = '';
+			$lines[]  = 'تاکسونومی‌های ثبت‌شده: ' . implode( ', ', array_keys( get_taxonomies( array(), 'names' ) ) );
+			$all      = get_terms( array( 'taxonomy' => 'singer', 'hide_empty' => false, 'number' => 5 ) );
+			$total    = wp_count_terms( array( 'taxonomy' => 'singer', 'hide_empty' => false ) );
+			$lines[]  = 'تعداد ترم‌های singer: ' . ( is_wp_error( $total ) ? 'WP_Error: ' . $total->get_error_message() : $total );
+			if ( is_wp_error( $all ) ) {
+				$lines[] = 'get_terms خطا: ' . $all->get_error_message();
+			} elseif ( is_array( $all ) ) {
+				$lines[] = 'نمونه ترم‌ها:';
+				foreach ( $all as $sample ) {
+					$link    = get_term_link( $sample );
+					$lines[] = '   - ' . $sample->name . ' | slug: ' . $sample->slug . ' | count: ' . $sample->count . ' | ' . ( is_wp_error( $link ) ? 'لینک خطا: ' . $link->get_error_message() : $link );
+				}
+			}
+
+			$needle = isset( $_GET['ab_singer_term'] ) ? sanitize_text_field( wp_unslash( $_GET['ab_singer_term'] ) ) : '';
+			if ( '' !== $needle ) {
+				$lines[] = '';
+				$lines[] = '--- بررسی ترم: ' . $needle . ' ---';
+				$term    = get_term_by( 'slug', sanitize_title( $needle ), 'singer' );
+				if ( ! $term ) {
+					$term = get_term_by( 'name', $needle, 'singer' );
+				}
+				if ( ! $term || is_wp_error( $term ) ) {
+					$lines[] = 'ترمی با این اسلاگ/نام در singer پیدا نشد.';
+					$tag     = get_term_by( 'name', $needle, 'post_tag' );
+					if ( $tag && ! is_wp_error( $tag ) ) {
+						$lines[] = 'اما برچسبی با همین نام وجود دارد: ' . get_term_link( $tag ) . ' (count: ' . $tag->count . ')';
+						$lines[] = 'یعنی این سایت آرتیست‌ها را با «برچسب» نگه می‌دارد؛ برای آرشیو singer باید ترم ساخته شود یا نوشته‌ها به آن وصل شوند.';
+					}
+				} else {
+					$link    = get_term_link( $term );
+					$lines[] = 'term_id: ' . $term->term_id . ' | name: ' . $term->name . ' | slug: ' . $term->slug . ' | count: ' . $term->count;
+					$lines[] = 'term_link: ' . ( is_wp_error( $link ) ? 'WP_Error: ' . $link->get_error_message() : $link );
+
+					$histogram = array();
+					$posts     = get_posts(
+						array(
+							'post_type'      => 'post',
+							'post_status'    => 'publish',
+							'posts_per_page' => -1,
+							'fields'         => 'ids',
+							'tax_query'      => array(
+								array(
+									'taxonomy' => 'singer',
+									'field'    => 'term_id',
+									'terms'    => $term->term_id,
+								),
+							),
+						)
+					);
+					$lines[] = 'تعداد نوشته‌های این ترم: ' . count( $posts );
+					foreach ( $posts as $post_id ) {
+						$raw = get_post_meta( $post_id, 'musics_type', true );
+						$key = is_scalar( $raw ) ? (string) $raw : '';
+						if ( '' === $key ) {
+							$key = '(خالی)';
+						}
+						$histogram[ $key ] = isset( $histogram[ $key ] ) ? $histogram[ $key ] + 1 : 1;
+					}
+					$lines[] = 'پرتکرارترین مقدارهای musics_type: ' . ( $histogram ? wp_json_encode( $histogram, JSON_UNESCAPED_UNICODE ) : 'هیچ' );
+				}
+			}
+
+			$lines[] = '';
+			$lines[] = 'پایان گزارش.';
+			echo esc_html( implode( "
+", $lines ) ); // خروجی متنی ساده
+			exit;
+		},
+		0
+	);
+}

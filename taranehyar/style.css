@@ -13,7 +13,8 @@ Domain Path: /languages
   --------------------------------------------------------------------------
   آبی آهنگ‌بان      #185ADB      →  --ab-blue       (رنگ اصلی/تأکیدی)
   آبی تیره (هاور)   #1246AD      →  --ab-blue-dark
-  آبی کم‌رنگ        #EAF1FE      →  --ab-blue-soft  (پس‌زمینهٔ صفحه، چیپ‌ها، دکمهٔ ثانویه)
+  آبی کم‌رنگ        #EAF1FE      →  --ab-blue-soft  (هدر باکس ترانه، چیپ‌ها، دکمهٔ ثانویه)
+  پس‌زمینهٔ صفحه     #FFFFFF      →  --ab-page       (سفید ساده و استاندارد؛ بدون آبی کمرنگ)
   مشکی              #111111      →  --ab-ink        (پس‌زمینهٔ حالت شب)
   زغالی             #222222      →  --ab-charcoal   (کارت‌های حالت شب)
   سفید              #FFFFFF      →  --ab-white / --ab-surface
@@ -29,7 +30,7 @@ Domain Path: /languages
 --ab-ink: #111111;
 --ab-charcoal: #222222;
 --ab-white: #FFFFFF;
---ab-page: #EAF1FE;
+--ab-page: #FFFFFF;
 --ab-surface: #FFFFFF;
 --ab-text: #222222;
 --ab-muted: #555555;
@@ -243,7 +244,7 @@ border-radius: 5px;}
 .song_boxs_posts ul{margin: 0 -15px;}
 .song_boxs_posts ul li{width: 16.66%;height: auto;padding: 15px;float: right;}
 .songs_post{width: 100%;position: relative;height: 265px;background: #fff;
-box-shadow: 0 6px 20px rgba(28,76,156,.1);border-radius: 7px;transition: all 0.3s ease-in-out;-moz-transition: all 0.3s ease-in-out;-webkit-transition: all 0.3s ease-in-out;}
+box-shadow: 0 6px 20px rgba(17,17,17,.08);border-radius: 7px;transition: all 0.3s ease-in-out;-moz-transition: all 0.3s ease-in-out;-webkit-transition: all 0.3s ease-in-out;}
 .songs_post header figure{margin-bottom: 10px;}
 .songs_post header figure img{width:100%;border-radius: 5px 5px 0 0;}
 .songs_post header figure a{display: block;line-height: 0;}
@@ -824,7 +825,7 @@ display: inline-block;margin: auto;float: none;}
 .social_ftb{margin-bottom: 10px;}
 
 .top_page{position: fixed;left: 10px;bottom: 10px;width: 40px;height: 40px;line-height: 35px;
-background: #fff;border-radius: 5px;box-shadow: 0 6px 20px rgba(28,76,156,.1);
+background: #fff;border-radius: 5px;box-shadow: 0 6px 20px rgba(17,17,17,.08);
 font-size: 30px;text-align: center;cursor: pointer;display: none;z-index: 999999;
 transition:all 0.3s ease-in-out;}
 .top_page .icofont-thin-up{display: block;margin-top: 4px;}
@@ -925,7 +926,7 @@ border-radius:7px;-webkit-transform: translateY(-50%);transform: translateY(-50%
   display: inline-block !important;
 }
 
-#index_music_player{box-shadow: 0 6px 20px rgba(28,76,156,.1);background: #fff;border-radius: 7px;}
+#index_music_player{box-shadow: 0 6px 20px rgba(17,17,17,.08);background: #fff;border-radius: 7px;}
 .music_box_player {width:100%;height:80px;font-size:1em;margin:0 auto;padding:15px;margin:30px 0;position: relative;}
 .music_box_player .player {
   height: 60px;
@@ -1043,7 +1044,7 @@ border-radius:7px;-webkit-transform: translateY(-50%);transform: translateY(-50%
   width: 300px;
 position: absolute;left: 0;top: 75px;
 z-index: 888;
-background: #fff;box-shadow: 0 6px 20px rgba(28,76,156,.1);
+background: #fff;box-shadow: 0 6px 20px rgba(17,17,17,.08);
 border-radius:0 0 7px 7px;
 padding: 0 10px 10px 10px;
 }
@@ -1233,10 +1234,10 @@ height: 10px;
 
 #left_side{width: 23.5%;height:auto;position:relative;float: left;}
 .related_posts{width: 100%;background:#fff;margin-bottom:20px;padding: 20px;
-border-radius:7px;box-shadow: 0 6px 20px rgba(28,76,156,.1);}
+border-radius:7px;box-shadow: 0 6px 20px rgba(17,17,17,.08);}
 .single_posts_right{width: 75%;height: auto;margin: 0;float: right;position: relative;}
 .single_posts{width: 100%;height: auto;padding: 20px;position: relative;background: #fff;
-margin-bottom: 20px;border-radius: 7px;box-shadow: 0 6px 20px rgba(28,76,156,.1);}
+margin-bottom: 20px;border-radius: 7px;box-shadow: 0 6px 20px rgba(17,17,17,.08);}
 .last_item_c{margin-bottom: 0;}
 .rkianoosh_comment_box{border-bottom: 0;}
 .tarlanweb_post_box header{margin: 5px 0 10px 0;clear: both;}
@@ -1491,7 +1492,7 @@ background: rgba(167,167,167,.3);border-radius: 5px;}
 .artists_imsf .socials_box{width: 100%;}
 .artists_imsf .socials_box a{display: inline-block;margin: 5px;}
 .artist_box_tarlanweb{width: 100%;height: auto;padding: 20px;margin-bottom: 30px;background: #fff;
-box-shadow: 0 6px 20px rgba(28,76,156,.1);border-radius: 5px;}
+box-shadow: 0 6px 20px rgba(17,17,17,.08);border-radius: 5px;}
 .artist_box_detss{overflow: hidden;position: relative;}
 .artists_imsf{width: 200px;height: auto;float: right;margin-left: 20px;text-align: center;}
 .artists_imsf img{border-radius: 5px;}
