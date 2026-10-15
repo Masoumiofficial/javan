@@ -12,6 +12,7 @@
 - نوشته‌های بدون تصویر شاخص هیچ چیز اضافه‌ای نمایش نمی‌دهند؛ جای‌گزین `nomusics.jpg` عمداً در این بخش استفاده نشده است.
 - اگر همان تصویر قبلاً داخل متن توضیحات درج شده باشد، دو بار نمایش داده می‌شود و باید تصویر دستی از متن حذف شود.
 - بستهٔ آزمون `artifacts/taranehyar-1.0.0-test-build.zip` با این تغییر بازسازی شد (SHA-256 در `docs/TEST-REPORT.md` به‌روز شد).
+- پوشهٔ `cover-post/` اضافه شد: سه فایل جایگزین (`single.php`, `style.css`, `myfunctions.php`) که فقط روی فایل‌های اصلی قالب (بدون تغییرات امنیتی/هویتی TaranehYar) ساخته شده‌اند تا کاربر بتواند فقط همین قابلیت را نصب کند. توضیحات در `cover-post/README.md`؛ بستهٔ آمادهٔ دانلود: `artifacts/cover-post-replacements.zip` (SHA-256: `fa265e32b7db5d1578a489f3858e8ff76a2238ed95fa35daaabd2782a066d9f4`).
 
 ## 1.0.0 — 2026-10-12 — Public technical-test build (not a formal release)
 
