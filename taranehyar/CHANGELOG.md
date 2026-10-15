@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — 2026-10-15 — Centered, rounded, animated cover (featured image)
+
+- `single.php`: the automatically printed featured image is now wrapped in `div.single_featured_cover` so it is centered in the content column (the theme's text is right-aligned).
+- `style.css`: the cover block was rewritten. The `figure` shrink-wraps the image (max-width 880px) with `border-radius: 16px` (12px on mobile), a two-layer shadow matching the post card, a fade/rise entrance (`taranehyar_cover_in`) and two CSS-only effects: a 4.5% hover zoom and a single diagonal shine sweep (`taranehyar_cover_shine`).
+- Accessibility: every animation/transition is disabled under `prefers-reduced-motion: reduce`; a matching `body.night` shadow was added.
+- Posts without a featured image still render nothing extra; the `nomusics.jpg` placeholder is intentionally not used here.
+- Static preview (light + night, hover effects) added at `../cover-post/preview/index.html`.
+
 ## Unreleased — 2026-10-15 — Automatic featured image in the description area
 
 - `single.php`: the post's featured image (when set) is now printed automatically at the top of the description/content area, before `the_content()`, inside `<figure class="single_featured_image">`. It no longer has to be inserted into the post content by hand. The rendered size is controlled by `$taranehyar_featured_size` (`large`, `full`, `thumb1`, `thumb2`).

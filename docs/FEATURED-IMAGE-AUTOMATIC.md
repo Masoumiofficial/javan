@@ -17,9 +17,11 @@
 $taranehyar_featured_size = 'large'; // 'large' | 'full' | 'thumb1' (640×360) | 'thumb2' (190×190)
 if ( has_post_thumbnail() ) {
 	?>
-	<figure class="single_featured_image">
-		<?php the_post_thumbnail( $taranehyar_featured_size, array( 'alt' => get_the_title(), 'title' => get_the_title() ) ); ?>
-	</figure>
+	<div class="single_featured_cover">
+		<figure class="single_featured_image">
+			<?php the_post_thumbnail( $taranehyar_featured_size, array( 'alt' => get_the_title(), 'title' => get_the_title() ) ); ?>
+		</figure>
+	</div>
 	<?php
 } ?>
 
@@ -29,9 +31,28 @@ if ( has_post_thumbnail() ) {
 استایل مربوطه در `taranehyar/style.css` (قاعدهٔ سراسری `img{max-width:100%;height:auto}` از قبل وجود دارد):
 
 ```css
-.single_content_box{position: relative;}
-.single_featured_image{margin: 0 0 20px 0;text-align: center;}
-.single_featured_image img{display: inline-block;max-width: 100%;height: auto;border-radius: 5px;}
+/* کاور وسط‌چین با گوشهٔ گرد ۱۶px و افکت زوم/درخشش — بلوک کامل در cover-post/README.md */
+.single_featured_cover{margin: 0 0 22px 0;text-align: center;}
+.single_featured_image{display: inline-block;position: relative;max-width: 880px;line-height: 0;
+overflow: hidden;border-radius: 16px;vertical-align: top;
+box-shadow: 0 8px 22px rgba(28,76,156,0.14),0 2px 6px rgba(28,76,156,0.08);
+animation: taranehyar_cover_in 0.55s ease-out both;}
+.single_featured_image img{display: block;width: auto;height: auto;max-width: 100%;
+border-radius: inherit;backface-visibility: hidden;
+transition: transform 0.5s cubic-bezier(0.2,0.7,0.3,1),filter 0.5s ease;}
+@keyframes taranehyar_cover_in{from{opacity: 0;transform: translateY(10px) scale(0.985);}to{opacity: 1;transform: none;}}
+.single_featured_image:hover img{transform: scale(1.045);filter: saturate(1.05) brightness(1.02);}
+.single_featured_image::after{content: "";position: absolute;top: -60%;left: -60%;width: 45%;height: 220%;
+pointer-events: none;transform: rotate(20deg) translateX(-260%);
+background: linear-gradient(100deg,rgba(255,255,255,0) 0%,rgba(255,255,255,0.30) 50%,rgba(255,255,255,0) 100%);}
+.single_featured_image:hover::after{animation: taranehyar_cover_shine 0.85s cubic-bezier(0.2,0.7,0.3,1);}
+@keyframes taranehyar_cover_shine{from{transform: rotate(20deg) translateX(-260%);}to{transform: rotate(20deg) translateX(560%);}}
+.night .single_featured_image{box-shadow: 0 8px 22px rgba(0,0,0,0.5);}
+@media (max-width: 767px){.single_featured_cover{margin-bottom: 16px;}.single_featured_image{border-radius: 12px;}}
+@media (prefers-reduced-motion: reduce){
+.single_featured_image,.single_featured_image img,.single_featured_image::after{animation: none !important;transition: none !important;}
+.single_featured_image:hover img{transform: none;}
+}
 ```
 
 نکته: `post-thumbnails` قبلاً در `myfunctions.php` فعال شده است، پس شرط `has_post_thumbnail()` کار می‌کند.
@@ -44,11 +65,11 @@ if ( has_post_thumbnail() ) {
 <?php
 function taranehyar_auto_featured_image_in_content( $content ) {
 	if ( is_singular( 'post' ) && is_main_query() && in_the_loop() && has_post_thumbnail() ) {
-		$image = '<figure class="single_featured_image">' . get_the_post_thumbnail(
+		$image = '<div class="single_featured_cover"><figure class="single_featured_image">' . get_the_post_thumbnail(
 			get_the_ID(),
 			'large',
 			array( 'alt' => get_the_title(), 'title' => get_the_title() )
-		) . '</figure>';
+		) . '</figure></div>';
 		return $image . $content;
 	}
 	return $content;
@@ -70,6 +91,11 @@ add_filter( 'the_content', 'taranehyar_auto_featured_image_in_content', 20 );
 | تصویر مربعی ۱۹۰×۱۹۰ (هم‌اندازهٔ لیست‌ها) | `$taranehyar_featured_size = 'thumb2';` |
 | تصویر ۱۶:۹ (۶۴۰×۳۶۰) | `$taranehyar_featured_size = 'thumb1';` |
 | تصویر بعد از متن توضیحات بیاید | بلوک `has_post_thumbnail()` را به **بعد** از `the_content('')` منتقل کن |
+
+| بدون افکت (فقط وسط‌چین و گرد) | بلوک «AFEKTS» را در `style.css` کامنت کن |
+| کاور کوچک‌تر و وسط‌تر | در `.single_featured_image` مقدار `max-width: 880px` را کم کن (مثلاً `700px`) |
+| گردی گوشه بیشتر | `border-radius: 16px` را به `20px` تغییر بده |
+| کاور یکنواخت ۱۶:۹ | در `.single_featured_image img` این دو خط را اضافه کن: `aspect-ratio: 16 / 9;object-fit: cover;width: 100%;` |
 | تصویر داخل بلوک «متن آهنگ» (`music_text`) بیاید | بلوک را قبل از `<div class="music_textss">` بگذار |
 | در برگه‌ها (`page.php`) هم بیاید | همان بلوک را قبل از `the_content('')` در `page.php` قرار بده |
 | نمایش تصویر جای‌گزین `nomusics.jpg` وقتی تصویر شاخص ندارد | `$image` را در نبود تصویر با `<img src="'.esc_url( get_template_directory_uri() . '/images/nomusics.jpg' ).'">` بساز |
@@ -80,4 +106,5 @@ add_filter( 'the_content', 'taranehyar_auto_featured_image_in_content', 20 );
 - اگر تصویر را قبلاً داخل متن توضیحات گذاشته‌ای، بعد از این تغییر آن را از متن حذف کن تا دوبار تکرار نشود.
 - `alt` و `title` از عنوان نوشته خوانده می‌شوند؛ برای متن جانشین اختصاصی می‌توانی از فیلد ACF خودت استفاده کنی.
 - از آنجا که `myfunctions.php` اندازه‌های `thumb1..thumb4` را ثبت می‌کند، تصاویر آپلودشدهٔ قبلی هم این اندازه‌ها را دارند؛ نیازی به آپلود مجدد نیست.
+- پیش‌نمایش زندهٔ ظاهر و افکت: `cover-post/preview/index.html` (یا پوشهٔ `cover-post/preview` را با یک وب‌سرور ساده باز کن).
 - تست‌های انجام‌شده: تمام ۴۳ فایل PHP خوانا (به‌جز دو فایل محافظت‌شده) با `php-parser` بدون خطا parse شدند و بستهٔ آزمون بازسازی/بررسی CRC شد. اجرای واقعی روی وردپرس هنوز آزمایش نشده است.

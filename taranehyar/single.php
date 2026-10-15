@@ -38,9 +38,11 @@ if(is_plugin_active('kk-star-ratings/index.php')){ echo kk_star_ratings(); } ?>
 $taranehyar_featured_size = 'large';
 if ( has_post_thumbnail() ) {
 	?>
-	<figure class="single_featured_image">
-		<?php the_post_thumbnail( $taranehyar_featured_size, array( 'alt' => get_the_title(), 'title' => get_the_title() ) ); ?>
-	</figure>
+	<div class="single_featured_cover">
+		<figure class="single_featured_image">
+			<?php the_post_thumbnail( $taranehyar_featured_size, array( 'alt' => get_the_title(), 'title' => get_the_title() ) ); ?>
+		</figure>
+	</div>
 	<?php
 } ?>
 

@@ -222,11 +222,11 @@ if ( ! defined( 'JAVANSEDA_COVER_IN_CONTENT' ) ) {
 if ( JAVANSEDA_COVER_IN_CONTENT ) {
 	function javanseda_content_auto_cover( $content ) {
 		if ( is_singular( 'post' ) && is_main_query() && in_the_loop() && has_post_thumbnail() ) {
-			$cover = '<figure class="single_featured_image">' . get_the_post_thumbnail(
+			$cover = '<div class="single_featured_cover"><figure class="single_featured_image">' . get_the_post_thumbnail(
 				get_the_ID(),
 				'large',
 				array( 'alt' => get_the_title(), 'title' => get_the_title() )
-			) . '</figure>';
+			) . '</figure></div>';
 			return $cover . $content;
 		}
 		return $content;

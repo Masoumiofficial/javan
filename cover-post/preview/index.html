@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>پیش‌نمایش کاور پست — وسط‌چین، گوشهٔ گرد، افکت</title>
+<style>
+body{margin:0;padding:26px 14px;background:#f1f1f1;color:#333;font-family:vazir,tahoma,sans-serif;font-size:14px;line-height:25px;direction:rtl;text-align:right;}
+.wrap{max-width:1000px;margin:0 auto;}
+.note{background:#fff;border-radius:7px;padding:14px 18px;margin-bottom:18px;box-shadow:0 6px 20px rgba(28,76,156,.1);}
+.note b{color:#aa2712;}
+.note code{background:rgba(167,167,167,.25);border-radius:4px;padding:1px 5px;direction:ltr;display:inline-block;}
+.mock{background:#fff;border-radius:7px;padding:20px;margin-bottom:22px;box-shadow:0 6px 20px rgba(28,76,156,.1);}
+.mock h2{font-size:17px;font-weight:500;padding-bottom:15px;margin:5px 0 10px;display:inline-block;border-bottom:1px solid #aa2712;}
+.mock p{margin:0 0 12px;}
+.mock.night{background:#1d1d1d;color:#ddd;box-shadow:0 6px 20px rgba(0,0,0,.5);}
+.mock.night h2{color:#fff;}
+.nightrow{background:#111;padding:20px;border-radius:7px;margin-bottom:22px;}
+.nightrow .mock{background:#222;margin:0;box-shadow:none;}
+.nightrow .mock h2{color:#fff;}
+.tip{font-size:13px;color:#666;}
+.nightrow .tip{color:#aaa;}
+/* ---- همان بلوک CSS قالب (کاور پست) ---- */
+/* ---------------------------------------------------------------
+   کاور پست (تصویر شاخص) — وسط‌چین + گوشه‌های گرد استاندارد + افکت
+   قابل تنظیم (فقط عددها را عوض کن):
+   • گردی گوشه‌ها ...... border-radius  ۱۶px   (نرم‌تر: ۲۰px / کمتر: ۱۰px)
+   • حداکثر عرض کاور ... max-width      ۸۸۰px  (کوچک‌تر و «وسط‌تر»: ۷۰۰px)
+   • خاموش کردن افکت‌ها  بلوک «AFEKTS» را کامنت کن
+----------------------------------------------------------------- */
+.single_featured_cover{margin: 0 0 22px 0;text-align: center;}
+.single_featured_image{display: inline-block;position: relative;max-width: 880px;line-height: 0;
+overflow: hidden;border-radius: 16px;vertical-align: top;
+box-shadow: 0 8px 22px rgba(28,76,156,0.14),0 2px 6px rgba(28,76,156,0.08);
+animation: taranehyar_cover_in 0.55s ease-out both;}
+.single_featured_image img{display: block;width: auto;height: auto;max-width: 100%;
+border-radius: inherit;backface-visibility: hidden;
+transition: transform 0.5s cubic-bezier(0.2,0.7,0.3,1),filter 0.5s ease;}
+@keyframes taranehyar_cover_in{from{opacity: 0;transform: translateY(10px) scale(0.985);}to{opacity: 1;transform: none;}}
+/* ----- AFEKTS: افکت ۱ = زوم نرم روی کاور | افکت ۲ = عبور درخشش مورب ----- */
+.single_featured_image:hover img{transform: scale(1.045);filter: saturate(1.05) brightness(1.02);}
+.single_featured_image::after{content: "";position: absolute;top: -60%;left: -60%;width: 45%;height: 220%;
+pointer-events: none;transform: rotate(20deg) translateX(-260%);
+background: linear-gradient(100deg,rgba(255,255,255,0) 0%,rgba(255,255,255,0.30) 50%,rgba(255,255,255,0) 100%);}
+.single_featured_image:hover::after{animation: taranehyar_cover_shine 0.85s cubic-bezier(0.2,0.7,0.3,1);}
+@keyframes taranehyar_cover_shine{from{transform: rotate(20deg) translateX(-260%);}to{transform: rotate(20deg) translateX(560%);}}
+/* ----- پایان AFEKTS ----- */
+.night .single_featured_image{box-shadow: 0 8px 22px rgba(0,0,0,0.5);}
+@media (max-width: 767px){.single_featured_cover{margin-bottom: 16px;}.single_featured_image{border-radius: 12px;}}
+@media (prefers-reduced-motion: reduce){
+.single_featured_image,.single_featured_image img,.single_featured_image::after{animation: none !important;transition: none !important;}
+.single_featured_image:hover img{transform: none;}
+}
+
+/* ---- پایان بلوک قالب ---- */
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="note">
+    <b>پیش‌نمایش زندهٔ کاور پست.</b>
+    <span class="tip">۱) نشانگر موس را روی تصویر ببر ← زوم نرم + عبور درخشش.
+    ۲) صفحه را رفرش کن ← ورود نرم تصویر.
+    ۳) پنجره را باریک کن ← واکنش‌گرایی و گردی گوشهٔ موبایل.</span>
+    <br>تنظیم‌های فعلی: گردی گوشه <code>16px</code> — حداکثر عرض کاور وسط‌چین <code>880px</code> — موبایل <code>12px</code>
+  </div>
+
+  <div class="mock">
+    <h2>دانلود آهنگ جدید (نمونه روشن)</h2>
+    <div class="single_content_box">
+      <div class="single_featured_cover">
+        <figure class="single_featured_image">
+          <img src="sample-cover.jpg" alt="کاور پست نمونه" title="کاور پست نمونه" width="640" height="360">
+        </figure>
+      </div>
+      <p>این همان جای تصویر شاخص است: خودکار، وسط‌چین، با گوشه‌های گرد و سایهٔ ملایم. متن توضیحات بعد از تصویر ادامه پیدا می‌کند و چیدمان به‌هم نمی‌ریزد.</p>
+      <p class="tip">موس را روی تصویر نگه دار تا هر دو افکت را ببینی.</p>
+    </div>
+  </div>
+
+  <div class="nightrow">
+    <div class="mock">
+      <h2>حالت شب قالب (body.night)</h2>
+      <div class="single_content_box">
+        <div class="single_featured_cover">
+          <figure class="single_featured_image">
+            <img src="sample-cover.jpg" alt="کاور پست نمونه" title="کاور پست نمونه" width="640" height="360">
+          </figure>
+        </div>
+        <p class="tip">در تم تاریک، سایه با پس‌زمینهٔ تیره هماهنگ می‌شود.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
