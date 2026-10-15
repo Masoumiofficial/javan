@@ -1677,3 +1677,77 @@ body{padding-top:0;}
 .music_box_player .info-box .track-info-box{top: -10px;}
 
 }
+/* ============================================================================================
+   ۱۵) «صفحهٔ همهٔ هنرمندان» — فهرست الفبایی خواننده‌ها
+   مربوط به فایل قالب: artist-template.php   (برگه‌ای مثل /singers/)
+   همهٔ رنگ‌ها از متغیرهای بالا (--ab-*) می‌آیند، پس حالت شب خودکار درست می‌شود.
+   ============================================================================================ */
+
+.ab-artists{width:100%;height:auto;clear:both;}
+
+/* مقدمهٔ کوتاه بالای فهرست */
+.ab-artists__intro{margin:0 0 12px;font-size:13.5px;line-height:2;color:var(--ab-muted);}
+
+/* نوار ابزار: جست‌وجو + آمار کل */
+.ab-artists__toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:0 0 14px;}
+.ab-artists__search{position:relative;flex:1 1 260px;min-width:220px;display:block;}
+.ab-artists__search input{width:100%;height:44px;padding:0 40px 0 14px;border:1px solid var(--ab-line);
+	border-radius:12px;background:var(--ab-surface);color:var(--ab-text);font-family:inherit;font-size:14px;
+	-webkit-appearance:none;appearance:none;}
+.ab-artists__search input::placeholder{color:var(--ab-muted);opacity:.8;}
+.ab-artists__search input:focus{outline:none;border-color:var(--ab-blue);box-shadow:0 0 0 3px rgba(24,90,219,.16);}
+.ab-artists__search-icon{position:absolute;top:50%;right:16px;transform:translateY(-50%);font-size:16px;color:var(--ab-muted);line-height:1;pointer-events:none;}
+.ab-artists__stats{margin:0;font-size:13px;color:var(--ab-muted);white-space:nowrap;}
+
+/* نوار حروف الفبا */
+.ab-artists__az{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:0 0 18px;padding:10px;
+	background:var(--ab-blue-soft);border-radius:14px;}
+.ab-artists__chip{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;padding:0 10px;
+	border:1px solid var(--ab-line);border-radius:10px;background:var(--ab-surface);color:var(--ab-text);
+	font-size:14px;font-weight:600;line-height:1;text-decoration:none;transition:background .2s, color .2s, border-color .2s;}
+.ab-artists__chip:hover{background:var(--ab-blue);border-color:var(--ab-blue);color:#fff;}
+.ab-artists__chip.is-active{background:var(--ab-blue);border-color:var(--ab-blue);color:#fff;}
+.ab-artists__chip.is-empty,.ab-artists__chip.is-muted{opacity:.35;background:transparent;border-color:transparent;}
+.night .ab-artists__chip{background:var(--ab-surface);color:var(--ab-text);}
+
+/* گروه هر حرف */
+.ab-artists__group{width:100%;height:auto;clear:both;margin:0 0 10px;scroll-margin-top:96px;}
+.ab-artists__letter{display:flex;align-items:center;gap:10px;margin:0 0 6px;padding:8px 12px;font-size:15px;font-weight:700;
+	color:var(--ab-text);background:var(--ab-surface);border-right:3px solid var(--ab-blue);border-radius:12px;
+	box-shadow:var(--ab-shadow);}
+.ab-artists__letter-char{display:inline-flex;align-items:center;justify-content:center;min-width:32px;height:32px;padding:0 6px;
+	border-radius:9px;background:var(--ab-blue-soft);color:var(--ab-blue);font-size:16px;line-height:1;}
+.ab-artists__letter-count{margin-right:auto;font-size:12px;font-weight:400;color:var(--ab-muted);}
+
+/* کارت خواننده */
+.singers_box_tarlanweb li.ab-artist{height:auto;}
+.ab-artist__link{display:block;text-decoration:none;}
+.singers_box_tarlanweb li a .ab-artist__thumb{position:relative;display:block;width:100%;height:auto;line-height:0;
+	border-radius:12px;overflow:hidden;background:var(--ab-blue-soft);}
+.ab-artist__img{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;transition:transform .35s ease;}
+.ab-artist__link:hover .ab-artist__img{transform:scale(1.05);}
+.singers_box_tarlanweb li a .ab-artist__badge{position:absolute;right:8px;bottom:8px;width:auto;height:auto;
+	padding:2px 9px;border-radius:9px;background:rgba(17,17,17,.72);color:#fff;font-size:11px;line-height:20px;font-weight:500;}
+.singers_box_tarlanweb li a .ab-artist__name{display:block;width:100%;height:auto;padding-top:9px;font-size:13px;
+	line-height:1.7;font-weight:600;color:var(--ab-text);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ab-artist__link:hover .ab-artist__name{color:var(--ab-blue);}
+.ab-artist__link:focus-visible .ab-artist__thumb{outline:3px solid var(--ab-blue);outline-offset:2px;}
+
+/* حالت‌های خالی/خطا و پنهان‌سازی در جست‌وجو */
+.is-hidden{display:none !important;}
+.ab-artists__empty,.ab-artists__notice{margin:0 0 16px;padding:14px 16px;border-radius:12px;background:var(--ab-blue-soft);
+	color:var(--ab-text);font-size:14px;line-height:2;}
+.ab-artists__notice p{margin:0 0 6px;}
+.ab-artists__admin{font-size:12px;color:var(--ab-muted);}
+.ab-artists__admin code{background:rgba(24,90,219,.12);padding:2px 6px;border-radius:6px;}
+.ab-artists__top{margin:6px 0 0;text-align:center;font-size:13px;}
+
+/* موبایل */
+@media (max-width: 767px){
+	.ab-artists__group{scroll-margin-top:74px;}
+	.ab-artists__az{gap:4px;padding:8px;border-radius:12px;}
+	.ab-artists__chip{min-width:29px;height:29px;padding:0 7px;font-size:13px;}
+	.ab-artists__toolbar{gap:8px;}
+	.ab-artists__stats{width:100%;text-align:center;}
+	.singers_box_tarlanweb li a .ab-artist__name{font-size:12px;}
+}

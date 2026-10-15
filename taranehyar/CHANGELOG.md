@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased ７ — 2026-10-15 — Alphabetical artist directory (`/singers/`)
+
+- **`artist-template.php` rewritten** (the same "خواننده ها" page template that renders `/singers/`): true Persian alphabetical ordering (ی/ي, ک/ك, آ/أ/إ/ا, ة/ۀ/ه, diacritics, tatweel and ZWNJ normalised before sorting), per-letter grouping, an alphabet bar with per-letter counts and `#letter-…` anchors.
+- **Live client-side artist search** (no server round trip, Persian-aware) and **per-letter permalinks**: `?letter=ب` (shareable and crawlable, works without JavaScript) and `?sort=songs` (most songs first, `noindex`).
+- **Artist card** with an "n songs" badge, `loading="lazy"`, `decoding="async"` and `srcset` when the image comes from the media library; the image comes from the `aimg2` ACF term field, falling back to `images/def-singer.webp`.
+- **SEO/AIO**: a unique `<h1>` per URL, a unique intro sentence and an `ItemList` JSON-LD block (up to 200 entries).
+- **Admin diagnostic**: `/singers/?ab_artists_diag=1` prints the template file in use, the page's registered template, taxonomy/post-type existence, term counts, per-letter counts and sample `term_link`s.
+- Filter `javanseda_artists_config` exposes every setting (taxonomy, `hide_empty`, caps, search, alphabet bar, schema size).
+- New CSS block 15 at the end of `style.css` (cards, alphabet bar, night mode through the `--ab-*` variables, mobile) plus a static preview at `cover-post/preview/artists.html` with sample data.
+- **Performance**: the directory template now runs one `get_terms` call with `update_termmeta_cache` instead of two queries plus per-term meta lookups; pagination (60 per page) only kicks in above the 1200-term cap, otherwise every artist renders in one alphabetically grouped page.
+- This file registers no taxonomy, does not touch rewrites and adds no global hook: it only affects the page whose template is set to "خواننده ها". Rollback = restore the previous file.
+
 ## Unreleased ６ — 2026-10-15 — White page background + singer archive fix
 
 - **Page background reverted to plain white** (`--ab-page: #FFFFFF`); the light blue (`--ab-blue-soft`) now only paints accents (lyrics-box header, chips, secondary buttons). Seven legacy blue-tinted shadows `rgba(28,76,156,.1)` were swapped for a neutral `rgba(17,17,17,.08)` so white cards read cleanly on the white canvas.
