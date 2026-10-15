@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased ۴ — 2026-10-15 — Download heading, guaranteed `singer` link, centred layout
+
+- `single.php`: a shared block now resolves song / artist / artist URL once per view (the duplicated variables inside the lyrics block were removed), so the lyrics box and the new download heading read from the same source.
+- New download heading `<h2 class="dl_title">دانلود {musics_type} {song} از {artist}</h2>` before `div.dl_links_box`, printed only when at least one download field is filled, switchable with `$taranehyar_download_title`. The type comes from `musics_type` (defaults to «آهنگ», so albums read «دانلود آلبوم …»).
+- The "سایر آهنگ‌های …" chip now resolves through the `singer` taxonomy, producing URLs such as `/singer/mohsen-yaganeh`, with these fallbacks: optional ACF `artist_link` field → exact `singer` term name → `singer` slug → fuzzy `name__like` after normalising `ي/ك/ة` and ZWNJ → same-named tag → chip hidden (never a broken or `#` link). A `taranehyar_artist_url` filter was added for manual overrides.
+- Centring/consistency pass: the lyrics header is a centred column (title above, chips below), the action row is `justify-content: center`, download wrappers are centred, download button radius went from `3px` to `10px` to match the 16px cover and 12px lyrics box, and the night header gradient is now `180deg` like the light one.
+- `cover-post/preview/index.html` updated with the centred lyrics box, download heading, rounded download buttons and night mode.
+
 ## Unreleased ۳ — 2026-10-15 — Lyrics box with heading, artist link, copy button and JSON-LD
 
 - `single.php`: `div.music_textss` was replaced by `section.music_lyrics_box` with an `<h2>` heading `متن آهنگ {song} از {artist}` (falls back to the post title), `lang="fa" dir="rtl"`, a chip linking to the artist archive (`singer` term or same-named tag), a copy-to-clipboard button with a "کپی شد" state, and three switches at the top of the block: `$taranehyar_lyrics_position` (`here`/`end`), `$taranehyar_lyrics_schema`, `$taranehyar_artist_type` (`Person`/`MusicGroup`).

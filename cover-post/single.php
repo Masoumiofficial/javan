@@ -46,6 +46,83 @@ if ( has_post_thumbnail() ) {
 	<?php
 } ?>
 
+<?php
+/* ---------- نام آهنگ / خواننده / لینک صفحهٔ خواننده (مشترک بین باکس متن ترانه و تیتر دانلود) ----------
+   لینک خواننده روی تاکسونومی singer ساخته می‌شود؛ مثال: «محسن یگانه» → https://site/singer/mohsen-yaganeh
+   ترتیب جست‌وجو: فیلد اختیاری artist_link روی خود نوشته ← ترم singer با همان نام ← ترم singer با اسلاگ ←
+   جست‌وجوی تقریبی با نرمال‌سازی ي/ك/ة و نیم‌فاصله ← برچسب هم‌نام.
+   در پایان، فیلتر taranehyar_artist_url می‌تواند نتیجه را بازنویسی کند.
+------------------------------------------------------------------------------------------------- */
+$taranehyar_song   = function_exists( 'get_field' ) ? trim( (string) get_field( 'song' ) ) : '';
+$taranehyar_artist = function_exists( 'get_field' ) ? trim( (string) get_field( 'artist' ) ) : '';
+if ( '' === $taranehyar_song ) {
+	$taranehyar_song = get_the_title();
+}
+
+/* برچسب نوع (آهنگ/آلبوم/موزیک ویدیو) از فیلد musics_type؛ پیش‌فرض «آهنگ» */
+$taranehyar_type_raw = function_exists( 'get_field' ) ? get_field( 'musics_type' ) : '';
+$taranehyar_type     = is_scalar( $taranehyar_type_raw ) ? trim( (string) $taranehyar_type_raw ) : '';
+if ( '' === $taranehyar_type ) {
+	$taranehyar_type = 'آهنگ';
+}
+
+$taranehyar_artist_url = '';
+if ( '' !== $taranehyar_artist ) {
+	$taranehyar_custom_link = function_exists( 'get_field' ) ? get_field( 'artist_link' ) : '';
+	if ( is_string( $taranehyar_custom_link ) && '' !== trim( $taranehyar_custom_link ) ) {
+		$taranehyar_artist_url = trim( $taranehyar_custom_link );
+	} else {
+		$taranehyar_lookups = array(
+			array( 'name', $taranehyar_artist, 'singer' ),
+			array( 'slug', sanitize_title( $taranehyar_artist ), 'singer' ),
+		);
+		foreach ( $taranehyar_lookups as $taranehyar_lookup ) {
+			if ( '' === $taranehyar_lookup[1] ) {
+				continue;
+			}
+			$taranehyar_term = get_term_by( $taranehyar_lookup[0], $taranehyar_lookup[1], $taranehyar_lookup[2] );
+			if ( $taranehyar_term && ! is_wp_error( $taranehyar_term ) ) {
+				$taranehyar_term_link = get_term_link( $taranehyar_term );
+				if ( ! is_wp_error( $taranehyar_term_link ) ) {
+					$taranehyar_artist_url = $taranehyar_term_link;
+					break;
+				}
+			}
+		}
+		if ( '' === $taranehyar_artist_url ) {
+			/* جست‌وجوی تقریبی: ی/ي، ک/ك، ه/ة و نیم‌فاصله یکسان‌سازی می‌شوند */
+			$taranehyar_normalize = function ( $value ) {
+				$value = str_replace( array( 'ي', 'ك', 'ة', "\xE2\x80\x8C" ), array( 'ی', 'ک', 'ه', ' ' ), (string) $value ); /* آخری = فاصلهٔ مجازی (ZWNJ) */
+				return trim( preg_replace( '/\s+/u', ' ', $value ) );
+			};
+			$taranehyar_needle = $taranehyar_normalize( $taranehyar_artist );
+			foreach ( array( 'singer', 'post_tag' ) as $taranehyar_tax ) {
+				$taranehyar_matches = get_terms(
+					array(
+						'taxonomy'   => $taranehyar_tax,
+						'hide_empty' => false,
+						'number'     => 20,
+						'name__like' => $taranehyar_needle,
+					)
+				);
+				if ( is_array( $taranehyar_matches ) ) {
+					foreach ( $taranehyar_matches as $taranehyar_match ) {
+						if ( $taranehyar_normalize( $taranehyar_match->name ) === $taranehyar_needle ) {
+							$taranehyar_term_link = get_term_link( $taranehyar_match );
+							if ( ! is_wp_error( $taranehyar_term_link ) ) {
+								$taranehyar_artist_url = $taranehyar_term_link;
+								break 2;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	$taranehyar_artist_url = apply_filters( 'taranehyar_artist_url', $taranehyar_artist_url, $taranehyar_artist );
+}
+?>
+
 <?php the_content(''); ?>
 
 <?php
@@ -75,30 +152,6 @@ if ( is_string( $taranehyar_lyrics_raw ) && '' !== trim( $taranehyar_lyrics_raw 
 	$taranehyar_lyrics_plain = wp_strip_all_tags( str_replace( array( '</p>', '<br />', '<br>', '<br/>' ), "\n", $taranehyar_lyrics_html ) );
 	$taranehyar_lyrics_plain = trim( preg_replace( '/[ \t]+/u', ' ', $taranehyar_lyrics_plain ) );
 	$taranehyar_lyrics_plain = preg_replace( "/\n{3,}/u", "\n\n", $taranehyar_lyrics_plain );
-
-	$taranehyar_song   = function_exists( 'get_field' ) ? trim( (string) get_field( 'song' ) ) : '';
-	$taranehyar_artist = function_exists( 'get_field' ) ? trim( (string) get_field( 'artist' ) ) : '';
-	if ( '' === $taranehyar_song ) {
-		$taranehyar_song = get_the_title();
-	}
-	$taranehyar_lyrics_title = ( '' !== $taranehyar_artist )
-		? sprintf( 'متن آهنگ %1$s از %2$s', $taranehyar_song, $taranehyar_artist )
-		: sprintf( 'متن آهنگ %s', $taranehyar_song );
-
-	/* لینک داخلی صفحهٔ خواننده برای تقویت ارتباط موجودیت‌ها (taxonomy خواننده یا برچسب) */
-	$taranehyar_artist_url = '';
-	if ( '' !== $taranehyar_artist ) {
-		$taranehyar_term = get_term_by( 'name', $taranehyar_artist, 'singer' );
-		if ( ! $taranehyar_term ) {
-			$taranehyar_term = get_term_by( 'name', $taranehyar_artist, 'post_tag' );
-		}
-		if ( $taranehyar_term && ! is_wp_error( $taranehyar_term ) ) {
-			$taranehyar_artist_url = get_term_link( $taranehyar_term );
-			if ( is_wp_error( $taranehyar_artist_url ) ) {
-				$taranehyar_artist_url = '';
-			}
-		}
-	}
 
 	ob_start();
 	?>
@@ -348,6 +401,21 @@ Your browser does not support HTML5 audio.
 <?php endif; ?>
 
 
+<?php
+/* ---------- تیتر بخش دانلود (هدف جست‌وجوی «دانلود آهنگ X از Y») ----------
+   برای خاموش کردن این تیتر، خط زیر را false کنید. */
+$taranehyar_download_title = true;
+if ( $taranehyar_download_title && (
+	get_field( 'music128' ) || get_field( 'music320' ) || get_field( 'album128' ) || get_field( 'album320' ) ||
+	get_field( 'video480' ) || get_field( 'video720' ) || get_field( 'video1080' )
+) ) {
+	?>
+	<h2 class="dl_title">
+		<i class="icofont-download" aria-hidden="true"></i>دانلود <span class="dl_title_type"><?php echo esc_html( $taranehyar_type ); ?></span> <span class="dl_title_song"><?php echo esc_html( $taranehyar_song ); ?></span><?php if ( '' !== $taranehyar_artist ) { ?> از <span class="dl_title_artist"><?php echo esc_html( $taranehyar_artist ); ?></span><?php } ?>
+	</h2>
+	<?php
+}
+?>
 <div class="dl_links_box">
 <?php if(get_field('music128')){ ?> 
 <a class="dl_link_128" href="<?php the_field('music128'); ?>"> <i class="icofont-download"></i>دانلود  آهنگ با کیفیت 128 </a><?php } if(get_field('music320')){ ?>

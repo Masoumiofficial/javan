@@ -2,9 +2,11 @@
 
 این سه فایل، نسخهٔ اصلاح‌شدهٔ همان فایل‌های **اصلی قالب شما** (`javanseda` نسخهٔ ۳.۰، مطابق `javanseda.zip`) هستند. هیچ تغییر دیگری (نام قالب، رنگ‌بندی، Text Domain یا اصلاحات نسخهٔ TaranehYar) روی آن‌ها اعمال نشده است؛ فقط دو قابلیت خواسته‌شده اضافه شده تا جایگزینی بی‌خطر باشد.
 
-دو قابلیت این بسته:
+قابلیت‌های این بسته:
 1. **کاور پست** (تصویر شاخص) خودکار، وسط‌چین، با گوشهٔ گرد و افکت‌های CSS.
-2. **باکس «متن ترانه»** جای `div.music_textss`: تیتر `متن آهنگ {song} از {artist}`، دکمهٔ کپی، لینک صفحهٔ خواننده، حالت شب/موبایل و داده‌ساختاریافتهٔ `MusicRecording` + `MusicComposition`. آنالیز کامل: `docs/LYRICS-BOX-SEO-AIO.md`.
+2. **باکس «متن ترانه»** جای `div.music_textss`: تیتر `متن آهنگ {song} از {artist}`، دکمهٔ کپی، لینک صفحهٔ خواننده روی تاکسونومی `singer`، حالت شب/موبایل و داده‌ساختاریافتهٔ `MusicRecording` + `MusicComposition`. آنالیز کامل: `docs/LYRICS-BOX-SEO-AIO.md`.
+3. **تیتر بخش دانلود** (`<h2 class="dl_title">دانلود آهنگ {song} از {artist}</h2>`) و هم‌سان‌سازی ظاهری بخش دانلود.
+4. همهٔ این بخش‌ها **وسط‌چین** و هم‌خانواده با هم شدند (هدر باکس ترانه، دکمه‌ها، متن ترانه، تیتر دانلود).
 
 فایل‌ها: `single.php` · `style.css` · `myfunctions.php`
 
@@ -115,6 +117,9 @@ $taranehyar_artist_type     = 'Person'; // 'MusicGroup' برای گروه/بند
 | متن ترانه زیر لینک‌های دانلود بیاید | `$taranehyar_lyrics_position = 'end';` |
 | بدون داده‌ساختاریافته | `$taranehyar_lyrics_schema = false;` |
 | خواننده گروه/بند است | `$taranehyar_artist_type = 'MusicGroup';` |
+| لینک دستی صفحهٔ خواننده | فیلد ACF اختیاری `artist_link` را روی نوشته پر کن (اولویت اول است) |
+| بازنویسی برنامه‌ای لینک خواننده | فیلتر `taranehyar_artist_url` (نمونه در `docs/LYRICS-BOX-SEO-AIO.md`) |
+| خاموش کردن تیتر «دانلود …» | `$taranehyar_download_title = false;` |
 | متن ترانه راست‌چین شود | در `.music_lyrics_text` مقدار `text-align: center` → `right` |
 | فونت/فاصلهٔ خط متفاوت | `font-size: 15px` و `line-height: 2.15` را در `.music_lyrics_text` عوض کن |
 | گوشهٔ گرد بیشتر/کمتر | در `.music_lyrics_box` مقدار `border-radius: 12px` |
@@ -126,6 +131,29 @@ $taranehyar_artist_type     = 'Person'; // 'MusicGroup' برای گروه/بند
 - هر دو حالتِ HTML (ویرایشگر) و متن ساده (Textarea) پشتیبانی می‌شود؛ در حالت متن ساده `nl2br` خط‌ها را نگه می‌دارد.
 - اسکیما با `wp_json_encode` و بدون `JSON_UNESCAPED_SLASHES` چاپ می‌شود تا محتوای متن نتواند از تگ `script` بیرون بزند.
 - گوگل برای «متن ترانه» ریچ‌رزالت ندارد؛ ارزش این اسکیما در درک موجودیت و استنادپذیری در پاسخ‌های هوش مصنوعی است (توضیح کامل در `docs/LYRICS-BOX-SEO-AIO.md`).
+
+### لینک «سایر آهنگ‌های …» روی تاکسونومی `singer`
+
+لینک چیپ با `get_term_link()` روی تاکسونومی خواننده ساخته می‌شود؛ یعنی دقیقاً:
+
+```
+https://ahangban.ir/singer/mohsen-yaganeh
+```
+
+ترتیب پیدا کردن ترم: فیلد اختیاری `artist_link` (اگر پر باشد) ← ترم `singer` با همان نام فیلد `artist` ← ترم `singer` با اسلاگ ← جست‌وجوی تقریبی پس از نرمال‌سازی `ي/ك/ة` و نیم‌فاصله ← برچسب هم‌نام ← و اگر چیزی پیدا نشد، چیپ **نمایش داده نمی‌شود** (لینک خراب یا `#` ساخته نمی‌شود). فیلتر `taranehyar_artist_url` هم برای بازنویسی دستی هست.
+
+### تیتر بخش دانلود
+
+```php
+<h2 class="dl_title">
+	<i class="icofont-download" aria-hidden="true"></i>دانلود <span class="dl_title_type">آهنگ</span> <span class="dl_title_song">X</span> از <span class="dl_title_artist">Y</span>
+</h2>
+```
+
+- نوع از فیلد `musics_type` می‌آید؛ اگر خالی باشد «آهنگ» → برای آلبوم‌ها خودکار «دانلود آلبوم X از Y» می‌شود.
+- فقط وقتی چاپ می‌شود که حداقل یکی از فیلدهای `music128/320`، `album128/320` یا `video480/720/1080` پر باشد.
+- خاموش کردن: `$taranehyar_download_title = false;` در همان بلوک `single.php`.
+- هم‌خانواده با بقیهٔ قالب: گوشهٔ دکمه‌های دانلود هم از `3px` به `10px` رسید و همه وسط‌چین شدند.
 
 ---
 

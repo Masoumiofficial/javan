@@ -1241,13 +1241,13 @@ background: linear-gradient(100deg,rgba(255,255,255,0) 0%,rgba(255,255,255,0.30)
 .music_lyrics_box{position: relative;margin: 26px 0 10px 0;background: #fdfdfd;
 border: 1px solid rgba(170,39,18,0.12);border-radius: 12px;overflow: hidden;
 box-shadow: 0 8px 22px rgba(28,76,156,0.08);}
-.music_lyrics_head{display: flex;flex-wrap: wrap;align-items: center;gap: 10px;padding: 12px 16px;
-background: linear-gradient(90deg,rgba(255,140,0,0.14) 0%,rgba(170,39,18,0.06) 55%,rgba(170,39,18,0) 100%);
+.music_lyrics_head{display: flex;flex-direction: column;align-items: center;gap: 9px;padding: 15px 16px 13px 16px;
+text-align: center;background: linear-gradient(180deg,rgba(255,140,0,0.13) 0%,rgba(170,39,18,0.05) 60%,rgba(170,39,18,0) 100%);
 border-bottom: 1px solid rgba(170,39,18,0.10);}
 .music_lyrics_title{margin: 0;font-size: 16px;font-weight: 600;line-height: 1.9;color: #222;}
 .music_lyrics_title i{color: #ff8c00;font-size: 19px;margin-left: 6px;vertical-align: middle;}
 .music_lyrics_song{color: #aa2712;}
-.music_lyrics_actions{display: flex;flex-wrap: wrap;align-items: center;gap: 8px;margin-right: auto;}
+.music_lyrics_actions{display: flex;flex-wrap: wrap;align-items: center;justify-content: center;gap: 8px;margin: 0;}
 .music_lyrics_artist_link,.music_lyrics_copy{display: inline-flex;align-items: center;gap: 5px;height: 30px;
 padding: 0 11px;border-radius: 30px;font-size: 12px;line-height: 1;background: rgba(167,167,167,0.22);
 color: #444;border: 0;cursor: pointer;transition: background 0.25s ease,color 0.25s ease;}
@@ -1261,14 +1261,14 @@ text-align: center;word-wrap: break-word;overflow-wrap: anywhere;}
 .music_lyrics_text p:last-child{margin-bottom: 0;}
 .music_lyrics_text strong,.music_lyrics_text b{color: #aa2712;}
 .night .music_lyrics_box{background: #222;border-color: rgba(255,255,255,0.08);box-shadow: 0 8px 22px rgba(0,0,0,0.45);}
-.night .music_lyrics_head{background: linear-gradient(90deg,rgba(255,140,0,0.16) 0%,rgba(255,255,255,0.03) 60%,rgba(0,0,0,0) 100%);
+.night .music_lyrics_head{background: linear-gradient(180deg,rgba(255,140,0,0.16) 0%,rgba(255,255,255,0.03) 60%,rgba(0,0,0,0) 100%);
 border-bottom-color: rgba(255,255,255,0.08);}
 .night .music_lyrics_title{color: #fff;}
 .night .music_lyrics_text{color: #ddd;}
 .night .music_lyrics_artist_link,.night .music_lyrics_copy{background: rgba(255,255,255,0.12);color: #eee;}
 @media (max-width: 767px){
-.music_lyrics_head{align-items: flex-start;}
-.music_lyrics_actions{margin-right: 0;width: 100%;}
+.music_lyrics_head{padding: 13px 12px 12px 12px;}
+.music_lyrics_title{font-size: 15px;}
 .music_lyrics_text{padding: 14px 12px 18px 12px;font-size: 14px;line-height: 2;}
 }
 .single_content_box .music_box_player{height: auto;background: transparent;padding: 0;margin: 30px 0 0 0;}
@@ -1360,9 +1360,9 @@ top: 0;bottom: 0;right: 0;left: 0;background: rgba(0,0,0,0.4);}
 .artist_songs_page{line-height: 30px;text-align: center;font-size: 15px;padding:25px 0;height:auto !important;}
 .artist_songs_page i{font-size: 22px;}
 .dl_linksv_box{text-align: center;}
-.dl_links_box,.dl_linksv_box{width: 100%;height: auto;clear: both;margin: 20px 0;}
+.dl_links_box,.dl_linksv_box{width: 100%;height: auto;clear: both;margin: 20px 0;text-align: center;}
 .dl_links_box a,.dl_linksv_box a{width: 49%;height: 45px;line-height: 47px;display: block;text-align: center;font-size: 15px;margin: 5px 0;
-overflow: hidden;border-radius: 3px;
+overflow: hidden;border-radius: 10px;
 background: #ff8c00;color: #fff;
 box-shadow: inset 0 1px 0 rgba(255,255,255,.15),0 1px 1px rgba(0,0,0,.075);
 border: 1px solid transparent;}
@@ -1377,6 +1377,13 @@ border: 1px solid transparent;}
 
 .dl_links_box a:hover,.dl_linksv_box a:hover,.night .dl_links_box a:hover,
 .night .dl_linksv_box a:hover,.night .download_box a:hover{background: #aa2712;color: #fff;}
+/* -------------------- تیتر بخش دانلود -------------------- */
+.dl_title{display: flex;flex-wrap: wrap;align-items: center;justify-content: center;gap: 6px;
+margin: 26px 0 4px 0;font-size: 16px;font-weight: 600;line-height: 2;text-align: center;color: #222;}
+.dl_title i{color: #ff8c00;font-size: 19px;}
+.dl_title_song{color: #aa2712;}
+.night .dl_title{color: #fff;}
+@media (max-width: 767px){.dl_title{font-size: 15px;margin-top: 22px;}}
 .video_player{margin-top: 20px;}
 .video_player video{width: 100%;height: auto;}
 
