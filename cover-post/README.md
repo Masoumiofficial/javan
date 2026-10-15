@@ -1,6 +1,10 @@
-# سه فایل جایگزین — کاور پست (تصویر شاخص) وسط‌چین، گوشهٔ گرد، با افکت
+# سه فایل جایگزین — کاور پست (وسط‌چین، گوشهٔ گرد، افکت) + باکس «متن ترانه»
 
-این سه فایل، نسخهٔ اصلاح‌شدهٔ همان فایل‌های **اصلی قالب شما** (`javanseda` نسخهٔ ۳.۰، مطابق `javanseda.zip`) هستند. هیچ تغییر دیگری (نام قالب، رنگ‌بندی، Text Domain یا اصلاحات نسخهٔ TaranehYar) روی آن‌ها اعمال نشده است؛ فقط قابلیت خواسته‌شده اضافه شده تا جایگزینی بی‌خطر باشد.
+این سه فایل، نسخهٔ اصلاح‌شدهٔ همان فایل‌های **اصلی قالب شما** (`javanseda` نسخهٔ ۳.۰، مطابق `javanseda.zip`) هستند. هیچ تغییر دیگری (نام قالب، رنگ‌بندی، Text Domain یا اصلاحات نسخهٔ TaranehYar) روی آن‌ها اعمال نشده است؛ فقط دو قابلیت خواسته‌شده اضافه شده تا جایگزینی بی‌خطر باشد.
+
+دو قابلیت این بسته:
+1. **کاور پست** (تصویر شاخص) خودکار، وسط‌چین، با گوشهٔ گرد و افکت‌های CSS.
+2. **باکس «متن ترانه»** جای `div.music_textss`: تیتر `متن آهنگ {song} از {artist}`، دکمهٔ کپی، لینک صفحهٔ خواننده، حالت شب/موبایل و داده‌ساختاریافتهٔ `MusicRecording` + `MusicComposition`. آنالیز کامل: `docs/LYRICS-BOX-SEO-AIO.md`.
 
 فایل‌ها: `single.php` · `style.css` · `myfunctions.php`
 
@@ -81,6 +85,47 @@ define( 'JAVANSEDA_COVER_IN_CONTENT', false ); // برای حالت سراسری
 اگر `true` شود، فیلتر `the_content` کاور را خودکار به محتوای همهٔ نوشته‌ها اضافه می‌کند (بدون نیاز به دست‌زدن به قالب). در آن حالت باید بلوک تصویر شاخص را از `single.php` برداری، وگرنه تصویر دو بار نمایش داده می‌شود.
 
 > `add_theme_support( 'post-thumbnails' )` و اندازه‌های `thumb1..thumb4` از قبل در همین فایل بودند؛ دست نخورده‌اند.
+
+---
+
+## این مرحله: باکس «متن ترانه» (متن آهنگ)
+
+جای `div.music_textss` قبلی، یک بخش کامل با تیتر هدف‌دار، دکمهٔ کپی، لینک صفحهٔ خواننده و داده‌ساختاریافته نشسته است. آنالیز کامل UX/SEO/GEO/AIO در `docs/LYRICS-BOX-SEO-AIO.md` است.
+
+```php
+<?php
+$taranehyar_lyrics_position = 'here'; // 'here' = بعد از توضیحات | 'end' = بعد از لینک‌های دانلود
+$taranehyar_lyrics_schema   = true;   // چاپ JSON-LD (MusicRecording + MusicComposition)
+$taranehyar_artist_type     = 'Person'; // 'MusicGroup' برای گروه/بند
+?>
+<section class="music_lyrics_box" aria-labelledby="taranehyar_lyrics_title" lang="fa" dir="rtl">
+	<div class="music_lyrics_head">
+		<h2 class="music_lyrics_title" id="taranehyar_lyrics_title">متن آهنگ {song} از {artist}</h2>
+		<div class="music_lyrics_actions">
+			<a class="music_lyrics_artist_link" href="…">سایر آهنگ‌های {artist}</a>
+			<button type="button" class="music_lyrics_copy" id="taranehyar_lyrics_copy">کپی متن ترانه</button>
+		</div>
+	</div>
+	<div class="music_lyrics_text" id="taranehyar_lyrics_text">…متن از فیلد music_text…</div>
+</section>
+```
+
+| خواسته | تغییر |
+|---|---|
+| متن ترانه زیر لینک‌های دانلود بیاید | `$taranehyar_lyrics_position = 'end';` |
+| بدون داده‌ساختاریافته | `$taranehyar_lyrics_schema = false;` |
+| خواننده گروه/بند است | `$taranehyar_artist_type = 'MusicGroup';` |
+| متن ترانه راست‌چین شود | در `.music_lyrics_text` مقدار `text-align: center` → `right` |
+| فونت/فاصلهٔ خط متفاوت | `font-size: 15px` و `line-height: 2.15` را در `.music_lyrics_text` عوض کن |
+| گوشهٔ گرد بیشتر/کمتر | در `.music_lyrics_box` مقدار `border-radius: 12px` |
+| حذف دکمهٔ کپی | مارک‌آپ `<button class="music_lyrics_copy">` و تگ `<script>` آخر باکس را حذف کن |
+| نام آهنگ/خواننده از فیلدهای ACF | اگر فیلد شما `song`/`artist` نیست، در همان بلوک `get_field( 'song' )` و `get_field( 'artist' )` را عوض کن |
+
+نکته‌ها:
+- اگر `music_text` خالی باشد، هیچ چیز اضافه‌ای چاپ نمی‌شود (نه کادر خالی، نه `div` اضافه).
+- هر دو حالتِ HTML (ویرایشگر) و متن ساده (Textarea) پشتیبانی می‌شود؛ در حالت متن ساده `nl2br` خط‌ها را نگه می‌دارد.
+- اسکیما با `wp_json_encode` و بدون `JSON_UNESCAPED_SLASHES` چاپ می‌شود تا محتوای متن نتواند از تگ `script` بیرون بزند.
+- گوگل برای «متن ترانه» ریچ‌رزالت ندارد؛ ارزش این اسکیما در درک موجودیت و استنادپذیری در پاسخ‌های هوش مصنوعی است (توضیح کامل در `docs/LYRICS-BOX-SEO-AIO.md`).
 
 ---
 

@@ -2,6 +2,21 @@
 
 تمام تغییرهای این فهرست از روی سورس موجود ثبت شده‌اند. 1.0.0 اولین شماره‌نسخهٔ TaranehYar است و روی شاخهٔ عمومی آزمون فنی قرار می‌گیرد؛ این انتشار رسمی یا مجوز بازتوزیع تجاری نیست.
 
+## Unreleased ۳ — 2026-10-15 — باکس «متن ترانه» + داده‌ساختاریافته (UX/SEO/GEO/AIO)
+
+### Added / Changed
+- `taranehyar/single.php` و `cover-post/single.php`: `div.music_textss` با `section.music_lyrics_box` جایگزین شد؛ تیتر `<h2>متن آهنگ {song} از {artist}</h2>` (با fallback به عنوان نوشته)، `lang="fa" dir="rtl"`، چیپ لینک صفحات خواننده (ترم `singer` یا برچسب هم‌نام)، دکمهٔ «کپی متن ترانه» با `navigator.clipboard` و بازخورد «کپی شد»، و سه سوئیچ بالای بلوک: `$taranehyar_lyrics_position` (`here`/`end`)، `$taranehyar_lyrics_schema`، `$taranehyar_artist_type`.
+- JSON-LD با گراف `MusicRecording` + `MusicComposition` (`lyrics` به‌صورت `CreativeWork.text`) + `WebPage` با `@id` یکتا، `datePublished`/`dateModified`، `inLanguage: fa-IR` و `audio` از `music320`/`music128`. انکود با `wp_json_encode` بدون `JSON_UNESCAPED_SLASHES` تا محتوای متن نتواند از تگ `script` خارج شود.
+- پشتیبانی از هر دو نوع فیلد `music_text`: مقدار HTML → `wp_kses_post`؛ متن ساده → `esc_html` + `nl2br`. اگر فیلد خالی باشد هیچ چیز چاپ نمی‌شود (حذف `div` خالی قبلی).
+- `taranehyar/style.css` و `cover-post/style.css`: بلوک CSS باکس متن ترانه (هدر گرادیانی، گوشهٔ گرد ۱۲px، تایپوگرافی ترانه با `line-height: 2.15`، دکمه‌های چیپ‌مانند، حالت `body.night` و مدیای موبایل).
+- پیش‌نمایش ایستا به‌روزرسانی شد: `cover-post/preview/index.html` حالا باکس ترانه را در حالت روشن/شب و با دکمهٔ کپی کارآمد نشان می‌دهد.
+- سند تحلیلی جدید: `docs/LYRICS-BOX-SEO-AIO.md` (بررسی UX، SEO، GEO/AIO، ریسک‌ها، چک‌لیست و روش تست + وضعیت واقعی ریچ‌رزالت‌ها در ۲۰۲۶).
+
+### Notes
+- ریچ‌رزالت «متن ترانه» در گوگل وجود ندارد و FAQPage هم از ۷ مه ۲۰۲۶ کامل حذف شده؛ ارزش این اسکیما در درک موجودیت و استنادپذیری در پاسخ‌های هوش مصنوعی است، نه ظاهر SERP.
+- پیش‌فرض جای باکس همان جای قبلی (بعد از توضیحات) است تا رفتار صفحه تغییر نکند.
+- `cover-post/myfunctions.php` در این مرحله تغییری لازم نداشت.
+
 ## Unreleased ۲ — 2026-10-15 — وسط‌چینی، گوشهٔ گرد و افکت کاور پست
 
 ### Added / Changed

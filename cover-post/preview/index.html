@@ -3,24 +3,24 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>پیش‌نمایش کاور پست — وسط‌چین، گوشهٔ گرد، افکت</title>
+<title>پیش‌نمایش کاور پست و باکس متن ترانه</title>
 <style>
 body{margin:0;padding:26px 14px;background:#f1f1f1;color:#333;font-family:vazir,tahoma,sans-serif;font-size:14px;line-height:25px;direction:rtl;text-align:right;}
 .wrap{max-width:1000px;margin:0 auto;}
 .note{background:#fff;border-radius:7px;padding:14px 18px;margin-bottom:18px;box-shadow:0 6px 20px rgba(28,76,156,.1);}
 .note b{color:#aa2712;}
-.note code{background:rgba(167,167,167,.25);border-radius:4px;padding:1px 5px;direction:ltr;display:inline-block;}
+.note code{background:rgba(167,167,167,.25);border-radius:4px;padding:1px 5px;direction:ltr;display:inline-block;font-size:12px;}
+.tip{font-size:13px;color:#666;}
 .mock{background:#fff;border-radius:7px;padding:20px;margin-bottom:22px;box-shadow:0 6px 20px rgba(28,76,156,.1);}
-.mock h2{font-size:17px;font-weight:500;padding-bottom:15px;margin:5px 0 10px;display:inline-block;border-bottom:1px solid #aa2712;}
+.mock h1{font-size:18px;font-weight:500;padding-bottom:15px;margin:5px 0 10px;display:inline-block;border-bottom:1px solid #aa2712;}
 .mock p{margin:0 0 12px;}
 .mock.night{background:#1d1d1d;color:#ddd;box-shadow:0 6px 20px rgba(0,0,0,.5);}
-.mock.night h2{color:#fff;}
-.nightrow{background:#111;padding:20px;border-radius:7px;margin-bottom:22px;}
-.nightrow .mock{background:#222;margin:0;box-shadow:none;}
-.nightrow .mock h2{color:#fff;}
-.tip{font-size:13px;color:#666;}
-.nightrow .tip{color:#aaa;}
-/* ---- همان بلوک CSS قالب (کاور پست) ---- */
+.mock.night h1{color:#fff;}
+.nightbody{background:#111;padding:20px;border-radius:7px;margin-bottom:22px;}
+.nightbody .mock{background:#222;margin:0;box-shadow:none;}
+.nightbody .mock h1{color:#fff;}
+.nightbody .tip{color:#aaa;}
+/* ---- همان بلوک CSS قالب: کاور پست ---- */
 /* ---------------------------------------------------------------
    کاور پست (تصویر شاخص) — وسط‌چین + گوشه‌های گرد استاندارد + افکت
    قابل تنظیم (فقط عددها را عوض کن):
@@ -52,47 +52,139 @@ background: linear-gradient(100deg,rgba(255,255,255,0) 0%,rgba(255,255,255,0.30)
 .single_featured_image:hover img{transform: none;}
 }
 
-/* ---- پایان بلوک قالب ---- */
+/* ---- همان بلوک CSS قالب: باکس متن ترانه ---- */
+/* -------------------- باکس «متن ترانه» (متن آهنگ) --------------------
+   منبع متن: فیلد music_text — وسط‌چین، با هدر، لینک خواننده و دکمهٔ کپی
+   قابل تنظیم: border-radius، font-size، line-height، text-align
+---------------------------------------------------------------------- */
+.music_lyrics_box{position: relative;margin: 26px 0 10px 0;background: #fdfdfd;
+border: 1px solid rgba(170,39,18,0.12);border-radius: 12px;overflow: hidden;
+box-shadow: 0 8px 22px rgba(28,76,156,0.08);}
+.music_lyrics_head{display: flex;flex-wrap: wrap;align-items: center;gap: 10px;padding: 12px 16px;
+background: linear-gradient(90deg,rgba(255,140,0,0.14) 0%,rgba(170,39,18,0.06) 55%,rgba(170,39,18,0) 100%);
+border-bottom: 1px solid rgba(170,39,18,0.10);}
+.music_lyrics_title{margin: 0;font-size: 16px;font-weight: 600;line-height: 1.9;color: #222;}
+.music_lyrics_title i{color: #ff8c00;font-size: 19px;margin-left: 6px;vertical-align: middle;}
+.music_lyrics_song{color: #aa2712;}
+.music_lyrics_actions{display: flex;flex-wrap: wrap;align-items: center;gap: 8px;margin-right: auto;}
+.music_lyrics_artist_link,.music_lyrics_copy{display: inline-flex;align-items: center;gap: 5px;height: 30px;
+padding: 0 11px;border-radius: 30px;font-size: 12px;line-height: 1;background: rgba(167,167,167,0.22);
+color: #444;border: 0;cursor: pointer;transition: background 0.25s ease,color 0.25s ease;}
+.music_lyrics_artist_link i,.music_lyrics_copy i{font-size: 14px;}
+.music_lyrics_artist_link:hover{background: #aa2712;color: #fff;}
+.music_lyrics_copy:hover{background: #ff8c00;color: #fff;}
+.music_lyrics_copy.is-done{background: #2e9e5b;color: #fff;}
+.music_lyrics_text{padding: 18px 18px 22px 18px;font-size: 15px;line-height: 2.15;color: #333;
+text-align: center;word-wrap: break-word;overflow-wrap: anywhere;}
+.music_lyrics_text p{margin: 0 0 14px 0;}
+.music_lyrics_text p:last-child{margin-bottom: 0;}
+.music_lyrics_text strong,.music_lyrics_text b{color: #aa2712;}
+.night .music_lyrics_box{background: #222;border-color: rgba(255,255,255,0.08);box-shadow: 0 8px 22px rgba(0,0,0,0.45);}
+.night .music_lyrics_head{background: linear-gradient(90deg,rgba(255,140,0,0.16) 0%,rgba(255,255,255,0.03) 60%,rgba(0,0,0,0) 100%);
+border-bottom-color: rgba(255,255,255,0.08);}
+.night .music_lyrics_title{color: #fff;}
+.night .music_lyrics_text{color: #ddd;}
+.night .music_lyrics_artist_link,.night .music_lyrics_copy{background: rgba(255,255,255,0.12);color: #eee;}
+@media (max-width: 767px){
+.music_lyrics_head{align-items: flex-start;}
+.music_lyrics_actions{margin-right: 0;width: 100%;}
+.music_lyrics_text{padding: 14px 12px 18px 12px;font-size: 14px;line-height: 2;}
+}
+
 </style>
 </head>
 <body>
 <div class="wrap">
 
   <div class="note">
-    <b>پیش‌نمایش زندهٔ کاور پست.</b>
-    <span class="tip">۱) نشانگر موس را روی تصویر ببر ← زوم نرم + عبور درخشش.
-    ۲) صفحه را رفرش کن ← ورود نرم تصویر.
-    ۳) پنجره را باریک کن ← واکنش‌گرایی و گردی گوشهٔ موبایل.</span>
-    <br>تنظیم‌های فعلی: گردی گوشه <code>16px</code> — حداکثر عرض کاور وسط‌چین <code>880px</code> — موبایل <code>12px</code>
+    <b>پیش‌نمایش زنده.</b>
+    <span class="tip">
+      ۱) موس روی کاور ← زوم نرم + درخشش. ۲) دکمهٔ «کپی متن ترانه» را بزن ← متن ترانه کپی می‌شود.
+      ۳) پنجره را باریک کن ← حالت موبایل. ۴) رفرش ← ورود نرم کاور.
+    </span>
   </div>
 
   <div class="mock">
-    <h2>دانلود آهنگ جدید (نمونه روشن)</h2>
+    <h1>دانلود آهنگ نمونه (روشن)</h1>
+
     <div class="single_content_box">
       <div class="single_featured_cover">
         <figure class="single_featured_image">
           <img src="sample-cover.jpg" alt="کاور پست نمونه" title="کاور پست نمونه" width="640" height="360">
         </figure>
       </div>
-      <p>این همان جای تصویر شاخص است: خودکار، وسط‌چین، با گوشه‌های گرد و سایهٔ ملایم. متن توضیحات بعد از تصویر ادامه پیدا می‌کند و چیدمان به‌هم نمی‌ریزد.</p>
-      <p class="tip">موس را روی تصویر نگه دار تا هر دو افکت را ببینی.</p>
+      <p>تصویر شاخص خودکار و وسط‌چین با گوشهٔ گرد ۱۶px و افکت زوم/درخشش.</p>
+
+      <section class="music_lyrics_box" aria-labelledby="taranehyar_lyrics_title" lang="fa" dir="rtl">
+        <div class="music_lyrics_head">
+          <h2 class="music_lyrics_title" id="taranehyar_lyrics_title">
+            <i class="icofont-quote-right" aria-hidden="true">&#8220;</i>
+            متن آهنگ <span class="music_lyrics_song">نمونهٔ ترانه</span> از <span class="music_lyrics_artist">خوانندهٔ نمونه</span>
+          </h2>
+          <div class="music_lyrics_actions">
+            <a class="music_lyrics_artist_link" href="#"><i aria-hidden="true">&#9835;</i>سایر آهنگ‌های خوانندهٔ نمونه</a>
+            <button type="button" class="music_lyrics_copy" id="taranehyar_lyrics_copy" aria-label="کپی متن ترانه"><i aria-hidden="true">&#10077;</i><span class="lbl">کپی متن ترانه</span></button>
+          </div>
+        </div>
+        <div class="music_lyrics_text" id="taranehyar_lyrics_text">
+          <p>دوش دیدم که ملائک در میخانه زدند<br>گل آدم بسرشتند و به پیمانه زدند</p>
+          <p>ساکنان حرم ستر و عفاف ملکوت<br>با من راه‌نشین باده مستانه زدند</p>
+          <p>آسمان بار امانت نتوانست کشید<br>قرعهٔ کار به نام من دیوانه زدند</p>
+          <p class="tip">(متن نمونه از غزلیات حافظ — جای آن، متن ترانهٔ همان آهنگ از فیلد music_text نمایش داده می‌شود.)</p>
+        </div>
+      </section>
+
+      <p class="tip">در قالب، داده ساختاریافتهٔ MusicRecording + MusicComposition هم همراه همین باکس چاپ می‌شود (اینجا برای سبک ماندن پیش‌نمایش نیست).</p>
     </div>
   </div>
 
-  <div class="nightrow">
+  <div class="nightbody">
     <div class="mock">
-      <h2>حالت شب قالب (body.night)</h2>
+      <h1>حالت شب قالب (body.night)</h1>
       <div class="single_content_box">
         <div class="single_featured_cover">
           <figure class="single_featured_image">
             <img src="sample-cover.jpg" alt="کاور پست نمونه" title="کاور پست نمونه" width="640" height="360">
           </figure>
         </div>
-        <p class="tip">در تم تاریک، سایه با پس‌زمینهٔ تیره هماهنگ می‌شود.</p>
+        <section class="music_lyrics_box" aria-labelledby="night_lyrics_title" lang="fa" dir="rtl">
+          <div class="music_lyrics_head">
+            <h2 class="music_lyrics_title" id="night_lyrics_title">
+              <i class="icofont-quote-right" aria-hidden="true">&#8220;</i>
+              متن آهنگ <span class="music_lyrics_song">نمونهٔ ترانه</span> از <span class="music_lyrics_artist">خوانندهٔ نمونه</span>
+            </h2>
+            <div class="music_lyrics_actions">
+              <a class="music_lyrics_artist_link" href="#"><i aria-hidden="true">&#9835;</i>سایر آهنگ‌های خوانندهٔ نمونه</a>
+              <button type="button" class="music_lyrics_copy" aria-label="کپی متن ترانه"><i aria-hidden="true">&#10077;</i><span class="lbl">کپی متن ترانه</span></button>
+            </div>
+          </div>
+          <div class="music_lyrics_text">
+            <p>بنشین بر لب جوی و گذر عمر ببین<br>کاین اشارت ز جهان گذران ما را بس</p>
+          </div>
+        </section>
       </div>
     </div>
   </div>
 
 </div>
+<script>
+(function () {
+  var btn = document.getElementById('taranehyar_lyrics_copy');
+  var box = document.getElementById('taranehyar_lyrics_text');
+  if (!btn || !box) { return; }
+  if (!navigator.clipboard) { btn.style.display = 'none'; return; }
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(box.innerText).then(function () {
+      var lbl = btn.querySelector('.lbl');
+      btn.classList.add('is-done');
+      if (lbl) { lbl.textContent = 'کپی شد'; }
+      window.setTimeout(function () {
+        btn.classList.remove('is-done');
+        if (lbl) { lbl.textContent = 'کپی متن ترانه'; }
+      }, 2200);
+    });
+  });
+})();
+</script>
 </body>
 </html>

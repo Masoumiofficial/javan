@@ -48,10 +48,171 @@ if ( has_post_thumbnail() ) {
 
 <?php the_content(''); ?>
 
-<div class="music_textss">
-<?php the_field('music_text'); ?>
-<div class="clear"></div>
-</div>
+<?php
+/* ============================ باکس «متن ترانه» (متن آهنگ) ============================
+   منبع متن: فیلد music_text  (ویرایشگر/WYSIWYG یا متن ساده — هر دو پشتیبانی می‌شود)
+   تنظیم‌ها (فقط همین سه خط را در صورت نیاز عوض کنید):
+     $taranehyar_lyrics_position : 'here' = همین‌جا بعد از توضیحات | 'end' = بعد از لینک‌های دانلود
+     $taranehyar_lyrics_schema   : true = چاپ داده ساختاریافته (MusicRecording + MusicComposition)
+     $taranehyar_artist_type     : 'Person' خوانندهٔ تک‌خوان | 'MusicGroup' گروه
+   ==================================================================================== */
+$taranehyar_lyrics_position = 'here';
+$taranehyar_lyrics_schema   = true;
+$taranehyar_artist_type     = 'Person';
+
+$taranehyar_lyrics_box = '';
+$taranehyar_lyrics_raw = function_exists( 'get_field' ) ? get_field( 'music_text' ) : '';
+if ( is_string( $taranehyar_lyrics_raw ) && '' !== trim( $taranehyar_lyrics_raw ) ) {
+
+	/* خروجی ایمن: اگر مقدار HTML باشد با wp_kses_post، وگرنه با nl2br + esc_html */
+	if ( false !== strpos( $taranehyar_lyrics_raw, '<' ) ) {
+		$taranehyar_lyrics_html = wp_kses_post( $taranehyar_lyrics_raw );
+	} else {
+		$taranehyar_lyrics_html = nl2br( esc_html( $taranehyar_lyrics_raw ) );
+	}
+
+	/* نسخهٔ متن ساده برای داده ساختاریافته (خط‌ها و بندها حفظ می‌شوند) */
+	$taranehyar_lyrics_plain = wp_strip_all_tags( str_replace( array( '</p>', '<br />', '<br>', '<br/>' ), "\n", $taranehyar_lyrics_html ) );
+	$taranehyar_lyrics_plain = trim( preg_replace( '/[ \t]+/u', ' ', $taranehyar_lyrics_plain ) );
+	$taranehyar_lyrics_plain = preg_replace( "/\n{3,}/u", "\n\n", $taranehyar_lyrics_plain );
+
+	$taranehyar_song   = function_exists( 'get_field' ) ? trim( (string) get_field( 'song' ) ) : '';
+	$taranehyar_artist = function_exists( 'get_field' ) ? trim( (string) get_field( 'artist' ) ) : '';
+	if ( '' === $taranehyar_song ) {
+		$taranehyar_song = get_the_title();
+	}
+	$taranehyar_lyrics_title = ( '' !== $taranehyar_artist )
+		? sprintf( 'متن آهنگ %1$s از %2$s', $taranehyar_song, $taranehyar_artist )
+		: sprintf( 'متن آهنگ %s', $taranehyar_song );
+
+	/* لینک داخلی صفحهٔ خواننده برای تقویت ارتباط موجودیت‌ها (taxonomy خواننده یا برچسب) */
+	$taranehyar_artist_url = '';
+	if ( '' !== $taranehyar_artist ) {
+		$taranehyar_term = get_term_by( 'name', $taranehyar_artist, 'singer' );
+		if ( ! $taranehyar_term ) {
+			$taranehyar_term = get_term_by( 'name', $taranehyar_artist, 'post_tag' );
+		}
+		if ( $taranehyar_term && ! is_wp_error( $taranehyar_term ) ) {
+			$taranehyar_artist_url = get_term_link( $taranehyar_term );
+			if ( is_wp_error( $taranehyar_artist_url ) ) {
+				$taranehyar_artist_url = '';
+			}
+		}
+	}
+
+	ob_start();
+	?>
+	<section class="music_lyrics_box" aria-labelledby="taranehyar_lyrics_title" lang="fa" dir="rtl">
+		<div class="music_lyrics_head">
+			<h2 class="music_lyrics_title" id="taranehyar_lyrics_title">
+				<i class="icofont-quote-right" aria-hidden="true"></i>
+				متن آهنگ <span class="music_lyrics_song"><?php echo esc_html( $taranehyar_song ); ?></span><?php if ( '' !== $taranehyar_artist ) { ?> از <span class="music_lyrics_artist"><?php echo esc_html( $taranehyar_artist ); ?></span><?php } ?>
+			</h2>
+			<div class="music_lyrics_actions">
+				<?php if ( '' !== $taranehyar_artist_url ) { ?>
+				<a class="music_lyrics_artist_link" href="<?php echo esc_url( $taranehyar_artist_url ); ?>"><i class="icofont-radio-mic" aria-hidden="true"></i>سایر آهنگ‌های <?php echo esc_html( $taranehyar_artist ); ?></a>
+				<?php } ?>
+				<button type="button" class="music_lyrics_copy" id="taranehyar_lyrics_copy" aria-label="کپی متن ترانه"><i class="icofont-quote-left" aria-hidden="true"></i><span class="lbl">کپی متن ترانه</span></button>
+			</div>
+		</div>
+		<div class="music_lyrics_text" id="taranehyar_lyrics_text"><?php echo $taranehyar_lyrics_html; // خروجی با wp_kses_post یا esc_html پاک‌سازی شده است. ?></div>
+		<?php
+		if ( $taranehyar_lyrics_schema ) {
+			$taranehyar_permalink = get_permalink();
+			$taranehyar_audio     = '';
+			foreach ( array( 'music320', 'music128' ) as $taranehyar_audio_key ) {
+				$taranehyar_audio_val = get_field( $taranehyar_audio_key );
+				if ( is_string( $taranehyar_audio_val ) && '' !== trim( $taranehyar_audio_val ) ) {
+					$taranehyar_audio = $taranehyar_audio_val;
+					break;
+				}
+			}
+			$taranehyar_graph = array(
+				'@context' => 'https://schema.org',
+				'@graph'   => array(
+					array(
+						'@type'            => 'MusicRecording',
+						'@id'              => $taranehyar_permalink . '#recording',
+						'name'             => $taranehyar_song,
+						'url'              => $taranehyar_permalink,
+						'inLanguage'       => 'fa-IR',
+						'byArtist'         => array(
+							'@type' => $taranehyar_artist_type,
+							'name'  => $taranehyar_artist,
+							'url'   => '' !== $taranehyar_artist_url ? $taranehyar_artist_url : $taranehyar_permalink,
+						),
+						'datePublished'    => get_the_date( 'c' ),
+						'dateModified'     => get_the_modified_date( 'c' ),
+						'recordingOf'      => array( '@id' => $taranehyar_permalink . '#composition' ),
+						'mainEntityOfPage' => array( '@id' => $taranehyar_permalink . '#webpage' ),
+					),
+					array(
+						'@type'      => 'MusicComposition',
+						'@id'        => $taranehyar_permalink . '#composition',
+						'name'       => $taranehyar_song,
+						'inLanguage' => 'fa-IR',
+						'lyricist'   => array(
+							'@type' => 'Person',
+							'name'  => $taranehyar_artist,
+						),
+						'lyrics'     => array(
+							'@type'      => 'CreativeWork',
+							'text'       => $taranehyar_lyrics_plain,
+							'inLanguage' => 'fa-IR',
+						),
+						'recordedAs' => array( '@id' => $taranehyar_permalink . '#recording' ),
+					),
+					array(
+						'@type'      => 'WebPage',
+						'@id'        => $taranehyar_permalink . '#webpage',
+						'url'        => $taranehyar_permalink,
+						'name'       => get_the_title(),
+						'inLanguage' => 'fa-IR',
+						'mainEntity' => array( '@id' => $taranehyar_permalink . '#recording' ),
+					),
+				),
+			);
+			if ( '' !== $taranehyar_audio ) {
+				$taranehyar_graph['@graph'][0]['audio'] = array(
+					'@type'          => 'AudioObject',
+					'contentUrl'     => $taranehyar_audio,
+					'encodingFormat' => 'audio/mpeg',
+				);
+			}
+			/* wp_json_encode پیش‌فرض «/» را \/ می‌کند تا محتوای متن نتواند از تگ script خارج شود. */
+			?>
+			<script type="application/ld+json"><?php echo wp_json_encode( $taranehyar_graph, JSON_UNESCAPED_UNICODE ); ?></script>
+			<?php
+		}
+		?>
+	</section>
+	<script>
+	(function () {
+		var btn = document.getElementById('taranehyar_lyrics_copy');
+		var box = document.getElementById('taranehyar_lyrics_text');
+		if (!btn || !box) { return; }
+		if (!navigator.clipboard) { btn.style.display = 'none'; return; }
+		btn.addEventListener('click', function () {
+			navigator.clipboard.writeText(box.innerText).then(function () {
+				var lbl = btn.querySelector('.lbl');
+				btn.classList.add('is-done');
+				if (lbl) { lbl.textContent = 'کپی شد'; }
+				window.setTimeout(function () {
+					btn.classList.remove('is-done');
+					if (lbl) { lbl.textContent = 'کپی متن ترانه'; }
+				}, 2200);
+			});
+		});
+	})();
+	</script>
+	<?php
+	$taranehyar_lyrics_box = ob_get_clean();
+}
+
+if ( '' !== $taranehyar_lyrics_box && 'end' !== $taranehyar_lyrics_position ) {
+	echo $taranehyar_lyrics_box; // خروجی همین بالا ساخته و escape شده است.
+}
+?>
 <div class="clear"></div>
 
 <?php if(get_field('video720') || get_field('video1080') || get_field('video480')){ ?> 
@@ -206,6 +367,7 @@ Your browser does not support HTML5 audio.
 <div class="clear"></div>
 </div>
 <?php } ?>
+<?php if ( '' !== $taranehyar_lyrics_box && 'end' === $taranehyar_lyrics_position ) { echo $taranehyar_lyrics_box; } ?>
 <div class="clear"></div>
 </div>
 

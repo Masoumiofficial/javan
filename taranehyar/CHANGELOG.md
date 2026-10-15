@@ -1,6 +1,15 @@
 # Changelog
 
-## Unreleased — 2026-10-15 — Centered, rounded, animated cover (featured image)
+## Unreleased ۳ — 2026-10-15 — Lyrics box with heading, artist link, copy button and JSON-LD
+
+- `single.php`: `div.music_textss` was replaced by `section.music_lyrics_box` with an `<h2>` heading `متن آهنگ {song} از {artist}` (falls back to the post title), `lang="fa" dir="rtl"`, a chip linking to the artist archive (`singer` term or same-named tag), a copy-to-clipboard button with a "کپی شد" state, and three switches at the top of the block: `$taranehyar_lyrics_position` (`here`/`end`), `$taranehyar_lyrics_schema`, `$taranehyar_artist_type` (`Person`/`MusicGroup`).
+- JSON-LD graph added: `MusicRecording` + `MusicComposition` (`lyrics` as `CreativeWork.text`) + `WebPage`, with unique `@id`s, `datePublished`/`dateModified`, `inLanguage: fa-IR` and `audio` from `music320`/`music128`. Encoded with `wp_json_encode` without `JSON_UNESCAPED_SLASHES` so lyrics text cannot break out of the script tag.
+- `music_text` may be WYSIWYG HTML (`wp_kses_post`) or plain text (`esc_html` + `nl2br`); an empty field now prints nothing at all instead of an empty wrapper.
+- `style.css`: new lyrics box block (gradient header, 12px radius, lyric typography at `line-height: 2.15`, chip buttons, `body.night` and mobile rules).
+- Accessibility: the box is labelled via `aria-labelledby`, decorative icons are `aria-hidden`, and the copy button hides itself when the Clipboard API is unavailable.
+- Honest limits are documented in `docs/LYRICS-BOX-SEO-AIO.md`: no lyrics rich result exists in Google and FAQ rich results were fully removed on 2026-05-07, so the structured data targets entity understanding and AI grounding, not SERP features. Rights to republish full lyrics remain unresolved.
+
+## Unreleased ۲ — 2026-10-15 — Centered, rounded, animated cover (featured image)
 
 - `single.php`: the automatically printed featured image is now wrapped in `div.single_featured_cover` so it is centered in the content column (the theme's text is right-aligned).
 - `style.css`: the cover block was rewritten. The `figure` shrink-wraps the image (max-width 880px) with `border-radius: 16px` (12px on mobile), a two-layer shadow matching the post card, a fade/rise entrance (`taranehyar_cover_in`) and two CSS-only effects: a 4.5% hover zoom and a single diagonal shine sweep (`taranehyar_cover_shine`).
