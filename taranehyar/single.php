@@ -30,6 +30,20 @@ if(is_plugin_active('kk-star-ratings/index.php')){ echo kk_star_ratings(); } ?>
 
 <div class="single_content_box">
 
+<?php
+/* تصویر شاخص نوشته به‌صورت خودکار در ابتدای بخش توضیحات (محتوای مطلب) درج می‌شود
+   تا نیازی به گذاشتن دستی همان تصویر داخل متن توضیحات نباشد.
+   اندازهٔ نمایش را در متغیر زیر می‌توانید تغییر دهید:
+   'large' یا 'full' = اندازهٔ اصلی/بزرگ تصویر | 'thumb1' = ۶۴۰×۳۶۰ | 'thumb2' = ۱۹۰×۱۹۰ */
+$taranehyar_featured_size = 'large';
+if ( has_post_thumbnail() ) {
+	?>
+	<figure class="single_featured_image">
+		<?php the_post_thumbnail( $taranehyar_featured_size, array( 'alt' => get_the_title(), 'title' => get_the_title() ) ); ?>
+	</figure>
+	<?php
+} ?>
+
 <?php the_content(''); ?>
 
 <div class="music_textss">

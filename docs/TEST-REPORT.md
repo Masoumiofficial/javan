@@ -9,7 +9,7 @@
 - ZIP tree safety: archive has one `javanseda/` root, no absolute paths and no `..` path segments.
 - Provenance check: checked-out ZIP Git object equals `HEAD:javanseda.zip`; `origin/main` pointed to the baseline commit during discovery.
 - Source preservation: all 96 files from the original ZIP remain in `taranehyar/`; no inherited file was removed. The original ZIP remains byte-for-byte unchanged. Modified/new files are present in the working tree.
-- Public test package: `artifacts/taranehyar-1.0.0-test-build.zip` contains 104 files under one `taranehyar/` root; ZIP CRC and required WordPress theme entries passed. The package was not installed on WordPress and its public availability does not establish redistribution rights. Size: 1,576,872 bytes. SHA-256: `81d3e5951bcdead53a53b798b3ccb9987445fcbe8c67e9115280fef711ec7cee`.
+- Public test package: `artifacts/taranehyar-1.0.0-test-build.zip` contains 104 files under one `taranehyar/` root; ZIP CRC and required WordPress theme entries passed. The package was not installed on WordPress and its public availability does not establish redistribution rights. Size: 1,579,871 bytes. SHA-256: `709c215c775f5da71cff12cada4056577b74302f2d811ac0ff868cbf25ad27e5`.
 - JavaScript syntax: baseline and post-edit `node --check` on all eight bundled JavaScript files passed (syntax only).
 - PHP parser (Node `php-parser` 3.7.0): all 43 readable PHP files parsed successfully after edits. The two ionCube-protected PHP files were deliberately excluded; this is not equivalent to `php -l` or execution.
 - SVG assets: `logo.svg` and `favicon.svg` parse as XML.
