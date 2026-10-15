@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased ９ — 2026-10-15 — Artist page spacing fix + full technical/design review
+
+- **Fixed the cramped artist profile header**: the chip row and the meta line were stacking on top of each other on laptops — the header now uses flex with an 8px gap, pill-shaped chips (`padding: 5px 13px`), a 21px title and `line-height: 2` for the meta line; on mobile the artist image moves above the text (scoped to `body.tax-singer` only).
+- Shorter, correct chip labels ("۶ آهنگ" instead of "۶ آهنگ ها"; filter `javanseda_artist_resume_labels`) and Persian numerals/dates everywhere ("۱۲ اثر", "۴ بهمن ۱۳۹۹"; helpers `javanseda_artist_digits`, `javanseda_artist_fa_date`).
+- Added **`:focus-visible` styling** for every interactive element we ship (sort bar, similar artists, directory chips, search, load-more).
+- Added a **12-hour transient cache** for the artist-directory page URL lookup (`javanseda_artist_directory_cache` disables it) — removes one unindexed meta-query per artist page view.
+- New `docs/DESIGN-REVIEW.md`: numeric technical checklist (PHP parse, CSS brace balance, ZIP CRCs, WCAG contrast, DB call counts), design fixes, known technical debt and the proposed next phase (footer + homepage).
+
 ## Unreleased ８ — 2026-10-15 — Artist page, version 2 (`taxonomy-singer.php`)
 
 - **Sort bar with real URLs**: `?sort=new` (default) / `?sort=old` / `?sort=title` (Persian-aware alphabetical ordering by the `song` field, falling back to the post title); sort variants are `noindex`.

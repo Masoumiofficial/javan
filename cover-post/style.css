@@ -1824,3 +1824,52 @@ body{padding-top:0;}
 	.ab-artist-page__sortitem{font-size:12px;padding:4px 9px;}
 	.ab-related__item{font-size:12px;padding:5px 10px;}
 }
+
+/* --------------------------------------------------------------------------------------------
+   ادامهٔ بخش ۱۶ — اصلاح فاصله‌ها و چیدمان سرتیتر پروفایل خواننده
+   (روی لپ‌تاپ، نشان‌های «۶ آهنگ / ۶ آلبوم» و خط «آخرین به‌روزرسانی» به هم چسبیده بودند)
+   همهٔ انتخابگرها یا مخصوص همین صفحه‌اند (ab-artist-page / ab-resume) یا مثل
+   .artist_name_head فقط در همین باکس استفاده می‌شوند.
+   -------------------------------------------------------------------------------------------- */
+
+.artist_box_detss .artist_name_head{float:none;width:auto;margin:0 0 12px;padding:0;
+	font-size:21px;line-height:1.65;text-align:right;}
+.artist_box_detss .artist_resume_box{float:none;width:auto;display:flex;flex-wrap:wrap;gap:8px;
+	margin:0 0 12px;padding:0;text-align:right;list-style:none;}
+.artist_box_detss .artist_resume_box li{display:inline-flex;align-items:center;gap:5px;margin:0;
+	padding:5px 13px;background:var(--ab-blue-soft);color:var(--ab-blue);border-radius:999px;
+	font-size:13px;line-height:1.9;}
+.artist_box_detss .artist_resume_box li .ab-resume__num{font-weight:700;font-size:14px;line-height:1;}
+.artist_box_detss .ab-artist-page__meta{margin:0 0 6px;font-size:13px;line-height:2;color:var(--ab-muted);}
+.artist_box_detss .ab-artist-page__links{margin:12px 0 0;}
+.artist_box_detss .clear2{padding:2px 0;}
+
+.night .artist_box_detss .artist_resume_box li{background:rgba(24,90,219,.22);color:#EAF1FE;}
+
+@media (max-width: 767px){
+	body.tax-singer .artist_box_tarlanweb .artists_imsf{float:none;margin:0 auto 16px;}
+	.artist_box_detss .artist_name_head{font-size:18px;line-height:1.7;margin-bottom:10px;}
+	.artist_box_detss .artist_resume_box{gap:6px;margin-bottom:10px;}
+	.artist_box_detss .ab-artist-page__meta{line-height:1.9;}
+}
+
+@media (max-width: 480px){
+	.artist_box_detss .artist_resume_box li{padding:4px 10px;font-size:12.5px;}
+	.artist_box_detss .artist_resume_box li .ab-resume__num{font-size:13px;}
+}
+
+/* حالت فوکوس برای همهٔ عناصر تعاملیِ کارهای ما (پیمایش با کیبورد) */
+.ab-artist-page__sortitem:focus-visible,
+.ab-artist-page__links a:focus-visible,
+.ab-related__item:focus-visible,
+.ab-artists__chip:focus-visible,
+.ab-artists__pill:focus-visible,
+.ab-artists__search-btn:focus-visible,
+.ab-artists__loadmore-btn:focus-visible,
+.ab-artists__az a:focus-visible,
+.ab-artists__search input:focus-visible{
+	outline:2px solid var(--ab-blue);outline-offset:2px;}
+.night .ab-artist-page__sortitem:focus-visible,
+.night .ab-related__item:focus-visible,
+.night .ab-artists__chip:focus-visible,
+.night .ab-artists__pill:focus-visible{outline-color:#4C8BFF;}

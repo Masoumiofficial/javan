@@ -18,9 +18,9 @@
 
 | بسته | حجم | SHA-256 |
 |---|---|---|
-| `artifacts/javan-final-files.zip` | ۱۴۰٬۸۳۲ بایت | `0ac7fbd0ae9a1ad9a3e153d44c124f93a0a489f6b234d872adbf548c6a7246e5` |
+| `artifacts/javan-final-files.zip` | ۱۴۷,۶۳۴ بایت | `2568fb3c4c5774bbc83caa651d446bbe9fbc77430ba02cc19c9d70984254731f` |
 
-ساختار: `00-START-HERE.txt` + `01-upload-to-theme/` (۵ فایل) + `02-restore-if-needed/` (نسخهٔ اصلی سه فایل مهم + راهنما) + `03-docs/` (مستندهای فارسی) + `04-preview/` (سه پیش‌نمایش HTML: کاور، فهرست هنرمندان، صفحهٔ خواننده).
+ساختار: `00-START-HERE.txt` + `01-upload-to-theme/` (۵ فایل) + `02-restore-if-needed/` (نسخهٔ اصلی سه فایل مهم + راهنما) + `03-docs/` (۱۰ مستند فارسی، از جمله `DESIGN-REVIEW.md` و `ARTIST-PAGE.md`) + `04-preview/` (سه پیش‌نمایش HTML: کاور، فهرست هنرمندان، صفحهٔ خواننده).
 
 ## ۲) پنج فایلی که روی قالب گذاشته می‌شوند
 
@@ -32,18 +32,18 @@ wp-content/themes/<پوشهٔ قالب فعال>/
 ├── taxonomy-singer.php   ← صفحهٔ اختصاصی هر خواننده (نسخهٔ ۲)
 ├── single.php            ← نوشتهٔ آهنگ (کاور، متن ترانه، دانلود)
 ├── myfunctions.php       ← شبکهٔ ایمنی singer (پیش‌فرض خاموش)
-└── style.css             ← استایل‌ها (بلوک ۱۵ = فهرست هنرمندان)
+└── style.css             ← استایل‌ها (بلوک ۱۵ = فهرست هنرمندان، بلوک ۱۶ = صفحهٔ خواننده)
 ```
 
 | فایل | مسیر در مخزن | حجم | SHA-256 |
 |---|---|---|---|
 | `artist-template.php` | `cover-post/artist-template.php` | ۳۶٬۱۰۸ | `75af3626de039f9df1ff23534897159e624cd811bfd0ba55ad43b8f73814a9dc` |
-| `taxonomy-singer.php` | `cover-post/taxonomy-singer.php` | ۲۹٬۴۴۶ | `938896a9417948c4633746207132a9fe8ef91d12647f121f6ddb14648ba8dea3` |
+| `taxonomy-singer.php` | `cover-post/taxonomy-singer.php` | ۳۱,۴۷۵ | `7a2e4a1f54cd9a1aa0ede1b1d0f4290f4b14b3dfbfe145a1cbe36620845c199d` |
 | `single.php` | `cover-post/single.php` | ۳۲٬۵۶۱ | `19a7d90d25ecd2a26cc84c6badd2bb674dd30dd1d09737b44cd6135a2e3080f8` |
 | `myfunctions.php` | `cover-post/myfunctions.php` | ۲۲٬۶۸۱ | `f75591d36ea716494cfcee608ff528617fcc8969747e86e3cb22b3642ae8f6a9` |
-| `style.css` | `cover-post/style.css` | ۸۰٬۷۱۰ | `413aa5d8d6c37e6cfc88f48781e20e498a3fd7cea96abcfaecdc395b74da5808` |
+| `style.css` | `cover-post/style.css` | ۸۳,۵۲۳ | `030c800032db1b9400b28ef9eca738b02ee6f216fc315627099110daa905c19e` |
 
-نسخهٔ آمادهٔ آپلود همین پنج فایل، بدون پوشهٔ اضافه: `artifacts/cover-post-replacements.zip` (۴۸٬۷۹۰ بایت، `560e616d73e680d53122af3c0b0eb6602d6763edd1d3a734dd9b66b6ce3405fd`) — محتوای این بسته **بی‌پوشه** است تا مستقیم داخل پوشهٔ قالب باز شود.
+نسخهٔ آمادهٔ آپلود همین پنج فایل، بدون پوشهٔ اضافه: `artifacts/cover-post-replacements.zip` (۵۰,۰۱۶ بایت، `963fdf67219df397826882ec51a5d30384b495fae588543f9b9be9eab003c1fa`) — محتوای این بسته **بی‌پوشه** است تا مستقیم داخل پوشهٔ قالب باز شود.
 
 ## ۳) بستهٔ بازگشت (اگر چیزی خراب شد)
 
@@ -60,7 +60,7 @@ wp-content/themes/<پوشهٔ قالب فعال>/
 
 | بسته | حجم | SHA-256 | محتوا |
 |---|---|---|---|
-| `artifacts/taranehyar-1.0.0-test-build.zip` | ۱٬۶۱۴٬۴۲۱ بایت | `024ab6f8cb2984dd145be0d878985eb499fee3b65cd74782473770db7bc1bc82` | ۱۰۴ فایل زیر یک ریشهٔ `taranehyar/` |
+| `artifacts/taranehyar-1.0.0-test-build.zip` | ۱,۶۱۶,۱۹۷ بایت | `1ad2f360b6d7bc06ba4e56f507f4a0928f0d1657b1aa385e8a2c6a4470974c4b` | ۱۰۴ فایل زیر یک ریشهٔ `taranehyar/` |
 
 هشدار: این بسته کل قالب را جای‌گزین می‌کند؛ اگر روی قالب فعال خودتان تغییر شخصی داده‌اید، فقط پنج فایل بخش ۲ را بگذارید.
 

@@ -18,6 +18,8 @@
  *   javanseda_artist_page_config    تنظیم‌های این صفحه (جدول پایین‌تر)
  *   javanseda_artist_type_map       نگاشت مقادیر musics_type به دسته‌ها
  *   javanseda_artist_type_labels    برچسب دسته‌ها
+ *   javanseda_artist_directory_cache خاموش‌کردن کش ۱۲ساعتهٔ آدرس برگهٔ فهرست هنرمندان
+ *   javanseda_artist_resume_labels  برچسب کوتاه نشان‌های سرتیتر (آهنگ/آلبوم/…)
  *   javanseda_artist_posts_limit    سقف تعداد نوشته‌های خواننده (پیش‌فرض -۱ = همه)
  */
 
@@ -43,6 +45,28 @@ $taranehyar_cfg = apply_filters(
 /* ==================================================================================
    ۱) توابع کمکی (نام‌ها با javanseda_artist_ شروع می‌شوند تا با فایل فهرست هنرمندان تداخل نکنند)
    ================================================================================== */
+if ( ! function_exists( 'javanseda_artist_digits' ) ) {
+	/** تبدیل رقم‌های لاتین به رقم‌های فارسی («12» → «۱۲») */
+	function javanseda_artist_digits( $text ) {
+		return str_replace(
+			array( '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' ),
+			array( '۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹' ),
+			(string) $text
+		);
+	}
+}
+
+if ( ! function_exists( 'javanseda_artist_fa_date' ) ) {
+	/** تاریخ خوانا برای سرتیتر: «بهمن 4, 1399» → «۴ بهمن ۱۳۹۹» */
+	function javanseda_artist_fa_date( $date ) {
+		$date = trim( (string) $date );
+		if ( preg_match( '/^(\S+)\s+([0-9]{1,2})\s*[،,]\s*([0-9]{4})$/u', $date, $m ) ) {
+			$date = $m[2] . ' ' . $m[1] . ' ' . $m[3];
+		}
+		return javanseda_artist_digits( $date );
+	}
+}
+
 if ( ! function_exists( 'javanseda_artist_normalize' ) ) {
 	/** نرمال‌سازی فارسی برای مرتب‌سازی و مقایسه */
 	function javanseda_artist_normalize( $text ) {
@@ -94,11 +118,19 @@ if ( ! function_exists( 'javanseda_artist_directory_url' ) ) {
 			return $url;
 		}
 
-		$pages = get_posts(
-			array(
-				'post_type'        => 'page',
-				'post_status'      => 'publish',
-				'posts_per_page'   => 1,
+			// چون جست‌وجوی برگه با متای قالب سنگین است، نتیجه ۱۲ ساعت کش می‌شود.
+			$cacheable = (bool) apply_filters( 'javanseda_artist_directory_cache', true );
+			$cached    = $cacheable ? get_transient( 'javanseda_artist_directory_url' ) : '';
+			if ( is_string( $cached ) && '' !== $cached ) {
+				$url = $cached;
+				return $url;
+			}
+
+			$pages = get_posts(
+				array(
+					'post_type'        => 'page',
+					'post_status'      => 'publish',
+					'posts_per_page'   => 1,
 				'fields'           => 'ids',
 				'no_found_rows'    => true,
 				'suppress_filters' => false,
@@ -107,11 +139,14 @@ if ( ! function_exists( 'javanseda_artist_directory_url' ) ) {
 			)
 		);
 
-		$url = ( $pages && ! empty( $pages[0] ) ) ? get_permalink( (int) $pages[0] ) : home_url( '/singers/' );
-		if ( ! $url ) {
-			$url = home_url( '/singers/' );
-		}
-		return $url;
+			$url = ( $pages && ! empty( $pages[0] ) ) ? get_permalink( (int) $pages[0] ) : home_url( '/singers/' );
+			if ( ! $url ) {
+				$url = home_url( '/singers/' );
+			}
+			if ( $cacheable ) {
+				set_transient( 'javanseda_artist_directory_url', $url, 12 * HOUR_IN_SECONDS );
+			}
+			return $url;
 	}
 }
 
@@ -281,6 +316,17 @@ $taranehyar_labels = apply_filters(
 		'audio' => 'آهنگ ها',
 		'video' => 'موزیک ویدیو ها',
 		'other' => 'سایر موارد',
+	)
+);
+
+/* برچسب کوتاه نشان‌های سرتیتر: «۶ آهنگ» به‌جای «۶ آهنگ ها» */
+$taranehyar_resume_labels = apply_filters(
+	'javanseda_artist_resume_labels',
+	array(
+		'album' => 'آلبوم',
+		'audio' => 'آهنگ',
+		'video' => 'موزیک ویدیو',
+		'other' => 'سایر',
 	)
 );
 
@@ -465,7 +511,7 @@ $taranehyar_sort_labels = array(
 				<?php foreach ( array( 'album', 'audio', 'video', 'other' ) as $taranehyar_key ) : ?>
 					<?php $taranehyar_count = count( $taranehyar_buckets[ $taranehyar_key ] ); ?>
 					<?php if ( $taranehyar_count > 0 ) : ?>
-						<li><?php echo absint( $taranehyar_count ); ?> <?php echo esc_html( isset( $taranehyar_labels[ $taranehyar_key ] ) ? $taranehyar_labels[ $taranehyar_key ] : $taranehyar_key ); ?></li>
+						<li><span class="ab-resume__num"><?php echo esc_html( javanseda_artist_digits( absint( $taranehyar_count ) ) ); ?></span> <?php echo esc_html( isset( $taranehyar_resume_labels[ $taranehyar_key ] ) ? $taranehyar_resume_labels[ $taranehyar_key ] : $taranehyar_key ); ?></li>
 					<?php endif; ?>
 				<?php endforeach; ?>
 			</ul>
@@ -473,11 +519,11 @@ $taranehyar_sort_labels = array(
 			<?php if ( ! empty( $taranehyar_cfg['show_meta'] ) && ( $taranehyar_found > 0 || '' !== $taranehyar_latest_date ) ) : ?>
 				<p class="ab-artist-page__meta">
 					<?php if ( $taranehyar_found > 0 ) : ?>
-						<?php echo esc_html( sprintf( '%s اثر در این صفحه', number_format_i18n( $taranehyar_found ) ) ); ?>
+						<?php echo esc_html( sprintf( '%s اثر در این صفحه', javanseda_artist_digits( number_format_i18n( $taranehyar_found ) ) ) ); ?>
 					<?php endif; ?>
 					<?php if ( '' !== $taranehyar_latest_date ) : ?>
 						<span class="ab-artist-page__dot">•</span>
-						<?php echo esc_html( 'آخرین به‌روزرسانی: ' . $taranehyar_latest_date ); ?>
+						<?php echo esc_html( 'آخرین به‌روزرسانی: ' . javanseda_artist_fa_date( $taranehyar_latest_date ) ); ?>
 					<?php endif; ?>
 				</p>
 			<?php endif; ?>

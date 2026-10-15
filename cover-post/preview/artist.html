@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#185ADB">
-<title>پیش‌نمایش صفحهٔ اختصاصی خواننده — محسن یگانه</title>
+<title>پیش‌نمایش صفحهٔ اختصاصی خواننده — محسن چاووشی</title>
 <style>
 /* --- استایل واقعی قالب (همان style.css) --- */
 @charset "utf-8";
@@ -1834,6 +1834,55 @@ body{padding-top:0;}
 	.ab-related__item{font-size:12px;padding:5px 10px;}
 }
 
+/* --------------------------------------------------------------------------------------------
+   ادامهٔ بخش ۱۶ — اصلاح فاصله‌ها و چیدمان سرتیتر پروفایل خواننده
+   (روی لپ‌تاپ، نشان‌های «۶ آهنگ / ۶ آلبوم» و خط «آخرین به‌روزرسانی» به هم چسبیده بودند)
+   همهٔ انتخابگرها یا مخصوص همین صفحه‌اند (ab-artist-page / ab-resume) یا مثل
+   .artist_name_head فقط در همین باکس استفاده می‌شوند.
+   -------------------------------------------------------------------------------------------- */
+
+.artist_box_detss .artist_name_head{float:none;width:auto;margin:0 0 12px;padding:0;
+	font-size:21px;line-height:1.65;text-align:right;}
+.artist_box_detss .artist_resume_box{float:none;width:auto;display:flex;flex-wrap:wrap;gap:8px;
+	margin:0 0 12px;padding:0;text-align:right;list-style:none;}
+.artist_box_detss .artist_resume_box li{display:inline-flex;align-items:center;gap:5px;margin:0;
+	padding:5px 13px;background:var(--ab-blue-soft);color:var(--ab-blue);border-radius:999px;
+	font-size:13px;line-height:1.9;}
+.artist_box_detss .artist_resume_box li .ab-resume__num{font-weight:700;font-size:14px;line-height:1;}
+.artist_box_detss .ab-artist-page__meta{margin:0 0 6px;font-size:13px;line-height:2;color:var(--ab-muted);}
+.artist_box_detss .ab-artist-page__links{margin:12px 0 0;}
+.artist_box_detss .clear2{padding:2px 0;}
+
+.night .artist_box_detss .artist_resume_box li{background:rgba(24,90,219,.22);color:#EAF1FE;}
+
+@media (max-width: 767px){
+	body.tax-singer .artist_box_tarlanweb .artists_imsf{float:none;margin:0 auto 16px;}
+	.artist_box_detss .artist_name_head{font-size:18px;line-height:1.7;margin-bottom:10px;}
+	.artist_box_detss .artist_resume_box{gap:6px;margin-bottom:10px;}
+	.artist_box_detss .ab-artist-page__meta{line-height:1.9;}
+}
+
+@media (max-width: 480px){
+	.artist_box_detss .artist_resume_box li{padding:4px 10px;font-size:12.5px;}
+	.artist_box_detss .artist_resume_box li .ab-resume__num{font-size:13px;}
+}
+
+/* حالت فوکوس برای همهٔ عناصر تعاملیِ کارهای ما (پیمایش با کیبورد) */
+.ab-artist-page__sortitem:focus-visible,
+.ab-artist-page__links a:focus-visible,
+.ab-related__item:focus-visible,
+.ab-artists__chip:focus-visible,
+.ab-artists__pill:focus-visible,
+.ab-artists__search-btn:focus-visible,
+.ab-artists__loadmore-btn:focus-visible,
+.ab-artists__az a:focus-visible,
+.ab-artists__search input:focus-visible{
+	outline:2px solid var(--ab-blue);outline-offset:2px;}
+.night .ab-artist-page__sortitem:focus-visible,
+.night .ab-related__item:focus-visible,
+.night .ab-artists__chip:focus-visible,
+.night .ab-artists__pill:focus-visible{outline-color:#4C8BFF;}
+
 /* --- فقط برای این پیش‌نمایش --- */
 body{background:var(--ab-page);color:var(--ab-text);}
 .preview-bar{background:var(--ab-blue);color:#fff;padding:10px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;}
@@ -1853,7 +1902,7 @@ body{background:var(--ab-page);color:var(--ab-text);}
 <div class="tarlanweb_center">
 	<div class="artist_box_tarlanweb">
 		<div class="artists_imsf">
-			<img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='190' height='190'><rect width='190' height='190' fill='%23DDE9FC'/><text x='95' y='105' font-size='30' fill='%23111' text-anchor='middle' font-family='sans-serif'>محسن یگان</text></svg>" width="200" height="200" alt="محسن یگانه" title="محسن یگانه">
+			<img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='190' height='190'><rect width='190' height='190' fill='%23DDE9FC'/><text x='95' y='105' font-size='30' fill='%23111' text-anchor='middle' font-family='sans-serif'>محسن چاوو</text></svg>" width="200" height="200" alt="محسن چاووشی" title="محسن چاووشی">
 			<div class="socials_box">
 				<span>صفحات مجازی هنرمند</span>
 				<a href="#" class="icofont-instagram" aria-label="instagram"></a>
@@ -1865,11 +1914,13 @@ body{background:var(--ab-page);color:var(--ab-text);}
 		</div>
 
 		<div class="artist_box_detss">
-			<h1 class="artist_name_head">دانلود آهنگ‌های محسن یگانه</h1>
+			<h1 class="artist_name_head">دانلود آهنگ‌های محسن چاووشی</h1>
 			<ul class="artist_resume_box">
-				<li>۱۰ آهنگ ها</li>
+				<li><span class="ab-resume__num">۶</span> آلبوم</li>
+				<li><span class="ab-resume__num">۵</span> آهنگ</li>
+				<li><span class="ab-resume__num">۱</span> موزیک ویدیو</li>
 			</ul>
-			<p class="ab-artist-page__meta">۱۰ اثر در این صفحه <span class="ab-artist-page__dot">•</span> آخرین به‌روزرسانی: ۱۴ مهر ۱۴۰۵</p>
+			<p class="ab-artist-page__meta">۱۲ اثر در این صفحه <span class="ab-artist-page__dot">•</span> آخرین به‌روزرسانی: ۴ بهمن ۱۳۹۹</p>
 			<div class="clear2"></div>
 			<div class="artist_txt_box">
 				<p>محسن یگانه (زادهٔ ۱۳۶۳) خواننده، ترانه‌سرا و آهنگساز ایرانی است. متن معرفی خواننده از «توضیحات» ترم خواننده در پیشخوان خوانده می‌شود و اگر خالی باشد این بخش نمایش داده نمی‌شود.</p>
@@ -1902,7 +1953,7 @@ body{background:var(--ab-page);color:var(--ab-text);}
 			<div class="clear"></div><div class="liner"></div>
 		</div>
 		<div class="ab-related__list">
-			<a class="ab-related__item" href="#">رضا صادقی<span class="ab-related__count">112</span></a><a class="ab-related__item" href="#">مرتضی پاشایی<span class="ab-related__count">87</span></a><a class="ab-related__item" href="#">سیروان خسروی<span class="ab-related__count">91</span></a><a class="ab-related__item" href="#">بنیامین بهادری<span class="ab-related__count">88</span></a><a class="ab-related__item" href="#">علی یاسینی<span class="ab-related__count">55</span></a><a class="ab-related__item" href="#">مهدی یراحی<span class="ab-related__count">59</span></a><a class="ab-related__item" href="#">فرزاد فرزین<span class="ab-related__count">84</span></a><a class="ab-related__item" href="#">امیرعباس گلاب<span class="ab-related__count">74</span></a>
+			<a class="ab-related__item" href="#">محسن یگانه<span class="ab-related__count">132</span></a><a class="ab-related__item" href="#">مرتضی پاشایی<span class="ab-related__count">87</span></a><a class="ab-related__item" href="#">رضا صادقی<span class="ab-related__count">112</span></a><a class="ab-related__item" href="#">سیروان خسروی<span class="ab-related__count">91</span></a><a class="ab-related__item" href="#">فرزاد فرزین<span class="ab-related__count">84</span></a><a class="ab-related__item" href="#">بنیامین بهادری<span class="ab-related__count">88</span></a><a class="ab-related__item" href="#">مهدی یراحی<span class="ab-related__count">59</span></a><a class="ab-related__item" href="#">علی یاسینی<span class="ab-related__count">55</span></a>
 			<div class="clear"></div>
 		</div>
 	</div>
@@ -1911,50 +1962,43 @@ body{background:var(--ab-page);color:var(--ab-text);}
 	<div class="song_boxs">
 		<div class="songs_title_box">
 			<h3>آهنگ ها</h3>
-			<span class="ab-bucket-count">6</span>
+			<span class="ab-bucket-count">5</span>
 			<div class="clear"></div><div class="liner"></div>
 		</div>
 		<div class="song_boxs_posts">
 			<ul>
 							<li><article class="songs_post">
 								<header>
-									<figure><a rel="nofollow" href="#"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='190' height='190'><rect width='190' height='190' fill='%23EAF1FE'/><text x='95' y='105' font-size='30' fill='%23111' text-anchor='middle' font-family='sans-serif'>چهار دیوا</text></svg>" width="190" height="190" alt="چهار دیوار" title="چهار دیوار"></a></figure>
-									<h2><a href="#">محسن یگانه<span>چهار دیوار</span></a></h2>
+									<figure><a rel="nofollow" href="#"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='190' height='190'><rect width='190' height='190' fill='%23EAF1FE'/><text x='95' y='105' font-size='30' fill='%23111' text-anchor='middle' font-family='sans-serif'>نفرین</text></svg>" width="190" height="190" alt="نفرین" title="نفرین"></a></figure>
+									<h2><a href="#">محسن چاووشی<span>نفرین</span></a></h2>
 								</header>
 								<footer><span class="ft_box_format">آهنگ</span></footer>
 							</article></li>
 							<li><article class="songs_post">
 								<header>
-									<figure><a rel="nofollow" href="#"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='190' height='190'><rect width='190' height='190' fill='%23DCE8FF'/><text x='95' y='105' font-size='30' fill='%23111' text-anchor='middle' font-family='sans-serif'>بهت قول م</text></svg>" width="190" height="190" alt="بهت قول می‌دم" title="بهت قول می‌دم"></a></figure>
-									<h2><a href="#">محسن یگانه<span>بهت قول می‌دم</span></a></h2>
+									<figure><a rel="nofollow" href="#"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='190' height='190'><rect width='190' height='190' fill='%23DCE8FF'/><text x='95' y='105' font-size='30' fill='%23111' text-anchor='middle' font-family='sans-serif'>کی باید م</text></svg>" width="190" height="190" alt="کی باید می‌گفت" title="کی باید می‌گفت"></a></figure>
+									<h2><a href="#">محسن چاووشی<span>کی باید می‌گفت</span></a></h2>
 								</header>
 								<footer><span class="ft_box_format">آهنگ</span></footer>
 							</article></li>
 							<li><article class="songs_post">
 								<header>
-									<figure><a rel="nofollow" href="#"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='190' height='190'><rect width='190' height='190' fill='%23E8F0FF'/><text x='95' y='105' font-size='30' fill='%23111' text-anchor='middle' font-family='sans-serif'>نشکن دلمو</text></svg>" width="190" height="190" alt="نشکن دلمو" title="نشکن دلمو"></a></figure>
-									<h2><a href="#">محسن یگانه<span>نشکن دلمو</span></a></h2>
+									<figure><a rel="nofollow" href="#"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='190' height='190'><rect width='190' height='190' fill='%23E8F0FF'/><text x='95' y='105' font-size='30' fill='%23111' text-anchor='middle' font-family='sans-serif'>راه بی‌پا</text></svg>" width="190" height="190" alt="راه بی‌پایان" title="راه بی‌پایان"></a></figure>
+									<h2><a href="#">محسن چاووشی<span>راه بی‌پایان</span></a></h2>
 								</header>
 								<footer><span class="ft_box_format">آهنگ</span></footer>
 							</article></li>
 							<li><article class="songs_post">
 								<header>
-									<figure><a rel="nofollow" href="#"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='190' height='190'><rect width='190' height='190' fill='%23DDE9FC'/><text x='95' y='105' font-size='30' fill='%23111' text-anchor='middle' font-family='sans-serif'>آرامش</text></svg>" width="190" height="190" alt="آرامش" title="آرامش"></a></figure>
-									<h2><a href="#">محسن یگانه<span>آرامش</span></a></h2>
+									<figure><a rel="nofollow" href="#"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='190' height='190'><rect width='190' height='190' fill='%23DDE9FC'/><text x='95' y='105' font-size='30' fill='%23111' text-anchor='middle' font-family='sans-serif'>دنیای بعد</text></svg>" width="190" height="190" alt="دنیای بعد از تو" title="دنیای بعد از تو"></a></figure>
+									<h2><a href="#">محسن چاووشی<span>دنیای بعد از تو</span></a></h2>
 								</header>
 								<footer><span class="ft_box_format">آهنگ</span></footer>
 							</article></li>
 							<li><article class="songs_post">
 								<header>
-									<figure><a rel="nofollow" href="#"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='190' height='190'><rect width='190' height='190' fill='%23EAF1FE'/><text x='95' y='105' font-size='30' fill='%23111' text-anchor='middle' font-family='sans-serif'>خوشبختیت </text></svg>" width="190" height="190" alt="خوشبختیت آرزومه" title="خوشبختیت آرزومه"></a></figure>
-									<h2><a href="#">محسن یگانه<span>خوشبختیت آرزومه</span></a></h2>
-								</header>
-								<footer><span class="ft_box_format">آهنگ</span></footer>
-							</article></li>
-							<li><article class="songs_post">
-								<header>
-									<figure><a rel="nofollow" href="#"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='190' height='190'><rect width='190' height='190' fill='%23DCE8FF'/><text x='95' y='105' font-size='30' fill='%23111' text-anchor='middle' font-family='sans-serif'>یه راهی</text></svg>" width="190" height="190" alt="یه راهی" title="یه راهی"></a></figure>
-									<h2><a href="#">محسن یگانه<span>یه راهی</span></a></h2>
+									<figure><a rel="nofollow" href="#"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='190' height='190'><rect width='190' height='190' fill='%23EAF1FE'/><text x='95' y='105' font-size='30' fill='%23111' text-anchor='middle' font-family='sans-serif'>بی‌قرار</text></svg>" width="190" height="190" alt="بی‌قرار" title="بی‌قرار"></a></figure>
+									<h2><a href="#">محسن چاووشی<span>بی‌قرار</span></a></h2>
 								</header>
 								<footer><span class="ft_box_format">آهنگ</span></footer>
 							</article></li>
@@ -1967,22 +2011,15 @@ body{background:var(--ab-page);color:var(--ab-text);}
 	<div class="song_boxs">
 		<div class="songs_title_box">
 			<h3>موزیک ویدیو ها</h3>
-			<span class="ab-bucket-count">2</span>
+			<span class="ab-bucket-count">1</span>
 			<div class="clear"></div><div class="liner"></div>
 		</div>
 		<div class="song_boxs_posts">
 			<ul>
 							<li><article class="songs_post">
 								<header>
-									<figure><a rel="nofollow" href="#"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='190' height='190'><rect width='190' height='190' fill='%23EAF1FE'/><text x='95' y='105' font-size='30' fill='%23111' text-anchor='middle' font-family='sans-serif'>چهار دیوا</text></svg>" width="190" height="190" alt="چهار دیوار (ویدیو)" title="چهار دیوار (ویدیو)"></a></figure>
-									<h2><a href="#">محسن یگانه<span>چهار دیوار (ویدیو)</span></a></h2>
-								</header>
-								<footer><span class="ft_box_format">موزیک ویدیو</span></footer>
-							</article></li>
-							<li><article class="songs_post">
-								<header>
-									<figure><a rel="nofollow" href="#"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='190' height='190'><rect width='190' height='190' fill='%23DCE8FF'/><text x='95' y='105' font-size='30' fill='%23111' text-anchor='middle' font-family='sans-serif'>آرامش (وی</text></svg>" width="190" height="190" alt="آرامش (ویدیو)" title="آرامش (ویدیو)"></a></figure>
-									<h2><a href="#">محسن یگانه<span>آرامش (ویدیو)</span></a></h2>
+									<figure><a rel="nofollow" href="#"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='190' height='190'><rect width='190' height='190' fill='%23EAF1FE'/><text x='95' y='105' font-size='30' fill='%23111' text-anchor='middle' font-family='sans-serif'>نفرین (وی</text></svg>" width="190" height="190" alt="نفرین (ویدیو)" title="نفرین (ویدیو)"></a></figure>
+									<h2><a href="#">محسن چاووشی<span>نفرین (ویدیو)</span></a></h2>
 								</header>
 								<footer><span class="ft_box_format">موزیک ویدیو</span></footer>
 							</article></li>
@@ -1995,22 +2032,50 @@ body{background:var(--ab-page);color:var(--ab-text);}
 	<div class="song_boxs">
 		<div class="songs_title_box">
 			<h3>آلبوم ها</h3>
-			<span class="ab-bucket-count">2</span>
+			<span class="ab-bucket-count">6</span>
 			<div class="clear"></div><div class="liner"></div>
 		</div>
 		<div class="song_boxs_posts">
 			<ul>
 							<li><article class="songs_post">
 								<header>
-									<figure><a rel="nofollow" href="#"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='190' height='190'><rect width='190' height='190' fill='%23EAF1FE'/><text x='95' y='105' font-size='30' fill='%23111' text-anchor='middle' font-family='sans-serif'>آلبوم «حا</text></svg>" width="190" height="190" alt="آلبوم «حاضر»، همراه" title="آلبوم «حاضر»، همراه"></a></figure>
-									<h2><a href="#">محسن یگانه<span>آلبوم «حاضر»، همراه</span></a></h2>
+									<figure><a rel="nofollow" href="#"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='190' height='190'><rect width='190' height='190' fill='%23EAF1FE'/><text x='95' y='105' font-size='30' fill='%23111' text-anchor='middle' font-family='sans-serif'>آلبوم «اب</text></svg>" width="190" height="190" alt="آلبوم «ابراهیم»، نفرین" title="آلبوم «ابراهیم»، نفرین"></a></figure>
+									<h2><a href="#">محسن چاووشی<span>آلبوم «ابراهیم»، نفرین</span></a></h2>
 								</header>
 								<footer><span class="ft_box_format">آلبوم</span></footer>
 							</article></li>
 							<li><article class="songs_post">
 								<header>
-									<figure><a rel="nofollow" href="#"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='190' height='190'><rect width='190' height='190' fill='%23DCE8FF'/><text x='95' y='105' font-size='30' fill='%23111' text-anchor='middle' font-family='sans-serif'>آلبوم «نف</text></svg>" width="190" height="190" alt="آلبوم «نفس‌های نامنظم»، بهت قول می‌دم" title="آلبوم «نفس‌های نامنظم»، بهت قول می‌دم"></a></figure>
-									<h2><a href="#">محسن یگانه<span>آلبوم «نفس‌های نامنظم»، بهت قول می‌دم</span></a></h2>
+									<figure><a rel="nofollow" href="#"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='190' height='190'><rect width='190' height='190' fill='%23DCE8FF'/><text x='95' y='105' font-size='30' fill='%23111' text-anchor='middle' font-family='sans-serif'>آلبوم «من</text></svg>" width="190" height="190" alt="آلبوم «من و تو»، بی‌قرار" title="آلبوم «من و تو»، بی‌قرار"></a></figure>
+									<h2><a href="#">محسن چاووشی<span>آلبوم «من و تو»، بی‌قرار</span></a></h2>
+								</header>
+								<footer><span class="ft_box_format">آلبوم</span></footer>
+							</article></li>
+							<li><article class="songs_post">
+								<header>
+									<figure><a rel="nofollow" href="#"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='190' height='190'><rect width='190' height='190' fill='%23E8F0FF'/><text x='95' y='105' font-size='30' fill='%23111' text-anchor='middle' font-family='sans-serif'>آلبوم «خو</text></svg>" width="190" height="190" alt="آلبوم «خودکشی ممنوع»، کی باید می‌گفت" title="آلبوم «خودکشی ممنوع»، کی باید می‌گفت"></a></figure>
+									<h2><a href="#">محسن چاووشی<span>آلبوم «خودکشی ممنوع»، کی باید می‌گفت</span></a></h2>
+								</header>
+								<footer><span class="ft_box_format">آلبوم</span></footer>
+							</article></li>
+							<li><article class="songs_post">
+								<header>
+									<figure><a rel="nofollow" href="#"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='190' height='190'><rect width='190' height='190' fill='%23DDE9FC'/><text x='95' y='105' font-size='30' fill='%23111' text-anchor='middle' font-family='sans-serif'>آلبوم «۲۴</text></svg>" width="190" height="190" alt="آلبوم «۲۴ ساعت»، دنیای بعد از تو" title="آلبوم «۲۴ ساعت»، دنیای بعد از تو"></a></figure>
+									<h2><a href="#">محسن چاووشی<span>آلبوم «۲۴ ساعت»، دنیای بعد از تو</span></a></h2>
+								</header>
+								<footer><span class="ft_box_format">آلبوم</span></footer>
+							</article></li>
+							<li><article class="songs_post">
+								<header>
+									<figure><a rel="nofollow" href="#"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='190' height='190'><rect width='190' height='190' fill='%23EAF1FE'/><text x='95' y='105' font-size='30' fill='%23111' text-anchor='middle' font-family='sans-serif'>آلبوم «حر</text></svg>" width="190" height="190" alt="آلبوم «حریص»، راه بی‌پایان" title="آلبوم «حریص»، راه بی‌پایان"></a></figure>
+									<h2><a href="#">محسن چاووشی<span>آلبوم «حریص»، راه بی‌پایان</span></a></h2>
+								</header>
+								<footer><span class="ft_box_format">آلبوم</span></footer>
+							</article></li>
+							<li><article class="songs_post">
+								<header>
+									<figure><a rel="nofollow" href="#"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='190' height='190'><rect width='190' height='190' fill='%23DCE8FF'/><text x='95' y='105' font-size='30' fill='%23111' text-anchor='middle' font-family='sans-serif'>آلبوم «نی</text></svg>" width="190" height="190" alt="آلبوم «نی‌لوفر»، خوشا به حالت" title="آلبوم «نی‌لوفر»، خوشا به حالت"></a></figure>
+									<h2><a href="#">محسن چاووشی<span>آلبوم «نی‌لوفر»، خوشا به حالت</span></a></h2>
 								</header>
 								<footer><span class="ft_box_format">آلبوم</span></footer>
 							</article></li>
