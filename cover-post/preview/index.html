@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#185ADB">
+<title>پیش‌نمایش پالت سازمانی — کاور، باکس متن ترانه و دانلود</title>
+<style>
+/* ---- پالت سازمانی (همان متغیرهای قالب) ---- */
+:root{
+--ab-blue: #185ADB;
+--ab-blue-dark: #1246AD;
+--ab-blue-accent: #185ADB;
+--ab-blue-soft: #EAF1FE;
+--ab-ink: #111111;
+--ab-charcoal: #222222;
+--ab-white: #FFFFFF;
+--ab-page: #FFFFFF;
+--ab-surface: #FFFFFF;
+--ab-text: #222222;
+--ab-muted: #555555;
+--ab-line: rgba(24,90,219,0.16);
+--ab-shadow: 0 10px 26px rgba(17,17,17,0.10),0 2px 8px rgba(17,17,17,0.06);
+}
+.night{
+--ab-blue: #185ADB;
+--ab-blue-dark: #1246AD;
+--ab-blue-accent: #4C8BFF;
+--ab-blue-soft: rgba(24,90,219,0.22);
+--ab-page: #111111;
+--ab-surface: #222222;
+--ab-text: #EEEEEE;
+--ab-muted: #BDBDBD;
+--ab-line: rgba(255,255,255,0.10);
+--ab-shadow: 0 10px 26px rgba(0,0,0,0.45);
+}
+
+.clear{clear: both;}
+body{margin:0;padding:26px 14px;background: var(--ab-page);color: var(--ab-text);
+font-family:vazir,tahoma,sans-serif;font-size:14px;line-height:25px;direction:rtl;text-align:right;}
+.wrap{max-width:1000px;margin:0 auto;}
+.note{background: var(--ab-surface);border:1px solid var(--ab-line);border-radius:12px;padding:14px 18px;margin-bottom:18px;box-shadow: var(--ab-shadow);}
+.note b{color: var(--ab-blue-accent);}
+.note code{background: var(--ab-blue-soft);border-radius:4px;padding:1px 5px;direction:ltr;display:inline-block;font-size:12px;color: var(--ab-blue-accent);}
+.tip{font-size:13px;color: var(--ab-muted);}
+.swatches{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;}
+.sw{display:flex;flex-direction:column;align-items:center;font-size:12px;line-height:1.9;text-align:center;}
+.sw i{display:block;width:46px;height:46px;border-radius:10px;border:1px solid var(--ab-line);margin-bottom:4px;}
+.mock{background: var(--ab-surface);border:1px solid var(--ab-line);border-radius:12px;padding:20px;margin-bottom:22px;box-shadow: var(--ab-shadow);}
+.mock h1{font-size:18px;font-weight:600;padding-bottom:14px;margin:5px 0 12px;display:inline-block;border-bottom:2px solid var(--ab-blue);}
+.mock p{margin:0 0 12px;}
+.nightbody{background: var(--ab-page);padding:18px;border-radius:12px;margin-bottom:22px;}
+.nightbody .mock{background: var(--ab-surface);border-color: var(--ab-line);box-shadow:none;}
+.nightbody .mock h1{color: var(--ab-text);}
+.nightbody .tip{color: var(--ab-muted);}
+/* ---- بلوک CSS قالب: کاور پست ---- */
+/* ---------------------------------------------------------------
+   کاور پست (تصویر شاخص) — وسط‌چین + گوشه‌های گرد استاندارد + افکت
+   قابل تنظیم (فقط عددها را عوض کن):
+   • گردی گوشه‌ها ...... border-radius  ۱۶px   (نرم‌تر: ۲۰px / کمتر: ۱۰px)
+   • حداکثر عرض کاور ... max-width      ۸۸۰px  (کوچک‌تر و «وسط‌تر»: ۷۰۰px)
+   • خاموش کردن افکت‌ها  بلوک «AFEKTS» را کامنت کن
+----------------------------------------------------------------- */
+.single_featured_cover{margin: 0 0 22px 0;text-align: center;}
+.single_featured_image{display: inline-block;position: relative;max-width: 880px;line-height: 0;
+overflow: hidden;border-radius: 16px;vertical-align: top;
+box-shadow: var(--ab-shadow);
+animation: taranehyar_cover_in 0.55s ease-out both;}
+.single_featured_image img{display: block;width: auto;height: auto;max-width: 100%;
+border-radius: inherit;backface-visibility: hidden;
+transition: transform 0.5s cubic-bezier(0.2,0.7,0.3,1),filter 0.5s ease;}
+@keyframes taranehyar_cover_in{from{opacity: 0;transform: translateY(10px) scale(0.985);}to{opacity: 1;transform: none;}}
+/* ----- AFEKTS: افکت ۱ = زوم نرم روی کاور | افکت ۲ = عبور درخشش مورب ----- */
+.single_featured_image:hover img{transform: scale(1.045);filter: saturate(1.05) brightness(1.02);}
+.single_featured_image::after{content: "";position: absolute;top: -60%;left: -60%;width: 45%;height: 220%;
+pointer-events: none;transform: rotate(20deg) translateX(-260%);
+background: rgba(255,255,255,0.24);filter: blur(10px);}
+.single_featured_image:hover::after{animation: taranehyar_cover_shine 0.85s cubic-bezier(0.2,0.7,0.3,1);}
+@keyframes taranehyar_cover_shine{from{transform: rotate(20deg) translateX(-260%);}to{transform: rotate(20deg) translateX(560%);}}
+/* ----- پایان AFEKTS ----- */
+
+@media (max-width: 767px){.single_featured_cover{margin-bottom: 16px;}.single_featured_image{border-radius: 12px;}}
+@media (prefers-reduced-motion: reduce){
+.single_featured_image,.single_featured_image img,.single_featured_image::after{animation: none !important;transition: none !important;}
+.single_featured_image:hover img{transform: none;}
+}
+
+/* ---- بلوک CSS قالب: باکس متن ترانه ---- */
+/* -------------------- باکس «متن ترانه» (متن آهنگ) --------------------
+   منبع متن: فیلد music_text — وسط‌چین، با هدر، لینک خواننده و دکمهٔ کپی
+   قابل تنظیم: border-radius، font-size، line-height، text-align
+---------------------------------------------------------------------- */
+.music_lyrics_box{position: relative;margin: 26px 0 10px 0;background: var(--ab-surface);
+border: 1px solid var(--ab-line);border-radius: 12px;overflow: hidden;
+box-shadow: var(--ab-shadow);}
+.music_lyrics_head{display: flex;flex-direction: column;align-items: center;gap: 9px;padding: 15px 16px 13px 16px;
+text-align: center;background: var(--ab-blue-soft);
+border-bottom: 1px solid var(--ab-line);}
+.music_lyrics_title{margin: 0;font-size: 16px;font-weight: 600;line-height: 1.9;color: var(--ab-text);}
+.music_lyrics_title i{color: var(--ab-blue-accent);font-size: 19px;margin-left: 6px;vertical-align: middle;}
+.music_lyrics_song{color: var(--ab-blue-accent);}
+.music_lyrics_actions{display: flex;flex-wrap: wrap;align-items: center;justify-content: center;gap: 8px;margin: 0;}
+.music_lyrics_artist_link,.music_lyrics_copy{display: inline-flex;align-items: center;gap: 5px;height: 30px;
+padding: 0 11px;border-radius: 30px;font-size: 12px;line-height: 1;background: var(--ab-blue-soft);
+color: var(--ab-blue-accent);border: 0;cursor: pointer;transition: background 0.25s ease,color 0.25s ease;}
+.music_lyrics_artist_link i,.music_lyrics_copy i{font-size: 14px;}
+.music_lyrics_artist_link:hover{background: var(--ab-blue);color: #fff;}
+.music_lyrics_copy:hover{background: var(--ab-blue);color: #fff;}
+.music_lyrics_copy.is-done{background: var(--ab-ink);color: var(--ab-white);}
+.night .music_lyrics_copy.is-done{background: var(--ab-white);color: var(--ab-ink);}
+.music_lyrics_text{padding: 18px 18px 22px 18px;font-size: 15px;line-height: 2.15;color: var(--ab-text);
+text-align: center;word-wrap: break-word;overflow-wrap: anywhere;}
+.music_lyrics_text p{margin: 0 0 14px 0;}
+.music_lyrics_text p:last-child{margin-bottom: 0;}
+.music_lyrics_text strong,.music_lyrics_text b{color: var(--ab-blue-accent);}
+/* حالت شب با بازنویسی متغیرها در .night انجام می‌شود؛ نیازی به قاعدهٔ جداگانه نیست. */
+@media (max-width: 767px){
+.music_lyrics_head{padding: 13px 12px 12px 12px;}
+.music_lyrics_title{font-size: 15px;}
+.music_lyrics_text{padding: 14px 12px 18px 12px;font-size: 14px;line-height: 2;}
+}
+/* ---- بلوک CSS قالب: دانلود ---- */
+.dl_linksv_box{text-align: center;}
+.dl_links_box,.dl_linksv_box{width: 100%;height: auto;clear: both;margin: 20px 0;text-align: center;}
+.dl_links_box a,.dl_linksv_box a{width: 49%;height: 45px;line-height: 47px;display: block;text-align: center;font-size: 15px;margin: 5px 0;
+overflow: hidden;border-radius: 10px;
+background: var(--ab-blue);color: var(--ab-white);
+box-shadow: none;
+border: 1px solid var(--ab-blue);}
+.dl_linksv_box a{width: 100%;background: var(--ab-blue-soft);color: var(--ab-blue-accent);border-color: var(--ab-line);}
+.dl_link_128{float: right;}
+.dl_links_320{float: left;}
+.dl_links_box a i,.dl_linksv_box a i{font-size: 17px;margin-left: 5px;}
+
+.dl_linksv_box ul{margin: 0 -5px;}
+.dl_linksv_box ul li{width: 33.3%;padding: 5px;display: inline-block;}
+
+
+.dl_links_box a:hover,.dl_linksv_box a:hover,.night .dl_links_box a:hover,
+.night .dl_linksv_box a:hover{background: var(--ab-blue-dark);color: var(--ab-white);border-color: var(--ab-blue-dark);}
+.night .download_box a:hover{background: var(--ab-blue);color: var(--ab-white);}
+/* -------------------- تیتر بخش دانلود -------------------- */
+.dl_title{display: flex;flex-wrap: wrap;align-items: center;justify-content: center;gap: 6px;
+margin: 26px 0 4px 0;font-size: 16px;font-weight: 600;line-height: 2;text-align: center;color: var(--ab-text);}
+.dl_title i{color: var(--ab-blue-accent);font-size: 19px;}
+.dl_title_song{color: var(--ab-blue-accent);}
+
+@media (max-width: 767px){.dl_title{font-size: 15px;margin-top: 22px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="note">
+    <b>پالت رنگ سازمانی آهنگ‌بان (طراحی تخت — بدون گرادینت)</b>
+    <div class="swatches">
+      <span class="sw"><i style="background:#185ADB"></i>آبی آهنگ‌بان<br><code>#185ADB</code></span>
+      <span class="sw"><i style="background:#1246AD"></i>آبی هاور<br><code>#1246AD</code></span>
+      <span class="sw"><i style="background:#EAF1FE"></i>آبی کم‌رنگ<br><code>#EAF1FE</code></span>
+      <span class="sw"><i style="background:#111111"></i>مشکی<br><code>#111111</code></span>
+      <span class="sw"><i style="background:#222222"></i>زغالی<br><code>#222222</code></span>
+      <span class="sw"><i style="background:#FFFFFF;border-color:#ddd"></i>سفید<br><code>#FFFFFF</code></span>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>پیش‌نمایش زنده (محتوای ساختگی).</b>
+    <span class="tip">موس روی کاور ← زوم + نوار درخشش تخت. دکمهٔ «کپی متن ترانه» ← بازخورد «کپی شد».
+    پنجره را باریک کن ← حالت موبایل. هیچ گرادینتی در طراحی نیست.</span>
+  </div>
+
+  <div class="mock">
+    <h1>دانلود آهنگ نمونه — خوانندهٔ نمونه</h1>
+    <div class="single_content_box">
+      <div class="single_featured_cover">
+        <figure class="single_featured_image">
+          <img src="sample-cover.jpg" alt="کاور پست نمونه" title="کاور پست نمونه" width="640" height="360">
+        </figure>
+      </div>
+      <p>توضیحات نوشته (محتوای فیلد ویرایشگر) اینجا نمایش داده می‌شود.</p>
+      <section class="music_lyrics_box" aria-labelledby="taranehyar_lyrics_title" lang="fa" dir="rtl">
+        <div class="music_lyrics_head">
+          <h2 class="music_lyrics_title" id="taranehyar_lyrics_title">
+            <i class="icofont-quote-right" aria-hidden="true">&#8220;</i>
+            متن آهنگ <span class="music_lyrics_song">نمونهٔ ترانه</span> از <span class="music_lyrics_artist">خوانندهٔ نمونه</span>
+          </h2>
+          <div class="music_lyrics_actions">
+            <a class="music_lyrics_artist_link" href="/singer/mohsen-yaganeh"><i aria-hidden="true">&#9835;</i>سایر آهنگ‌های خوانندهٔ نمونه</a>
+            <button type="button" class="music_lyrics_copy" id="taranehyar_lyrics_copy" aria-label="کپی متن ترانه"><i aria-hidden="true">&#10077;</i><span class="lbl">کپی متن ترانه</span></button>
+          </div>
+        </div>
+        <div class="music_lyrics_text" id="taranehyar_lyrics_text">
+          <p>دوش دیدم که ملائک در میخانه زدند<br>گل آدم بسرشتند و به پیمانه زدند</p>
+          <p>ساکنان حرم ستر و عفاف ملکوت<br>با من راه‌نشین باده مستانه زدند</p>
+        </div>
+      </section>
+
+      <h2 class="dl_title">
+        <i class="icofont-download" aria-hidden="true">&#8681;</i>دانلود <span class="dl_title_type">آهنگ</span> <span class="dl_title_song">نمونهٔ ترانه</span> از <span class="dl_title_artist">خوانندهٔ نمونه</span>
+      </h2>
+      <div class="dl_links_box">
+        <a class="dl_link_128" href="#"><i aria-hidden="true">&#8681;</i>دانلود آهنگ با کیفیت 128</a>
+        <a class="dl_links_320" href="#"><i aria-hidden="true">&#8681;</i>دانلود آهنگ با کیفیت 320</a>
+        <div class="clear"></div>
+      </div>
+      <div class="dl_linksv_box">
+        <ul>
+          <li><a href="#"><i aria-hidden="true">&#8681;</i>موزیک ویدیو 1080</a></li>
+          <li><a href="#"><i aria-hidden="true">&#8681;</i>موزیک ویدیو 720</a></li>
+          <li><a href="#"><i aria-hidden="true">&#8681;</i>موزیک ویدیو 480</a></li>
+        </ul>
+        <div class="clear"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="nightbody"><div class="night">
+    <div class="mock">
+      <h1>حالت شب (body.night)</h1>
+      <div class="single_content_box">
+        <div class="single_featured_cover">
+          <figure class="single_featured_image">
+            <img src="sample-cover.jpg" alt="کاور پست نمونه" title="کاور پست نمونه" width="640" height="360">
+          </figure>
+        </div>
+      <section class="music_lyrics_box" aria-labelledby="night_lyrics_title" lang="fa" dir="rtl">
+        <div class="music_lyrics_head">
+          <h2 class="music_lyrics_title" id="night_lyrics_title">
+            <i class="icofont-quote-right" aria-hidden="true">&#8220;</i>
+            متن آهنگ <span class="music_lyrics_song">نمونهٔ ترانه</span> از <span class="music_lyrics_artist">خوانندهٔ نمونه</span>
+          </h2>
+          <div class="music_lyrics_actions">
+            <a class="music_lyrics_artist_link" href="/singer/mohsen-yaganeh"><i aria-hidden="true">&#9835;</i>سایر آهنگ‌های خوانندهٔ نمونه</a>
+            <button type="button" class="music_lyrics_copy" aria-label="کپی متن ترانه"><i aria-hidden="true">&#10077;</i><span class="lbl">کپی متن ترانه</span></button>
+          </div>
+        </div>
+        <div class="music_lyrics_text">
+          <p>دوش دیدم که ملائک در میخانه زدند<br>گل آدم بسرشتند و به پیمانه زدند</p>
+          <p>ساکنان حرم ستر و عفاف ملکوت<br>با من راه‌نشین باده مستانه زدند</p>
+        </div>
+      </section>
+
+      <h2 class="dl_title">
+        <i class="icofont-download" aria-hidden="true">&#8681;</i>دانلود <span class="dl_title_type">آهنگ</span> <span class="dl_title_song">نمونهٔ ترانه</span> از <span class="dl_title_artist">خوانندهٔ نمونه</span>
+      </h2>
+      <div class="dl_links_box">
+        <a class="dl_link_128" href="#"><i aria-hidden="true">&#8681;</i>دانلود آهنگ با کیفیت 128</a>
+        <a class="dl_links_320" href="#"><i aria-hidden="true">&#8681;</i>دانلود آهنگ با کیفیت 320</a>
+        <div class="clear"></div>
+      </div>
+      <div class="dl_linksv_box">
+        <ul>
+          <li><a href="#"><i aria-hidden="true">&#8681;</i>موزیک ویدیو 1080</a></li>
+          <li><a href="#"><i aria-hidden="true">&#8681;</i>موزیک ویدیو 720</a></li>
+          <li><a href="#"><i aria-hidden="true">&#8681;</i>موزیک ویدیو 480</a></li>
+        </ul>
+        <div class="clear"></div>
+      </div>
+
+      </div>
+    </div>
+  </div></div>
+
+</div>
+<script>
+(function () {
+  var btn = document.getElementById('taranehyar_lyrics_copy');
+  var box = document.getElementById('taranehyar_lyrics_text');
+  if (!btn || !box) { return; }
+  if (!navigator.clipboard) { btn.style.display = 'none'; return; }
+  btn.addEventListener('click', function () {
+    navigator.clipboard.writeText(box.innerText).then(function () {
+      var lbl = btn.querySelector('.lbl');
+      btn.classList.add('is-done');
+      if (lbl) { lbl.textContent = 'کپی شد'; }
+      window.setTimeout(function () {
+        btn.classList.remove('is-done');
+        if (lbl) { lbl.textContent = 'کپی متن ترانه'; }
+      }, 2200);
+    });
+  });
+})();
+</script>
+</body>
+</html>

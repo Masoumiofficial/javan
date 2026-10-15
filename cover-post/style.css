@@ -7,6 +7,49 @@ Author URI: https://www.rtl-theme.com/author/tarlanweb/
 Description: قالب وردپرس جوان صدا 
 Version: 3.0
 */
+/*
+==================================================================================
+  سیستم رنگ سازمانی آهنگ‌بان  (طراحی تخت — بدون گرادینت)
+  --------------------------------------------------------------------------
+  آبی آهنگ‌بان      #185ADB      →  --ab-blue       (رنگ اصلی/تأکیدی)
+  آبی تیره (هاور)   #1246AD      →  --ab-blue-dark
+  آبی کم‌رنگ        #EAF1FE      →  --ab-blue-soft  (هدر باکس ترانه، چیپ‌ها، دکمهٔ ثانویه)
+  پس‌زمینهٔ صفحه     #FFFFFF      →  --ab-page       (سفید ساده و استاندارد؛ بدون آبی کمرنگ)
+  مشکی              #111111      →  --ab-ink        (پس‌زمینهٔ حالت شب)
+  زغالی             #222222      →  --ab-charcoal   (کارت‌های حالت شب)
+  سفید              #FFFFFF      →  --ab-white / --ab-surface
+  --------------------------------------------------------------------------
+  همهٔ رنگ‌های تأکیدی قالب به --ab-blue نگاشت شده‌اند؛ برای تغییر سراسری رنگ سایت
+  فقط همان یک متغیر را عوض کنید. حالت شب با بازنویسی همین متغیرها کار می‌کند.
+================================================================================== */
+:root{
+--ab-blue: #185ADB;
+--ab-blue-dark: #1246AD;
+--ab-blue-accent: #185ADB;
+--ab-blue-soft: #EAF1FE;
+--ab-ink: #111111;
+--ab-charcoal: #222222;
+--ab-white: #FFFFFF;
+--ab-page: #FFFFFF;
+--ab-surface: #FFFFFF;
+--ab-text: #222222;
+--ab-muted: #555555;
+--ab-line: rgba(24,90,219,0.16);
+--ab-shadow: 0 10px 26px rgba(17,17,17,0.10),0 2px 8px rgba(17,17,17,0.06);
+}
+.night{
+--ab-blue: #185ADB;
+--ab-blue-dark: #1246AD;
+--ab-blue-accent: #4C8BFF;
+--ab-blue-soft: rgba(24,90,219,0.22);
+--ab-page: #111111;
+--ab-surface: #222222;
+--ab-text: #EEEEEE;
+--ab-muted: #BDBDBD;
+--ab-line: rgba(255,255,255,0.10);
+--ab-shadow: 0 10px 26px rgba(0,0,0,0.45);
+}
+
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,
 cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,dl,dt,dd,ol,ul,li,
 fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed, 
@@ -61,7 +104,7 @@ input,button,textarea{font-family: vazir,tahoma;
 transition: all 0.3s ease-in-out;-moz-transition: all 0.3s ease-in-out;
 -webkit-transition: all 0.3s ease-in-out;}
 *{box-sizing: border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;}
-body{background: #f1f1f1;color: #333;font-family: vazir,tahoma;font-size: 14px;line-height: 25px;direction: rtl;text-align: right;overflow-x: hidden;font-weight: 400;}
+body{background: var(--ab-page);color: var(--ab-text);font-family: vazir,tahoma;font-size: 14px;line-height: 25px;direction: rtl;text-align: right;overflow-x: hidden;font-weight: 400;}
 a{color: #333;}
 .tarlanweb_center{width: 1300px;height: auto;margin: 0 auto;}
 
@@ -79,7 +122,7 @@ box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);}
 .menu_right > ul > li:last-child{margin-left: 0;}
 .menu_right > ul > li > a{padding: 5px 12px;font-size: 16px;display: inline-block;position: relative;font-weight: 500;
 border-radius: 5px;}
-.menu_right ul li a:hover,.night .menu_right ul li a:hover{background: #aa2712;color: #fff;}
+.menu_right ul li a:hover,.night .menu_right ul li a:hover{background: var(--ab-blue);color: #fff;}
 .menu_right > ul > li > a:hover,.menu_right > ul > li > a:focus,.menu_right > ul > li > a:active{}
 .menu_right > ul > li > a:hover:before,.menu_right > ul > li > a:focus:before,.menu_right > ul > li > a:active:before {
 -webkit-transform: scale(1);transform: scale(1);}
@@ -93,9 +136,9 @@ transition: all 0.3s ease-in-out;-moz-transition: all 0.3s ease-in-out;
 .menu_right .menu-item-has-children:hover::after{color: #333;}
 .menu_right .menu-item-has-children:hover,.menu_right ul ul .menu-item-has-children{}
 .menu_right > ul > li.menu-item-has-children > a{padding: 0 6px 0 20px;}
-.menu_right > ul > li.menu-item-has-children:hover > a{background: #aa2712;color: #fff;}
-.menu_right .menu-item-has-children:hover > a,.menu_right ul ul .menu-item-has-children:hover > a{background: #aa2712;color: #fff;}
-.menu_right ul ul .menu-item-has-children:hover > a:before{background: #aa2712;color: #fff;}
+.menu_right > ul > li.menu-item-has-children:hover > a{background: var(--ab-blue);color: #fff;}
+.menu_right .menu-item-has-children:hover > a,.menu_right ul ul .menu-item-has-children:hover > a{background: var(--ab-blue);color: #fff;}
+.menu_right ul ul .menu-item-has-children:hover > a:before{background: var(--ab-blue);color: #fff;}
 .menu_right ul ul .menu-item-has-children::after{position: absolute;
 font-family: 'IcoFont';content: '\eac9';font-size: 15px;bottom: 5px !important;left: 10px;}
 .menu_right .current-menu-item,.menu_right .current-menu-parent,.menu_right .current-post-parent{}
@@ -130,15 +173,15 @@ display: block;height: 30px;line-height: 30px;}
 #searches button{width: 40px;height: 30px;font-size: 18px;text-align: center;
 border: none;position: relative;outline: unset;border-radius: 25px;line-height: 33px;
 cursor: pointer;float: left;background: rgba(167,167,167,.3);color: #444;}
-#searches button:hover{background: #aa2712;color: #fff;}
+#searches button:hover{background: var(--ab-blue);color: #fff;}
 .socials_box{float: left;margin-top: 6px;direction: ltr;}
 .socials_box a{float: left;width: 30px;height: 30px;margin-right: 7px;text-align: center;line-height: 30px;font-size: 20px;border-radius: 3px;}
 .socials_box a.icofont-facebook:hover{background: #4285f4;}
 .socials_box a.icofont-paper-plane:hover{background: #08c;}
-.socials_box a.icofont-instagram:hover{background: radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285aeb 90%);}
+.socials_box a.icofont-instagram:hover{background: var(--ab-blue);}
 .socials_box a.icofont-whatsapp:hover{background: #42e960;}
 .socials_box a.icofont-twitter:hover{background: #00aced;}
-.socials_box a.icofont-youtube-play:hover{background: #aa2712;}
+.socials_box a.icofont-youtube-play:hover{background: var(--ab-blue);}
 .socials_box a.icofont-movie:hover{background: #ed145b;}
 .socials_box a:hover{color: #fff;}
 #footer .socials_box{float: none;margin: 10px auto;}
@@ -154,7 +197,7 @@ cursor: pointer;float: left;background: rgba(167,167,167,.3);color: #444;}
 .toggle_modes {
   position: absolute;margin: auto;
   left: 0px;right: 0;top: 0;
-  background: #ff8c00;
+  background: var(--ab-blue);
   width:50px;
   height: 24px;
   cursor: pointer;
@@ -186,22 +229,22 @@ cursor: pointer;float: left;background: rgba(167,167,167,.3);color: #444;}
 padding: 10px 5px;color: #000;background: #fff;line-height: 0;text-transform: capitalize;border-radius: 3px;}
 .vip_post header h2{width: 100%;height: auto;margin: 10px 0 5px 0;}
 .vip_post header h2 a{display: block;font-size: 15px;font-weight: bold;}
-.vip_post header h2 a:hover{color: #aa2712;}
+.vip_post header h2 a:hover{color: var(--ab-blue-accent);}
 
 .song_boxs{width: 100%;height: auto;position: relative;margin: 20px 0;}
 .songs_title_box{width: 100%;height: auto;clear: both;}
 .songs_title_box h3,.songs_title_box h1,.songs_title_box h2{font-size: 18px;float: right;
-font-weight: bold;border-bottom: 1px solid #aa2712;padding-bottom: 15px;}
+font-weight: bold;border-bottom: 1px solid var(--ab-blue);padding-bottom: 15px;}
 .songs_title_box a{float: left;padding: 2px 10px;border: 1px solid #ddd;margin-top: -3px;background: #fff;
 border-radius: 5px;}
 
-.songs_title_box a:hover{border: 1px solid #aa2712;background: #aa2712;color: #fff;}
+.songs_title_box a:hover{border: 1px solid var(--ab-blue);background: var(--ab-blue);color: #fff;}
 .song_boxs_posts,.artist_boxs{width: 100%;height: auto;clear: both;}
 
 .song_boxs_posts ul{margin: 0 -15px;}
 .song_boxs_posts ul li{width: 16.66%;height: auto;padding: 15px;float: right;}
 .songs_post{width: 100%;position: relative;height: 265px;background: #fff;
-box-shadow: 0 6px 20px rgba(28,76,156,.1);border-radius: 7px;transition: all 0.3s ease-in-out;-moz-transition: all 0.3s ease-in-out;-webkit-transition: all 0.3s ease-in-out;}
+box-shadow: 0 6px 20px rgba(17,17,17,.08);border-radius: 7px;transition: all 0.3s ease-in-out;-moz-transition: all 0.3s ease-in-out;-webkit-transition: all 0.3s ease-in-out;}
 .songs_post header figure{margin-bottom: 10px;}
 .songs_post header figure img{width:100%;border-radius: 5px 5px 0 0;}
 .songs_post header figure a{display: block;line-height: 0;}
@@ -220,7 +263,7 @@ box-shadow: 0 6px 20px rgba(28,76,156,.1);border-radius: 7px;transition: all 0.3
 color:#fff;text-align: center;}
 #footer nav li{display: inline-block;}
 #footer nav li a{padding: 5px 15px;color:#fff;border-radius: 5px;}
-#footer nav li a:hover,.night #footer nav li a:hover{background: #aa2712;}
+#footer nav li a:hover,.night #footer nav li a:hover{background: var(--ab-blue);}
 #footer p{margin-bottom: 5px;}
 #footer a{color:#fff;}
 .pagination_box{width: 100%;height: auto;clear: both;margin: 25px 0 50px 0;}
@@ -229,7 +272,7 @@ color:#fff;text-align: center;}
 .pagination li a,.pagination li .inactive,.pagination .current{width: 40px;height: 40px;text-align: center;
 line-height: 44px;font-size: 18px;background: #111;display: inline-block;color:#fff;
 border-radius: 5px;}
-.pagination .current,.pagination li a:hover{color: #fff;background: #aa2712;}
+.pagination .current,.pagination li a:hover{color: #fff;background: var(--ab-blue);}
 
 
 
@@ -548,13 +591,13 @@ height: 40px !important;
 font-size: 15px;border: unset;outline: unset;
 cursor: pointer;
 float: left;
-background: #ff8c00;
+background: var(--ab-blue);
 color: #fff;
 box-shadow: inset 0 1px 0 rgba(255,255,255,.15),0 1px 1px rgba(0,0,0,.075);
 border: 1px solid transparent;
 border-radius: 3px;
 }
-.form-submit #submit:hover,.rkianoosh_txt form input[type="submit"]:hover{color: #fff;background: #aa2712;}
+.form-submit #submit:hover,.rkianoosh_txt form input[type="submit"]:hover{color: #fff;background: var(--ab-blue);}
 .bypostauthor{}
 .comment-content{width: 100%;float: left;height: auto;position: relative;text-align: justify;}
 .rkianoosh_ir_com{width: 100%;position: relative;margin-top: 5px;}
@@ -681,7 +724,7 @@ border: unset;background: transparent;position: absolute;left: 0;top: 0;}
   color: #fff;display: block;
 }
 #cssmenu > ul > li > a:hover,#cssmenu > ul > li.active > a,
-#cssmenu > ul > li.open > a{background: #aa2712;}
+#cssmenu > ul > li.open > a{background: var(--ab-blue);}
 #cssmenu > ul > li.open > a {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.15);
 }
@@ -782,23 +825,23 @@ display: inline-block;margin: auto;float: none;}
 .social_ftb{margin-bottom: 10px;}
 
 .top_page{position: fixed;left: 10px;bottom: 10px;width: 40px;height: 40px;line-height: 35px;
-background: #fff;border-radius: 5px;box-shadow: 0 6px 20px rgba(28,76,156,.1);
+background: #fff;border-radius: 5px;box-shadow: 0 6px 20px rgba(17,17,17,.08);
 font-size: 30px;text-align: center;cursor: pointer;display: none;z-index: 999999;
 transition:all 0.3s ease-in-out;}
 .top_page .icofont-thin-up{display: block;margin-top: 4px;}
 
-.top_page:hover{background: #aa2712;color:#fff;}
+.top_page:hover{background: var(--ab-blue);color:#fff;}
 
 .fix_bottom_right_box{height: 30px;position: fixed;right: 10px;bottom: 15px;z-index: 999999;opacity: 0.7;}
 .fix_bottom_right_box a{color: #fff;float: right;margin-left: 10px;border-radius: 5px;font-weight: bold;padding:17px 10px;line-height: 0;
 font-size: 14px;}
 .fix_bottom_right_box:hover{opacity: 1;}
 .telegrams_ch{background: #005075;}
-.instagrms_ch{background: #fd5949;background: linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);}
+.instagrms_ch{background: var(--ab-blue);}
 
 .pagination_box_artist{width: 100%;height: auto;clear: both;text-align: center;}
 .pagination_box_artist a,.pagination_box_artist .current{text-align: center;font-size: 15px !important;background: #111;border-radius: 5px;color:#fff;padding:5px 12px;}
-.pagination_box_artist .current,.pagination_box_artist a:hover{color: #fff;background: #aa2712;}
+.pagination_box_artist .current,.pagination_box_artist a:hover{color: #fff;background: var(--ab-blue);}
 .singers_box_tarlanweb li a{display: block;line-height: 0;text-align: center;}
 .singers_box_tarlanweb li img{border-radius: 5px;}
 .singers_box_tarlanweb li a span{width: 100%;height: 40px;line-height: 40px;}
@@ -847,19 +890,19 @@ background:0 0;color:inherit;border:none;padding:0!important;font:inherit;
 .owl-carousel .owl-video-frame{position:relative;z-index:1;height:100%;width:100%}
 .owl-theme .owl-nav{text-align: center;-webkit-tap-highlight-color: transparent; }
 .owl-theme .owl-nav [class*='owl-'] {width: 35px;height: 35px;font-size: 40px !important;
-position: absolute;background: #aa2712 !important;margin: auto;top: 45%;
+position: absolute;background: var(--ab-blue) !important;margin: auto;top: 45%;
 color:#fff !important;text-align: center;cursor: pointer;
 border-radius:7px;-webkit-transform: translateY(-50%);transform: translateY(-50%);}
 .owl-carousel .owl-nav button.owl-prev{right: -10px !important;left: auto;}
 .owl-carousel .owl-nav button.owl-next{left: -10px !important;right: auto;}
-.owl-theme .owl-nav [class*='owl-']:hover{background: #ffa800;color:#fff !important;text-decoration: none;}
+.owl-theme .owl-nav [class*='owl-']:hover{background: var(--ab-blue);color:#fff !important;text-decoration: none;}
 .owl-theme .owl-nav .disabled {opacity: 0.5;cursor: default; }
 .owl-theme .owl-nav.disabled + .owl-dots{margin-top: 10px; }
 .owl-theme .owl-dots {text-align: center;-webkit-tap-highlight-color: transparent;margin-top: 20px;}
 .owl-theme .owl-dots .owl-dot {display: inline;zoom: 1;*display: inline;}
 .owl-theme .owl-dots .owl-dot span {width: 10px;height: 10px;margin: 3px;background: #ddd;display: block;
 -webkit-backface-visibility: visible;transition: opacity 200ms ease;border-radius: 30px;}
-.owl-theme .owl-dots .owl-dot.active span,.owl-theme .owl-dots .owl-dot:hover span{background: #aa2712;}
+.owl-theme .owl-dots .owl-dot.active span,.owl-theme .owl-dots .owl-dot:hover span{background: var(--ab-blue);}
 
 .artists_slider .owl-item{padding: 20px 0;}
 
@@ -883,7 +926,7 @@ border-radius:7px;-webkit-transform: translateY(-50%);transform: translateY(-50%
   display: inline-block !important;
 }
 
-#index_music_player{box-shadow: 0 6px 20px rgba(28,76,156,.1);background: #fff;border-radius: 7px;}
+#index_music_player{box-shadow: 0 6px 20px rgba(17,17,17,.08);background: #fff;border-radius: 7px;}
 .music_box_player {width:100%;height:80px;font-size:1em;margin:0 auto;padding:15px;margin:30px 0;position: relative;}
 .music_box_player .player {
   height: 60px;
@@ -949,7 +992,7 @@ border-radius:7px;-webkit-transform: translateY(-50%);transform: translateY(-50%
   width: auto;
 }
 .music_box_player .progress-box .progress-cell .progress .progress-buffer {
-  background: #aa2712;
+  background: var(--ab-blue);
   height: 100%;
   width: 0;
 }
@@ -1001,7 +1044,7 @@ border-radius:7px;-webkit-transform: translateY(-50%);transform: translateY(-50%
   width: 300px;
 position: absolute;left: 0;top: 75px;
 z-index: 888;
-background: #fff;box-shadow: 0 6px 20px rgba(28,76,156,.1);
+background: #fff;box-shadow: 0 6px 20px rgba(17,17,17,.08);
 border-radius:0 0 7px 7px;
 padding: 0 10px 10px 10px;
 }
@@ -1056,9 +1099,9 @@ padding: 0 10px 10px 10px;
   text-decoration: underline;
 }
 .music_box_player .play-list .play-list-row .track-title.active-track {
-  font-weight: bold;color: #aa2712 !important;
+  font-weight: bold;color: var(--ab-blue-accent) !important;
 }
-.music_box_player .play-list .play-list-row .track-title.active-track a{color: #aa2712;}
+.music_box_player .play-list .play-list-row .track-title.active-track a{color: var(--ab-blue-accent);}
 .music_box_player .play-list .play-list-row:before,.music_box_player .play-list .play-list-row:after {
   content: " ";
   display: table;
@@ -1071,7 +1114,7 @@ padding: 0 10px 10px 10px;
   visibility: hidden;
 }
 .player_controls i:before{transition: all 0.3s ease-in-out;}
-.player_controls i:hover:before,.large-toggle-btn .icofont-pause{color:#aa2712;}
+.player_controls i:hover:before,.large-toggle-btn .icofont-pause{color:var(--ab-blue);}
 
 .volume_box{width: 30px;float: right;margin: -7px -40px 0 0;position: relative;}
 .volume_box i{float: left;font-size: 2em;margin-top: -3px;}
@@ -1167,43 +1210,106 @@ height: 10px;
   background: #555;
 }
 .progress-box input[type=range]::-ms-fill-upper {
-  background: #aa2712;
+  background: var(--ab-blue);
   border-radius: 2.6px;
 }
 .progress-box input[type=range]:focus::-ms-fill-upper {
-  background: #aa2712;
+  background: var(--ab-blue);
 }
 
 .progress-box input[type="range"]::-moz-range-progress {
-  background-color: #aa2712; 
+  background-color: var(--ab-blue); 
 }
 .progress-box input[type="range"]::-webkit-progress-value {
-  background-color: #aa2712; 
+  background-color: var(--ab-blue); 
 }
 .progress-box input[type="range"]::-ms-range-progress {
-  background-color: #aa2712; 
+  background-color: var(--ab-blue); 
 }
 
 
 
-.single .post-edit-link{float: left;background: #aa2712;color: #fff;padding: 2px 10px;border-radius: 5px;}
+.single .post-edit-link{float: left;background: var(--ab-blue);color: #fff;padding: 2px 10px;border-radius: 5px;}
 .single .post-edit-link:hover{opacity: 0.8;}
 
 #left_side{width: 23.5%;height:auto;position:relative;float: left;}
 .related_posts{width: 100%;background:#fff;margin-bottom:20px;padding: 20px;
-border-radius:7px;box-shadow: 0 6px 20px rgba(28,76,156,.1);}
+border-radius:7px;box-shadow: 0 6px 20px rgba(17,17,17,.08);}
 .single_posts_right{width: 75%;height: auto;margin: 0;float: right;position: relative;}
 .single_posts{width: 100%;height: auto;padding: 20px;position: relative;background: #fff;
-margin-bottom: 20px;border-radius: 7px;box-shadow: 0 6px 20px rgba(28,76,156,.1);}
+margin-bottom: 20px;border-radius: 7px;box-shadow: 0 6px 20px rgba(17,17,17,.08);}
 .last_item_c{margin-bottom: 0;}
 .rkianoosh_comment_box{border-bottom: 0;}
 .tarlanweb_post_box header{margin: 5px 0 10px 0;clear: both;}
 .tarlanweb_post_box header h1{font-size: 17px;font-weight: 500;padding-bottom:15px;display:inline-block;
-border-bottom: 1px solid #aa2712;
+border-bottom: 1px solid var(--ab-blue);
 }
 .stars_ratings_box{float: left;}
 
 .single_content_box{position: relative;}
+/* ---------------------------------------------------------------
+   کاور پست (تصویر شاخص) — وسط‌چین + گوشه‌های گرد استاندارد + افکت
+   قابل تنظیم (فقط عددها را عوض کن):
+   • گردی گوشه‌ها ...... border-radius  ۱۶px   (نرم‌تر: ۲۰px / کمتر: ۱۰px)
+   • حداکثر عرض کاور ... max-width      ۸۸۰px  (کوچک‌تر و «وسط‌تر»: ۷۰۰px)
+   • خاموش کردن افکت‌ها  بلوک «AFEKTS» را کامنت کن
+----------------------------------------------------------------- */
+.single_featured_cover{margin: 0 0 22px 0;text-align: center;}
+.single_featured_image{display: inline-block;position: relative;max-width: 880px;line-height: 0;
+overflow: hidden;border-radius: 16px;vertical-align: top;
+box-shadow: var(--ab-shadow);
+animation: taranehyar_cover_in 0.55s ease-out both;}
+.single_featured_image img{display: block;width: auto;height: auto;max-width: 100%;
+border-radius: inherit;backface-visibility: hidden;
+transition: transform 0.5s cubic-bezier(0.2,0.7,0.3,1),filter 0.5s ease;}
+@keyframes taranehyar_cover_in{from{opacity: 0;transform: translateY(10px) scale(0.985);}to{opacity: 1;transform: none;}}
+/* ----- AFEKTS: افکت ۱ = زوم نرم روی کاور | افکت ۲ = عبور درخشش مورب ----- */
+.single_featured_image:hover img{transform: scale(1.045);filter: saturate(1.05) brightness(1.02);}
+.single_featured_image::after{content: "";position: absolute;top: -60%;left: -60%;width: 45%;height: 220%;
+pointer-events: none;transform: rotate(20deg) translateX(-260%);
+background: rgba(255,255,255,0.24);filter: blur(10px);}
+.single_featured_image:hover::after{animation: taranehyar_cover_shine 0.85s cubic-bezier(0.2,0.7,0.3,1);}
+@keyframes taranehyar_cover_shine{from{transform: rotate(20deg) translateX(-260%);}to{transform: rotate(20deg) translateX(560%);}}
+/* ----- پایان AFEKTS ----- */
+
+@media (max-width: 767px){.single_featured_cover{margin-bottom: 16px;}.single_featured_image{border-radius: 12px;}}
+@media (prefers-reduced-motion: reduce){
+.single_featured_image,.single_featured_image img,.single_featured_image::after{animation: none !important;transition: none !important;}
+.single_featured_image:hover img{transform: none;}
+}
+/* -------------------- باکس «متن ترانه» (متن آهنگ) --------------------
+   منبع متن: فیلد music_text — وسط‌چین، با هدر، لینک خواننده و دکمهٔ کپی
+   قابل تنظیم: border-radius، font-size، line-height، text-align
+---------------------------------------------------------------------- */
+.music_lyrics_box{position: relative;margin: 26px 0 10px 0;background: var(--ab-surface);
+border: 1px solid var(--ab-line);border-radius: 12px;overflow: hidden;
+box-shadow: var(--ab-shadow);}
+.music_lyrics_head{display: flex;flex-direction: column;align-items: center;gap: 9px;padding: 15px 16px 13px 16px;
+text-align: center;background: var(--ab-blue-soft);
+border-bottom: 1px solid var(--ab-line);}
+.music_lyrics_title{margin: 0;font-size: 16px;font-weight: 600;line-height: 1.9;color: var(--ab-text);}
+.music_lyrics_title i{color: var(--ab-blue-accent);font-size: 19px;margin-left: 6px;vertical-align: middle;}
+.music_lyrics_song{color: var(--ab-blue-accent);}
+.music_lyrics_actions{display: flex;flex-wrap: wrap;align-items: center;justify-content: center;gap: 8px;margin: 0;}
+.music_lyrics_artist_link,.music_lyrics_copy{display: inline-flex;align-items: center;gap: 5px;height: 30px;
+padding: 0 11px;border-radius: 30px;font-size: 12px;line-height: 1;background: var(--ab-blue-soft);
+color: var(--ab-blue-accent);border: 0;cursor: pointer;transition: background 0.25s ease,color 0.25s ease;}
+.music_lyrics_artist_link i,.music_lyrics_copy i{font-size: 14px;}
+.music_lyrics_artist_link:hover{background: var(--ab-blue);color: #fff;}
+.music_lyrics_copy:hover{background: var(--ab-blue);color: #fff;}
+.music_lyrics_copy.is-done{background: var(--ab-ink);color: var(--ab-white);}
+.night .music_lyrics_copy.is-done{background: var(--ab-white);color: var(--ab-ink);}
+.music_lyrics_text{padding: 18px 18px 22px 18px;font-size: 15px;line-height: 2.15;color: var(--ab-text);
+text-align: center;word-wrap: break-word;overflow-wrap: anywhere;}
+.music_lyrics_text p{margin: 0 0 14px 0;}
+.music_lyrics_text p:last-child{margin-bottom: 0;}
+.music_lyrics_text strong,.music_lyrics_text b{color: var(--ab-blue-accent);}
+/* حالت شب با بازنویسی متغیرها در .night انجام می‌شود؛ نیازی به قاعدهٔ جداگانه نیست. */
+@media (max-width: 767px){
+.music_lyrics_head{padding: 13px 12px 12px 12px;}
+.music_lyrics_title{font-size: 15px;}
+.music_lyrics_text{padding: 14px 12px 18px 12px;font-size: 14px;line-height: 2;}
+}
 .single_content_box .music_box_player{height: auto;background: transparent;padding: 0;margin: 30px 0 0 0;}
 .single_content_box .music_box_player .play-list{width: 100%;position: relative;left: 0;top: 0;z-index: 888;padding: 0;background: transparent;border-radius: 0;}
 .single_content_box .play-list .play-list-row{margin: 0;padding: 8px 10px;}
@@ -1213,13 +1319,13 @@ border-bottom: 1px solid #aa2712;
 .single_content_box .info-box{width: 82%;}
 .single_content_box .progress-box .progress-cell{width: 100%;}
 .download_box{float: left;}
-.download_box a{padding: 0 7px;margin-right: 5px;background: #ff8c00;
+.download_box a{padding: 0 7px;margin-right: 5px;background: var(--ab-blue);
 color: #fff;box-shadow: inset 0 1px 0 rgba(255,255,255,.15),0 1px 1px rgba(0,0,0,.075);
 border: 1px solid transparent;border-radius: 3px;}
-.download_box a:hover{background: #aa2712;color: #fff;}
+.download_box a:hover{background: var(--ab-blue);color: #fff;}
 .title_tarlanweb_box{width: 100%;height: auto;clear: both;padding: 0;}
 .tarlanweb_side_titles{font-size: 15px;font-weight: bold;
-padding-bottom: 15px;border-bottom: 1px solid #aa2712;display: inline-block;}
+padding-bottom: 15px;border-bottom: 1px solid var(--ab-blue);display: inline-block;}
 .liner {
     display: block;
     width: 100%;
@@ -1284,7 +1390,7 @@ transform: rotate(-90deg);
 .rel_sing_bbt .tarlanweb_side_titles{float:right;}
 .left_artists_pp{float:left;padding: 4px 15px;background: rgba(167,167,167,.3);margin-top: -4px;
 border-radius: 5px;}
-.left_artists_pp:hover{background:#aa2712;color:#fff;}
+.left_artists_pp:hover{background:var(--ab-blue);color:#fff;}
 .left_artists_pp:hover a{color:#fff;}
 .inactive_songs .inactive_box_cir{display: block;position: absolute;width: 100%;height: 100%;
 top: 0;bottom: 0;right: 0;left: 0;background: rgba(0,0,0,0.4);}
@@ -1293,13 +1399,13 @@ top: 0;bottom: 0;right: 0;left: 0;background: rgba(0,0,0,0.4);}
 .artist_songs_page{line-height: 30px;text-align: center;font-size: 15px;padding:25px 0;height:auto !important;}
 .artist_songs_page i{font-size: 22px;}
 .dl_linksv_box{text-align: center;}
-.dl_links_box,.dl_linksv_box{width: 100%;height: auto;clear: both;margin: 20px 0;}
+.dl_links_box,.dl_linksv_box{width: 100%;height: auto;clear: both;margin: 20px 0;text-align: center;}
 .dl_links_box a,.dl_linksv_box a{width: 49%;height: 45px;line-height: 47px;display: block;text-align: center;font-size: 15px;margin: 5px 0;
-overflow: hidden;border-radius: 3px;
-background: #ff8c00;color: #fff;
-box-shadow: inset 0 1px 0 rgba(255,255,255,.15),0 1px 1px rgba(0,0,0,.075);
-border: 1px solid transparent;}
-.dl_linksv_box a{width: 100%;}
+overflow: hidden;border-radius: 10px;
+background: var(--ab-blue);color: var(--ab-white);
+box-shadow: none;
+border: 1px solid var(--ab-blue);}
+.dl_linksv_box a{width: 100%;background: var(--ab-blue-soft);color: var(--ab-blue-accent);border-color: var(--ab-line);}
 .dl_link_128{float: right;}
 .dl_links_320{float: left;}
 .dl_links_box a i,.dl_linksv_box a i{font-size: 17px;margin-left: 5px;}
@@ -1309,13 +1415,21 @@ border: 1px solid transparent;}
 
 
 .dl_links_box a:hover,.dl_linksv_box a:hover,.night .dl_links_box a:hover,
-.night .dl_linksv_box a:hover,.night .download_box a:hover{background: #aa2712;color: #fff;}
+.night .dl_linksv_box a:hover{background: var(--ab-blue-dark);color: var(--ab-white);border-color: var(--ab-blue-dark);}
+.night .download_box a:hover{background: var(--ab-blue);color: var(--ab-white);}
+/* -------------------- تیتر بخش دانلود -------------------- */
+.dl_title{display: flex;flex-wrap: wrap;align-items: center;justify-content: center;gap: 6px;
+margin: 26px 0 4px 0;font-size: 16px;font-weight: 600;line-height: 2;text-align: center;color: var(--ab-text);}
+.dl_title i{color: var(--ab-blue-accent);font-size: 19px;}
+.dl_title_song{color: var(--ab-blue-accent);}
+
+@media (max-width: 767px){.dl_title{font-size: 15px;margin-top: 22px;}}
 .video_player{margin-top: 20px;}
 .video_player video{width: 100%;height: auto;}
 
 .rkianoosh_tags_box span,.comm_titrs{font-size: 15px;font-weight: bold;}
 .rkianoosh_tags_box a{display: inline-block;margin: 2px;}
-.rkianoosh_tags_box a:hover{color: #aa2712;}
+.rkianoosh_tags_box a:hover{color: var(--ab-blue-accent);}
 
 .tarlanweb_post_ft{float: right;height: 30px;line-height: 31px;margin-left: 15px;font-size: 12px;}
 .tarlanweb_post_ft i{display: inline-block;font-size: 15px;vertical-align: middle;}
@@ -1325,24 +1439,22 @@ border: 1px solid transparent;}
 .post-actions-input input,.post-actions-input input p{width: 170px;position: relative;direction: ltr;
 font-size: 12px;border: unset;background: rgba(167,167,167,0.3);color: #444;padding: 5px 10px;
 border-radius: 5px;}
-.tarlanweb_post_ft a:hover,#breadcrumbs a:hover{color: #aa2712;}
+.tarlanweb_post_ft a:hover,#breadcrumbs a:hover{color: var(--ab-blue-accent);}
 .socials_shares,.star_rates{float: left;}
 .socials_shares a{font-size: 24px;margin-right: 10px;width: 22px;height: 22px;line-height: 22px;float: left;}
 .socials_shares_box p{float: right;font-size: 15px;font-weight: bold;}
 .kk-star-ratings{display: block !important;}
 .kksr-stars{display: block !important;float: left;}
 .kk-star-ratings .kksr-legend{display: block !important;float: right;margin-top: 2px !important;font-size: 12px !important;}
-.socials_shares a:hover .icofont-facebook,.socials_box_fts a:hover .icofont-facebook{color: #4285f4;}
-.socials_shares a:hover .icofont-paper-plane,.socials_box_fts a:hover .icofont-paper-plane{color: #08c;}
+.socials_shares a:hover .icofont-facebook,.socials_box_fts a:hover .icofont-facebook{color: var(--ab-blue-accent);}
+.socials_shares a:hover .icofont-paper-plane,.socials_box_fts a:hover .icofont-paper-plane{color: var(--ab-blue-accent);}
 .socials_box_fts a:hover .icofont-instagram{
-background: radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285aeb 90%);
-background-clip: border-box;
--webkit-background-clip: text;
-background-clip: text;
--webkit-text-fill-color: transparent;
+background: none;
+color: var(--ab-blue-accent);
+-webkit-text-fill-color: currentColor;
 }
-.socials_shares a:hover .icofont-whatsapp{color: #42e960;}
-.socials_shares a:hover .icofont-twitter,.socials_box_fts a:hover .icofont-twitter{color: #00aced;}
+.socials_shares a:hover .icofont-whatsapp{color: var(--ab-blue-accent);}
+.socials_shares a:hover .icofont-twitter,.socials_box_fts a:hover .icofont-twitter{color: var(--ab-blue-accent);}
 .p404-textc{text-align: center;}
 
 
@@ -1357,7 +1469,7 @@ background-clip: text;
 .single_content_box form input,.single_content_box form textarea{background: rgba(167,167,167,.3);
 border: 1px solid rgba(255,255,255,0.1);padding: 7px;color: #333;font-size: 13px;border-radius: 5px;
 outline: unset;}
-.single_content_box form input[type="submit"]{font-size: 15px;background:#aa2712;cursor: pointer;
+.single_content_box form input[type="submit"]{font-size: 15px;background:var(--ab-blue);cursor: pointer;
 padding: 5px 20px;color: #fff;}
 .single_content_box form textarea{width: 65%;}
 
@@ -1380,7 +1492,7 @@ background: rgba(167,167,167,.3);border-radius: 5px;}
 .artists_imsf .socials_box{width: 100%;}
 .artists_imsf .socials_box a{display: inline-block;margin: 5px;}
 .artist_box_tarlanweb{width: 100%;height: auto;padding: 20px;margin-bottom: 30px;background: #fff;
-box-shadow: 0 6px 20px rgba(28,76,156,.1);border-radius: 5px;}
+box-shadow: 0 6px 20px rgba(17,17,17,.08);border-radius: 5px;}
 .artist_box_detss{overflow: hidden;position: relative;}
 .artists_imsf{width: 200px;height: auto;float: right;margin-left: 20px;text-align: center;}
 .artists_imsf img{border-radius: 5px;}
@@ -1389,33 +1501,35 @@ box-shadow: 0 6px 20px rgba(28,76,156,.1);border-radius: 5px;}
 #comments textarea#comment{outline: unset;background: rgba(167,167,167,.3);color: #333;}
 
 
-.night,.night #header{background: #222;color: #ddd;}
+.night{background: var(--ab-page);color: var(--ab-text);}
+.night #header{background: var(--ab-charcoal);color: var(--ab-text);}
 .night a{color: #ddd;}
-.night #header{background: #222 !important;-webkit-box-shadow: 0 8px 3px -5px #000;-moz-box-shadow: 0 8px 3px -5px #000;box-shadow: 0 8px 3px -5px #000;}
+.night #header{background: var(--ab-charcoal) !important;-webkit-box-shadow: 0 8px 3px -5px #000;-moz-box-shadow: 0 8px 3px -5px #000;box-shadow: 0 8px 3px -5px #000;}
 .night .menu_right .menu-item-has-children:hover::after{color: #fff;}
-.night .music_box_player{background: #111;color: #fff;box-shadow: unset;}
+.night .music_box_player{background: var(--ab-charcoal);color: #fff;box-shadow: unset;}
 .night .disabled{color: #666;}
-.night .music_box_player .progress-box .progress-cell .progress .progress-buffer{background: #aa2712;}
-.night #footer{background: #111;}
+.night .music_box_player .progress-box .progress-cell .progress .progress-buffer{background: var(--ab-blue);}
+.night #footer{background: var(--ab-ink);}
 .night #footer nav li a{color: #fff;}
 .night .vip_post header h2 a{color: #fff;}
 .night #lsds,.night #searches button{background: #444;color: #fff;}
-.night .single_posts,.night .related_posts,.night .artist_box_tarlanweb{background: #111;box-shadow: unset;}
+.night .single_posts,.night .related_posts,.night .artist_box_tarlanweb{background: var(--ab-charcoal);box-shadow: unset;}
 .night .liner{border-bottom: 1px solid rgba(167,167,167,.1);}
-.night .dl_links_box a,.night .dl_linksv_box a,.night .download_box a{background: rgba(255,255,255,0.2);}
-.night #breadcrumbs_container{background: #111;}
+.night .dl_linksv_box a{background: var(--ab-blue-soft);color: var(--ab-blue-accent);border-color: transparent;}
+.night .download_box a{background: rgba(255,255,255,0.2);}
+.night #breadcrumbs_container{background: var(--ab-charcoal);}
 .night .post-actions-input input,.post-actions-input input p{background: rgba(255,255,255,.2);color: #fff;}
-.night .artist_resume_box li{background: #222;}
+.night .artist_resume_box li{background: var(--ab-charcoal);}
 .night #comments input#author,.night #comments input#email,.night #comments input#url,
 .night #comments textarea#comment,.night .form-submit #submit{background: rgba(255,255,255,.2);color: #fff;}
-.night .songs_post{box-shadow: unset;background: #111;}
-.night .top_page{background: #111;box-shadow: unset;}
-.night #mobiles_header,.night #lsds_mobile{background: #222;}
+.night .songs_post{box-shadow: unset;background: var(--ab-charcoal);}
+.night .top_page{background: var(--ab-charcoal);box-shadow: unset;}
+.night #mobiles_header,.night #lsds_mobile{background: var(--ab-charcoal);}
 .night .searches_mobile button{color: #fff;}
-.night #mobiles_header .circle_hlink,.night .music_box_player .play-list{background: #111;}
+.night #mobiles_header .circle_hlink,.night .music_box_player .play-list{background: var(--ab-charcoal);}
 .night .single_content_box form input,.night .single_content_box form textarea{background: #333;color: #fff;}
 .night .music_box_player .progress-box .progress-cell .progress .progress-indicator{background: #fff;}
-.night .songs_title_box a{background: #111;border: 1px solid #111;}
+.night .songs_title_box a{background: var(--ab-ink);border: 1px solid var(--ab-ink);}
 .night .single_content_box .play-list-row{background: #464646;}
 .night .single_content_box .plylodd{background: #2d2d2d;}
 .night .music_box_player .play-list .play-list-row .track-title .playlist-track{color: #fff;}
@@ -1563,3 +1677,199 @@ body{padding-top:0;}
 .music_box_player .info-box .track-info-box{top: -10px;}
 
 }
+/* ============================================================================================
+   ۱۵) «صفحهٔ همهٔ هنرمندان» — فهرست الفبایی خواننده‌ها
+   مربوط به فایل قالب: artist-template.php   (برگه‌ای مثل /singers/)
+   همهٔ رنگ‌ها از متغیرهای بالا (--ab-*) می‌آیند، پس حالت شب خودکار درست می‌شود.
+   ============================================================================================ */
+
+.ab-artists{width:100%;height:auto;clear:both;}
+
+/* مقدمهٔ کوتاه بالای فهرست */
+.ab-artists__intro{margin:0 0 12px;font-size:13.5px;line-height:2;color:var(--ab-muted);}
+
+/* نوار ابزار: جست‌وجو + آمار کل */
+.ab-artists__toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:0 0 14px;}
+.ab-artists__search{position:relative;flex:1 1 260px;min-width:220px;display:block;}
+.ab-artists__search input{width:100%;height:44px;padding:0 40px 0 14px;border:1px solid var(--ab-line);
+	border-radius:12px;background:var(--ab-surface);color:var(--ab-text);font-family:inherit;font-size:14px;
+	-webkit-appearance:none;appearance:none;}
+.ab-artists__search input::placeholder{color:var(--ab-muted);opacity:.8;}
+.ab-artists__search input:focus{outline:none;border-color:var(--ab-blue);box-shadow:0 0 0 3px rgba(24,90,219,.16);}
+.ab-artists__search-icon{position:absolute;top:50%;right:16px;transform:translateY(-50%);font-size:16px;color:var(--ab-muted);line-height:1;pointer-events:none;}
+.ab-artists__stats{margin:0;font-size:13px;color:var(--ab-muted);white-space:nowrap;}
+
+/* نوار حروف الفبا */
+.ab-artists__az{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:0 0 18px;padding:10px;
+	background:var(--ab-blue-soft);border-radius:14px;}
+.ab-artists__chip{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;padding:0 10px;
+	border:1px solid var(--ab-line);border-radius:10px;background:var(--ab-surface);color:var(--ab-text);
+	font-size:14px;font-weight:600;line-height:1;text-decoration:none;transition:background .2s, color .2s, border-color .2s;}
+.ab-artists__chip:hover{background:var(--ab-blue);border-color:var(--ab-blue);color:#fff;}
+.ab-artists__chip.is-active{background:var(--ab-blue);border-color:var(--ab-blue);color:#fff;}
+.ab-artists__chip.is-empty,.ab-artists__chip.is-muted{opacity:.35;background:transparent;border-color:transparent;}
+.night .ab-artists__chip{background:var(--ab-surface);color:var(--ab-text);}
+
+/* گروه هر حرف */
+.ab-artists__group{width:100%;height:auto;clear:both;margin:0 0 10px;scroll-margin-top:96px;}
+.ab-artists__letter{display:flex;align-items:center;gap:10px;margin:0 0 6px;padding:8px 12px;font-size:15px;font-weight:700;
+	color:var(--ab-text);background:var(--ab-surface);border-right:3px solid var(--ab-blue);border-radius:12px;
+	box-shadow:var(--ab-shadow);}
+.ab-artists__letter-char{display:inline-flex;align-items:center;justify-content:center;min-width:32px;height:32px;padding:0 6px;
+	border-radius:9px;background:var(--ab-blue-soft);color:var(--ab-blue);font-size:16px;line-height:1;}
+.ab-artists__letter-count{margin-right:auto;font-size:12px;font-weight:400;color:var(--ab-muted);}
+
+/* کارت خواننده */
+.singers_box_tarlanweb li.ab-artist{height:auto;}
+.ab-artist__link{display:block;text-decoration:none;}
+.singers_box_tarlanweb li a .ab-artist__thumb{position:relative;display:block;width:100%;height:auto;line-height:0;
+	border-radius:12px;overflow:hidden;background:var(--ab-blue-soft);}
+.ab-artist__img{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;transition:transform .35s ease;}
+.ab-artist__link:hover .ab-artist__img{transform:scale(1.05);}
+.singers_box_tarlanweb li a .ab-artist__badge{position:absolute;right:8px;bottom:8px;width:auto;height:auto;
+	padding:2px 9px;border-radius:9px;background:rgba(17,17,17,.72);color:#fff;font-size:11px;line-height:20px;font-weight:500;}
+.singers_box_tarlanweb li a .ab-artist__name{display:block;width:100%;height:auto;padding-top:9px;font-size:13px;
+	line-height:1.7;font-weight:600;color:var(--ab-text);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ab-artist__link:hover .ab-artist__name{color:var(--ab-blue);}
+.ab-artist__link:focus-visible .ab-artist__thumb{outline:3px solid var(--ab-blue);outline-offset:2px;}
+
+/* حالت‌های خالی/خطا و پنهان‌سازی در جست‌وجو */
+.is-hidden{display:none !important;}
+.ab-artists__empty,.ab-artists__notice{margin:0 0 16px;padding:14px 16px;border-radius:12px;background:var(--ab-blue-soft);
+	color:var(--ab-text);font-size:14px;line-height:2;}
+.ab-artists__notice p{margin:0 0 6px;}
+.ab-artists__admin{font-size:12px;color:var(--ab-muted);}
+.ab-artists__admin code{background:rgba(24,90,219,.12);padding:2px 6px;border-radius:6px;}
+.ab-artists__top{margin:6px 0 0;text-align:center;font-size:13px;}
+
+/* موبایل */
+@media (max-width: 767px){
+	.ab-artists__group{scroll-margin-top:74px;}
+	.ab-artists__az{gap:4px;padding:8px;border-radius:12px;}
+	.ab-artists__chip{min-width:29px;height:29px;padding:0 7px;font-size:13px;}
+	.ab-artists__toolbar{gap:8px;}
+	.ab-artists__stats{width:100%;text-align:center;}
+	.singers_box_tarlanweb li a .ab-artist__name{font-size:12px;}
+}
+
+/* ---- ادامهٔ بخش ۱۵: ردیف پرکارترین‌ها، نام لاتین، «مشاهده بیشتر» ---- */
+.ab-artists__search{position:relative;display:flex;align-items:center;gap:8px;flex:1 1 320px;min-width:240px;}
+.ab-artists__search-btn{flex:0 0 auto;height:44px;padding:0 16px;border:1px solid var(--ab-blue);border-radius:12px;
+	background:var(--ab-blue);color:#fff;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:background .2s;}
+.ab-artists__search-btn:hover{background:var(--ab-blue-dark);border-color:var(--ab-blue-dark);}
+
+.ab-artists__toplist{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 14px;}
+.ab-artists__toplist-title{font-size:12.5px;color:var(--ab-muted);margin-left:4px;}
+.ab-artists__pill{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border:1px solid var(--ab-line);border-radius:999px;
+	background:var(--ab-surface);color:var(--ab-text);font-size:13px;text-decoration:none;transition:background .2s,color .2s,border-color .2s;}
+.ab-artists__pill:hover{background:var(--ab-blue);border-color:var(--ab-blue);color:#fff;}
+.ab-artists__pill-count{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:20px;padding:0 5px;
+	border-radius:999px;background:var(--ab-blue-soft);color:var(--ab-blue);font-size:11px;line-height:1;}
+.ab-artists__pill:hover .ab-artists__pill-count{background:rgba(255,255,255,.22);color:#fff;}
+.ab-artists__pill--more{border-style:dashed;color:var(--ab-blue);}
+
+.singers_box_tarlanweb li a .ab-artist__latin{display:block;width:100%;height:auto;padding:0;font-size:11px;line-height:1.6;
+	color:var(--ab-muted);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.2px;}
+.ab-artist__link:hover .ab-artist__latin{color:var(--ab-blue);}
+.night .singers_box_tarlanweb li a .ab-artist__latin{color:var(--ab-muted);}
+
+.ab-artists__loadmore{margin:14px 0 4px;text-align:center;}
+.ab-artists__loadmore-btn{display:inline-block;padding:12px 26px;border:1px solid var(--ab-blue);border-radius:12px;
+	background:var(--ab-surface);color:var(--ab-blue);font-size:14px;font-weight:700;text-decoration:none;transition:background .2s,color .2s;}
+.ab-artists__loadmore-btn:hover{background:var(--ab-blue);color:#fff;}
+.ab-artists__loadmore-hint{font-size:11.5px;font-weight:400;color:var(--ab-muted);margin-right:6px;}
+.ab-artists__loadmore-btn:hover .ab-artists__loadmore-hint{color:rgba(255,255,255,.85);}
+
+@media (max-width: 767px){
+	.ab-artists__search{flex:1 1 100%;min-width:0;}
+	.ab-artists__search-btn{height:44px;padding:0 12px;}
+	.ab-artists__pill{font-size:12px;padding:4px 9px;}
+}
+
+/* ============================================================================================
+   ۱۶) «صفحهٔ اختصاصی هر خواننده» — سرتیتر پروفایل، ترتیب آثار، خواننده‌های مشابه
+   مربوط به فایل قالب: taxonomy-singer.php
+   ============================================================================================ */
+
+.ab-artist-page__meta{margin:8px 0 0;font-size:13px;color:var(--ab-muted);}
+.ab-artist-page__dot{margin:0 6px;color:var(--ab-line);}
+.ab-artist-page__links{margin:10px 0 0;font-size:13px;}
+.ab-artist-page__links a{color:var(--ab-blue);text-decoration:none;}
+.ab-artist-page__links a:hover{text-decoration:underline;}
+
+.ab-artist-page__sortbox{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 14px;padding:8px 12px;
+	background:var(--ab-surface);border:1px solid var(--ab-line);border-radius:12px;box-shadow:var(--ab-shadow);}
+.ab-artist-page__sortlabel{font-size:12.5px;color:var(--ab-muted);margin-left:2px;}
+.ab-artist-page__sortitem{display:inline-flex;align-items:center;padding:5px 12px;border-radius:9px;border:1px solid var(--ab-line);
+	background:transparent;color:var(--ab-text);font-size:13px;text-decoration:none;transition:background .2s,color .2s,border-color .2s;}
+.ab-artist-page__sortitem:hover{background:var(--ab-blue-soft);border-color:var(--ab-blue);color:var(--ab-blue);}
+.ab-artist-page__sortitem.is-active{background:var(--ab-blue);border-color:var(--ab-blue);color:#fff;}
+
+.ab-bucket-count{float:left;margin-top:1px;padding:2px 10px;border-radius:999px;background:var(--ab-blue-soft);
+	color:var(--ab-blue);font-size:11.5px;line-height:1.7;}
+
+.ab-related__list{display:flex;flex-wrap:wrap;gap:8px;padding:4px 0 6px;}
+.ab-related__item{display:inline-flex;align-items:center;gap:7px;padding:6px 13px;border:1px solid var(--ab-line);border-radius:999px;
+	background:var(--ab-surface);color:var(--ab-text);font-size:13px;text-decoration:none;transition:background .2s,color .2s,border-color .2s;}
+.ab-related__item:hover{background:var(--ab-blue);border-color:var(--ab-blue);color:#fff;}
+.ab-related__count{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:20px;padding:0 5px;
+	border-radius:999px;background:var(--ab-blue-soft);color:var(--ab-blue);font-size:11px;line-height:1;}
+.ab-related__item:hover .ab-related__count{background:rgba(255,255,255,.22);color:#fff;}
+
+.night .ab-artist-page__sortbox{background:var(--ab-surface);}
+.night .ab-related__item{background:var(--ab-surface);color:var(--ab-text);}
+
+@media (max-width: 767px){
+	.ab-artist-page__sortbox{gap:5px;padding:7px 9px;border-radius:10px;}
+	.ab-artist-page__sortitem{font-size:12px;padding:4px 9px;}
+	.ab-related__item{font-size:12px;padding:5px 10px;}
+}
+
+/* --------------------------------------------------------------------------------------------
+   ادامهٔ بخش ۱۶ — اصلاح فاصله‌ها و چیدمان سرتیتر پروفایل خواننده
+   (روی لپ‌تاپ، نشان‌های «۶ آهنگ / ۶ آلبوم» و خط «آخرین به‌روزرسانی» به هم چسبیده بودند)
+   همهٔ انتخابگرها یا مخصوص همین صفحه‌اند (ab-artist-page / ab-resume) یا مثل
+   .artist_name_head فقط در همین باکس استفاده می‌شوند.
+   -------------------------------------------------------------------------------------------- */
+
+.artist_box_detss .artist_name_head{float:none;width:auto;margin:0 0 12px;padding:0;
+	font-size:21px;line-height:1.65;text-align:right;}
+.artist_box_detss .artist_resume_box{float:none;width:auto;display:flex;flex-wrap:wrap;gap:8px;
+	margin:0 0 12px;padding:0;text-align:right;list-style:none;}
+.artist_box_detss .artist_resume_box li{display:inline-flex;align-items:center;gap:5px;margin:0;
+	padding:5px 13px;background:var(--ab-blue-soft);color:var(--ab-blue);border-radius:999px;
+	font-size:13px;line-height:1.9;}
+.artist_box_detss .artist_resume_box li .ab-resume__num{font-weight:700;font-size:14px;line-height:1;}
+.artist_box_detss .ab-artist-page__meta{margin:0 0 6px;font-size:13px;line-height:2;color:var(--ab-muted);}
+.artist_box_detss .ab-artist-page__links{margin:12px 0 0;}
+.artist_box_detss .clear2{padding:2px 0;}
+
+.night .artist_box_detss .artist_resume_box li{background:rgba(24,90,219,.22);color:#EAF1FE;}
+
+@media (max-width: 767px){
+	body.tax-singer .artist_box_tarlanweb .artists_imsf{float:none;margin:0 auto 16px;}
+	.artist_box_detss .artist_name_head{font-size:18px;line-height:1.7;margin-bottom:10px;}
+	.artist_box_detss .artist_resume_box{gap:6px;margin-bottom:10px;}
+	.artist_box_detss .ab-artist-page__meta{line-height:1.9;}
+}
+
+@media (max-width: 480px){
+	.artist_box_detss .artist_resume_box li{padding:4px 10px;font-size:12.5px;}
+	.artist_box_detss .artist_resume_box li .ab-resume__num{font-size:13px;}
+}
+
+/* حالت فوکوس برای همهٔ عناصر تعاملیِ کارهای ما (پیمایش با کیبورد) */
+.ab-artist-page__sortitem:focus-visible,
+.ab-artist-page__links a:focus-visible,
+.ab-related__item:focus-visible,
+.ab-artists__chip:focus-visible,
+.ab-artists__pill:focus-visible,
+.ab-artists__search-btn:focus-visible,
+.ab-artists__loadmore-btn:focus-visible,
+.ab-artists__az a:focus-visible,
+.ab-artists__search input:focus-visible{
+	outline:2px solid var(--ab-blue);outline-offset:2px;}
+.night .ab-artist-page__sortitem:focus-visible,
+.night .ab-related__item:focus-visible,
+.night .ab-artists__chip:focus-visible,
+.night .ab-artists__pill:focus-visible{outline-color:#4C8BFF;}

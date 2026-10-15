@@ -198,4 +198,266 @@ do_action( 'comment_form_after_fields' ); ?>
 <?php endif; ?>
 <?php
 }
-?>
+
+
+/* ---------------------------------------------------------------------------
+   «کاور پست» = تصویر شاخص نوشته (Featured Image)
+   فعال بودن تصویر شاخص (post-thumbnails) و اندازه‌های thumb1..thumb4 در بالای
+   همین فایل ثبت شده است و نیازی به تغییر ندارند.
+
+   به‌صورت پیش‌فرض، نمایش خودکار کاور در ابتدای بخش توضیحات توسط قالب
+   single.php انجام می‌شود و کد پایین غیرفعال است.
+
+   حالت اختیاری (سراسری): اگر می‌خواهید کاور خودکار به محتوای نوشته‌ها اضافه شود
+   و لازم نباشد به قالب دست بزنید، فقط مقدار ثابت زیر را به true تغییر دهید
+   و در آن صورت بلوک تصویر شاخص را از single.php بردارید
+   (در غیر این صورت تصویر دو بار نمایش داده می‌شود).
+--------------------------------------------------------------------------- */
+
+if ( ! defined( 'JAVANSEDA_COVER_IN_CONTENT' ) ) {
+	define( 'JAVANSEDA_COVER_IN_CONTENT', false ); // for global mode change to: true
+}
+
+if ( JAVANSEDA_COVER_IN_CONTENT ) {
+	function javanseda_content_auto_cover( $content ) {
+		if ( is_singular( 'post' ) && is_main_query() && in_the_loop() && has_post_thumbnail() ) {
+			$cover = '<div class="single_featured_cover"><figure class="single_featured_image">' . get_the_post_thumbnail(
+				get_the_ID(),
+				'large',
+				array( 'alt' => get_the_title(), 'title' => get_the_title() )
+			) . '</figure></div>';
+			return $cover . $content;
+		}
+		return $content;
+	}
+	add_filter( 'the_content', 'javanseda_content_auto_cover', 20 );
+}
+
+
+/* ==================================================================================
+   «صفحهٔ خواننده» — تشخیص و ایمنی  (پیش‌فرض: خاموش)
+   ----------------------------------------------------------------------------------
+   • این بخش به‌صورت پیش‌فرض هیچ کاری نمی‌کند و رفتار سایت را تغییر نمی‌دهد.
+   • اگر صفحهٔ /singer/... شما قبلاً کار می‌کرد، همان‌طور خاموش بماند؛ هیچ ثابتی هم
+     لازم نیست تعریف شود. (پیش‌تر در نسخهٔ اول این فایل، همین بخش پیش‌فرض روشن بود و
+     می‌توانست با ثبت قالب/افزونهٔ خودتان تداخل کند — عذرخواهی، اصلاح شد.)
+   • فعال‌کردن (فقط وقتی گزارش تشخیصی می‌گوید تاکسونومی singer ثبت نشده است):
+        ۱) خط پایین را true کن، یا
+        ۲) در wp-config.php بنویس:  define( 'JAVANSEDA_SINGER_FIX', true );
+   • در حالت فعال: اگر تاکسونومی singer ثبت نشده باشد و پست‌تایپی با همین نام وجود
+     نداشته باشد، در اولویت ۹۹ (بعد از قالب و افزونه‌ها) یک ثبت جایگزین انجام می‌شود
+     و قوانین پیوند یکتا یک‌بار (نسخه‌دار) بازسازی می‌شوند.
+   • گزارش تشخیصی زیر همیشه فعال است، فقط برای مدیر و فقط خواندنی. بهترین کار: همان
+     آدرسی که خطا می‌دهد را با ?ab_singer_diag=1 باز کن تا ببینی وردپرس آن درخواست را
+     «آرشیو تاکسونومی» می‌بیند، «نوشتهٔ تک»، «آرشیو پست‌تایپ» یا «۴۰۴».
+   ================================================================================== */
+
+if ( ! defined( 'JAVANSEDA_SINGER_FIX' ) ) {
+	define( 'JAVANSEDA_SINGER_FIX', false ); // برای فعال‌کردن: true
+}
+
+if ( JAVANSEDA_SINGER_FIX ) {
+
+	/* ثبت جایگزین — فقط اگر تاکسونومی و پست‌تایپ هم‌نام وجود نداشته باشند */
+	add_action(
+		'init',
+		function () {
+			if ( taxonomy_exists( 'singer' ) ) {
+				return; // قبلاً ثبت شده است؛ دست نزن
+			}
+			if ( post_type_exists( 'singer' ) ) {
+				return; // پست‌تایپ هم‌نام وجود دارد؛ ثبت تاکسونومی هم‌نام باعث تداخل rewrite و ۴۰۴ می‌شود
+			}
+			register_taxonomy(
+				'singer',
+				array( 'post' ),
+				array(
+					'labels'             => array(
+						'name'          => 'خواننده‌ها',
+						'singular_name' => 'خواننده',
+					),
+					'public'             => true,
+					'publicly_queryable' => true,
+					'hierarchical'       => false,
+					'show_ui'            => true,
+					'show_admin_column'  => true,
+					'show_in_rest'       => true,
+					'rewrite'            => array(
+						'slug'       => 'singer',
+						'with_front' => false,
+					),
+				)
+			);
+		},
+		99
+	);
+
+	/* بازسازی یک‌بارهٔ قوانین پیوند یکتا (soft، بدون دست‌زدن به .htaccess) */
+	add_action(
+		'admin_init',
+		function () {
+			if ( ! taxonomy_exists( 'singer' ) ) {
+				return;
+			}
+			$version = '2.0.0';
+			if ( get_option( 'javanseda_singer_rewrite_version' ) === $version ) {
+				return;
+			}
+			flush_rewrite_rules( false );
+			update_option( 'javanseda_singer_rewrite_version', $version );
+		}
+	);
+}
+
+/* ----------------------------------------------------------------------------------
+   گزارش تشخیصی — خواندنی، فقط برای مدیر
+---------------------------------------------------------------------------------- */
+add_filter(
+	'template_include',
+	function ( $template ) {
+		if ( empty( $_GET['ab_singer_diag'] ) || ! current_user_can( 'manage_options' ) ) {
+			return $template;
+		}
+
+		global $wp;
+
+		nocache_headers();
+		header( 'Content-Type: text/plain; charset=utf-8' );
+
+		$lines   = array();
+		$lines[] = '=== گزارش تشخیص «صفحهٔ خواننده» — ترانه‌یار / جوان‌صدا ===';
+		$lines[] = 'WordPress: ' . get_bloginfo( 'version' ) . ' | PHP: ' . PHP_VERSION;
+		$lines[] = 'permalink_structure: ' . (string) get_option( 'permalink_structure' );
+		$lines[] = 'JAVANSEDA_SINGER_FIX: ' . ( JAVANSEDA_SINGER_FIX ? 'ON' : 'OFF (پیش‌فرض)' );
+
+		$lines[] = '';
+		$lines[] = '--- نوع ثبت «singer» ---';
+		$lines[] = 'taxonomy_exists(singer): ' . ( taxonomy_exists( 'singer' ) ? 'YES' : 'NO' );
+		$lines[] = 'post_type_exists(singer): ' . ( post_type_exists( 'singer' ) ? 'YES  <-- صفحهٔ خواننده در این سایت «پست‌تایپ» است، نه آرشیو تاکسونومی' : 'NO' );
+		$lines[] = 'taxonomy_exists(post_tag): ' . ( taxonomy_exists( 'post_tag' ) ? 'YES' : 'NO' );
+		if ( taxonomy_exists( 'singer' ) ) {
+			$object  = get_taxonomy( 'singer' );
+			$lines[] = 'public: ' . ( $object->public ? 'yes' : 'NO' ) . ' | publicly_queryable: ' . ( $object->publicly_queryable ? 'yes' : 'NO' );
+			$lines[] = 'hierarchical: ' . ( $object->hierarchical ? 'yes' : 'no' ) . ' | show_in_rest: ' . ( $object->show_in_rest ? 'yes' : 'no' );
+			$lines[] = 'object_type: ' . wp_json_encode( $object->object_type );
+			$lines[] = 'rewrite: ' . wp_json_encode( $object->rewrite, JSON_UNESCAPED_UNICODE );
+		}
+
+		$lines[] = '';
+		$lines[] = '--- این درخواست (همان آدرسی که باز کرده‌اید) ---';
+		$lines[] = 'request_uri: ' . ( isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '' );
+		$lines[] = 'matched_rule: ' . ( isset( $wp->matched_rule ) && '' !== $wp->matched_rule ? $wp->matched_rule : '(هیچ قانونی مطابقت نکرد)' );
+		$lines[] = 'matched_query: ' . ( isset( $wp->matched_query ) && '' !== $wp->matched_query ? $wp->matched_query : '(خالی)' );
+		$lines[] = 'is_404: ' . ( is_404() ? 'YES  <-- همین باعث «بالا نیامدن» صفحه است' : 'no' );
+		$lines[] = 'is_tax(singer): ' . ( is_tax( 'singer' ) ? 'YES (آرشیو تاکسونومی — حالت درست)' : 'no' );
+		$lines[] = 'is_singular: ' . ( is_singular() ? 'YES (' . get_post_type() . ')' : 'no' );
+		$lines[] = 'is_post_type_archive(singer): ' . ( is_post_type_archive( 'singer' ) ? 'YES' : 'no' );
+		$lines[] = 'is_archive: ' . ( is_archive() ? 'yes' : 'no' ) . ' | is_home: ' . ( is_home() ? 'yes' : 'no' );
+
+		$queried = get_queried_object();
+		if ( $queried instanceof WP_Term ) {
+			$lines[] = 'queried_object: WP_Term → ' . $queried->taxonomy . ' / ' . $queried->slug . ' (ID ' . $queried->term_id . ')';
+		} elseif ( $queried instanceof WP_Post ) {
+			$lines[] = 'queried_object: WP_Post → ' . $queried->post_type . ' / ' . $queried->post_name . ' (ID ' . $queried->ID . ')';
+		} elseif ( $queried instanceof WP_Post_Type ) {
+			$lines[] = 'queried_object: WP_Post_Type → ' . $queried->name;
+		} elseif ( $queried instanceof WP_User ) {
+			$lines[] = 'queried_object: WP_User → ' . $queried->user_login;
+		} else {
+			$lines[] = 'queried_object: ' . ( is_object( $queried ) ? get_class( $queried ) : gettype( $queried ) );
+		}
+
+		$lines[] = 'template (انتخاب‌شده): ' . (string) $template;
+
+		$lines[] = '';
+		$lines[] = '--- قوانین پیوند یکتا که «singer» دارند ---';
+		$rules = get_option( 'rewrite_rules' );
+		if ( ! is_array( $rules ) ) {
+			$lines[] = '(قوانین ذخیره نشده‌اند — تنظیمات ← پیوندهای یکتا ← ذخیره)';
+		} else {
+			$found = array();
+			foreach ( array_keys( $rules ) as $pattern ) {
+				if ( false !== strpos( $pattern, 'singer' ) ) {
+					$found[] = $pattern . '  →  ' . $rules[ $pattern ];
+				}
+			}
+			$lines[] = $found ? implode( "\n", array_slice( $found, 0, 8 ) ) : '(هیچ قانونی برای singer ثبت نشده است)';
+		}
+
+		$total  = wp_count_terms( array( 'taxonomy' => 'singer', 'hide_empty' => false ) );
+		$lines[] = '';
+		$lines[] = '--- ترم‌های singer ---';
+		$lines[] = 'تعداد کل: ' . ( is_wp_error( $total ) ? 'WP_Error: ' . $total->get_error_message() : $total );
+
+		$sample = get_terms( array( 'taxonomy' => 'singer', 'hide_empty' => false, 'number' => 5 ) );
+		if ( is_wp_error( $sample ) ) {
+			$lines[] = 'get_terms خطا: ' . $sample->get_error_message();
+		} elseif ( is_array( $sample ) ) {
+			foreach ( $sample as $row ) {
+				$link    = get_term_link( $row );
+				$lines[] = '   - ' . $row->name . ' | slug: ' . $row->slug . ' | count: ' . $row->count . ' | ' . ( is_wp_error( $link ) ? 'لینک خطا: ' . $link->get_error_message() : $link );
+			}
+		}
+
+		$needle = isset( $_GET['ab_singer_term'] ) ? sanitize_text_field( wp_unslash( $_GET['ab_singer_term'] ) ) : '';
+		if ( '' !== $needle ) {
+			$lines[] = '';
+			$lines[] = '--- بررسی ترم: ' . $needle . ' ---';
+			$term    = get_term_by( 'slug', sanitize_title( $needle ), 'singer' );
+			if ( ! $term ) {
+				$term = get_term_by( 'name', $needle, 'singer' );
+			}
+			if ( ! $term || is_wp_error( $term ) ) {
+				$lines[] = 'در تاکسونومی singer ترمی با این نام/اسلاگ پیدا نشد.';
+				foreach ( array( 'post_tag', 'category' ) as $fallback_tax ) {
+					$alt = get_term_by( 'name', $needle, $fallback_tax );
+					if ( $alt && ! is_wp_error( $alt ) ) {
+						$lines[] = 'اما در «' . $fallback_tax . '» هست: ' . $alt->name . ' (' . $alt->count . ' نوشته) → ' . get_term_link( $alt );
+					}
+				}
+				$cpt = get_page_by_path( sanitize_title( $needle ), OBJECT, 'singer' );
+				if ( $cpt ) {
+					$lines[] = 'و یک نوشته از پست‌تایپ singer با همین اسلاگ وجود دارد: ' . get_permalink( $cpt );
+				}
+			} else {
+				$link    = get_term_link( $term );
+				$lines[] = 'term_id: ' . $term->term_id . ' | name: ' . $term->name . ' | slug: ' . $term->slug . ' | count: ' . $term->count;
+				$lines[] = 'term_link: ' . ( is_wp_error( $link ) ? 'WP_Error: ' . $link->get_error_message() : $link );
+
+				$histogram = array();
+				$posts     = get_posts(
+					array(
+						'post_type'      => 'post',
+						'post_status'    => 'publish',
+						'posts_per_page' => -1,
+						'fields'         => 'ids',
+						'no_found_rows'  => true,
+						'tax_query'      => array(
+							array(
+								'taxonomy' => 'singer',
+								'field'    => 'term_id',
+								'terms'    => $term->term_id,
+							),
+						),
+					)
+				);
+				$lines[] = 'تعداد نوشته‌های این ترم: ' . count( $posts );
+				foreach ( $posts as $post_id ) {
+					$raw = get_post_meta( $post_id, 'musics_type', true );
+					$key = is_scalar( $raw ) ? (string) $raw : '';
+					if ( '' === $key ) {
+						$key = '(خالی)';
+					}
+					$histogram[ $key ] = isset( $histogram[ $key ] ) ? $histogram[ $key ] + 1 : 1;
+				}
+				$lines[] = 'پرتکرارترین مقدارهای musics_type: ' . ( $histogram ? wp_json_encode( $histogram, JSON_UNESCAPED_UNICODE ) : 'هیچ' );
+			}
+		}
+
+		$lines[] = '';
+		$lines[] = 'پایان گزارش.';
+		echo esc_html( implode( "\\n", $lines ) );
+		exit;
+	},
+	PHP_INT_MAX
+);
